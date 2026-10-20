@@ -21,6 +21,7 @@ else:
 S=json.load(open(os.path.join(os.path.dirname(__file__),"schedule.json"),encoding="utf-8"))
 today=dt.datetime.now(JST).date()
 for r in S:
+    if r["date"]=="stock": continue
     d=dt.date.fromisoformat(r["date"])
     if today<=d<=today+dt.timedelta(days=7):
         flag="" if r["approved"] or r["status"]=="posted" else "  <-- 未承認" + ("（堀コーチ確認要）" if r["needs_hori"] else "")
@@ -28,6 +29,9 @@ for r in S:
         if flag: problems.append(f"{r['date']} が未承認")
         for img in r["images"]:
             if not os.path.exists(os.path.join(os.path.dirname(__file__),"..","docs","posts",img)): problems.append(f"{r['date']} 画像なし: {img}")
+stock=[x for x in S if x["date"]=="stock" and x["approved"] and x["status"]!="posted"]
+print("stock remaining:",len(stock))
+if len(stock)<2: problems.append("ストック投稿が2本未満")
 if problems:
     print("\nPROBLEMS:"); [print(" -",p) for p in problems]; sys.exit(1)
 print("\nALL OK")

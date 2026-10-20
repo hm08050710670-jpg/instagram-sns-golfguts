@@ -188,6 +188,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - 旧計画（11月4週テーマ、`schedule.json` のラベル【旧計画】）は保留。画像36枚は確認後に使う
 - 曜日の型（目安）：雑学／ギア／ニュース／注目選手を回し、週1でスタジオ・初回案内。全投稿の末尾に初回スイングdockか「自分のスイングで確認」の橋渡し
 - 制作ペース：週1回、翌週7本を先行して作り承認済みにする。ニュース・選手は投稿の2〜4日前に検索で事実確認し、キャプションに出典を書く
+- **ニュースは毎日（2026-10-20 依頼者決定）**。画像はイラスト不要の文字カード（`images/hero.py` の newscard）＋詳細（list）の2枚。毎朝 09:00 JST の定期タスクが候補を作り依頼者に提示 → 「OK」で `news_job.py approve` → 12:00 投稿。OK がない／候補なしの日は、`schedule.json` の `date:"stock"` の投稿が自動で出る（`publish.py` のフォールバック。`health.py` がストック2本未満で警告）。手順は `automation/DAILY_NEWS.md`
 - 10/21〜10/28 の8本は制作・承認済み（news_1023／trivia_1026／player_1027 を新規作成。既存の w1_trivia_1030・w1_gear_1028・w2_items_1108・w4 Q&A を前倒し使用）
 
 ### 4週間テーマ（旧計画・保留）
@@ -335,6 +336,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - `automation/schedule.json`：**投稿の正**。1日1レコード（date／kind／images／caption／hashtags／needs_hori／approved／status／ig_media_id／fb_post_id）。承認＝approved を true にする
 - `automation/build_schedule.py`：schedule.json を生成（キャプションの元）。再生成すると approved がリセットされるので、運用開始後は schedule.json を直接編集する
 - `automation/publish.py`：graph.facebook.com 投稿スクリプト（Instagram＋Facebookページ同時投稿。--dry-run／--check あり）
+- `automation/news_job.py`／`automation/DAILY_NEWS.md`：毎朝のニュース候補の登録・承認・破棄と、その手順書
 - `automation/health.py`：週次ヘルスチェック（`.github/workflows/instagram-health.yml`）
 - `automation/SETUP.md`：Metaアプリ・ページトークン・Secrets（IG_USER_ID／IG_ACCESS_TOKEN／FB_PAGE_ID）の手順
 - `.github/workflows/instagram-daily.yml`：毎日 03:00 UTC（12:00 JST）実行。POST_MODE 変数が live のとき本番投稿。未承認・失敗時は Issue を自動作成

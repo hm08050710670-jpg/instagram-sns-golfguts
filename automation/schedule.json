@@ -650,5 +650,40 @@
   "status": "pending",
   "ig_media_id": "",
   "posted_at": ""
+ },
+ {
+  "date": "stock",
+  "kind": "carousel",
+  "label": "【ストック】初回スイングdockの流れ",
+  "images": [
+   "w4_carousel_02.jpg",
+   "w4_carousel_03.jpg",
+   "w4_carousel_08.jpg"
+  ],
+  "caption": "初回スイングdockの60分は、こんな流れです。\nカウンセリング → スイング撮影・分析 → 体験レッスン → 今後のプラン相談。\n\n初心者の方も受講できます。クラブ・シューズ・グローブは無料レンタル。入会は任意、入会金はありません。\n\n「何が悪いか分からない」まま来ていただいて大丈夫です。それを一緒に確認する時間です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者方針（未承認日の自動差し替え用）",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": ""
+ },
+ {
+  "date": "stock",
+  "kind": "carousel",
+  "label": "【ストック】こんな相談で来てください",
+  "images": [
+   "w4_carousel_06.jpg",
+   "w4_carousel_07.jpg"
+  ],
+  "caption": "初回スイングdockで、よくいただく相談です。\n\nドライバーが曲がる理由を知りたい／アイアンのダフリ・トップを減らしたい／何を練習すればいいか分からない／100切り・90切りに向けて整理したい。\n\nどれも、まずスイング映像と弾道データで「今、何が起きているか」を確認するところから始めます。\n恵比寿ガーデンプレイスから徒歩1分、完全個室のマンツーマンです。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者方針（未承認日の自動差し替え用）",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": ""
  }
 ]

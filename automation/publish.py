@@ -87,15 +87,21 @@ def main():
 
     S = json.load(open(a.schedule, encoding="utf-8"))
     todays = [r for r in S if r["date"] == date]
-    if not todays: print(f"{date}: 予定なし"); return 0
-    r = todays[0]
-    print(f"{date} [{r['kind']}] {r['label']}  images={len(r['images'])}  needs_hori={r['needs_hori']}  approved={r['approved']}  status={r['status']}")
+    r = todays[0] if todays else None
+    if r: print(f"{date} [{r['kind']}] {r['label']}  images={len(r['images'])}  needs_hori={r['needs_hori']}  approved={r['approved']}  status={r['status']}")
+    else: print(f"{date}: 予定なし")
 
-    if r["status"] == "posted":
+    if r and r["status"] == "posted":
         print("  既に投稿済み（二重投稿を防止）"); return 0
-    if not r["approved"]:
-        print("  未承認のため投稿しません。", "堀コーチ確認が必要です。" if r["needs_hori"] else "schedule.json の approved を true にしてください。")
-        return 2
+    if not r or not r["approved"]:
+        # 当日分が無い／未承認 → ストック（date=="stock"、approved、未投稿）を順番に使う
+        stock = [x for x in S if x["date"] == "stock" and x["approved"] and x["status"] != "posted"]
+        if not stock:
+            print("  未承認で、ストックもありません。", ("堀コーチ確認が必要です。" if r and r["needs_hori"] else "schedule.json の approved を確認してください。") if r else "")
+            return 2
+        if r: print("  未承認のため、ストック投稿に差し替えます。")
+        r = stock[0]; r["posted_for"] = date
+        print(f"  STOCK [{r['kind']}] {r['label']}  images={len(r['images'])}")
 
     base = os.environ.get("PAGES_BASE_URL", "").rstrip("/") + "/"
     urls = [base + img for img in r["images"]]

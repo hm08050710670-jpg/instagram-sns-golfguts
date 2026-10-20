@@ -81,3 +81,33 @@ def render_hero(spec):
         f = m.sans(34, "Bold"); m.pill(d, 64, H-190, spec["cta"], SAGE, f, h=66)
     m.footer(d, spec, im)
     return im
+
+def render_newscard(spec):
+    """文字だけのニュース表紙：日付・大見出し・出典。イラスト不要。"""
+    im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
+    d.ellipse([W-420, -260, W+260, 420], fill=CARD)
+    m.header(d, spec)
+    y = 200
+    f = m.sans(40, "Bold"); d.text((64, y), spec.get("eyebrow","GOLF NEWS"), font=f, fill=SAGE); y += 90
+    size = spec.get("title_size", 100)
+    f = m.serif(size, "Bold")
+    for ln in m.wrap(spec["title"], spec.get("title_wrap", 8)):
+        d.text((64, y), ln, font=f, fill=INK); y += size + 16
+    y += 30; d.line([64, y, 360, y], fill=SAGE, width=6); y += 50
+    if spec.get("sub"):
+        f = m.sans(40); y = m.text_lines(d, m.wrap(spec["sub"], 22), 64, y, f, INK, 58) + 20
+    if spec.get("source"):
+        f = m.sans(30); m.text_lines(d, m.wrap("出典：" + spec["source"], 30), 64, H-310, f, SUB, 42)
+    if spec.get("cta"):
+        f = m.sans(34, "Bold"); m.pill(d, 64, H-190, spec["cta"], SAGE, f, h=66)
+    m.footer(d, spec, im)
+    return im
+
+RENDER = {"hero": render_hero, "newscard": render_newscard}
+
+if __name__ == "__main__":
+    import sys, json as _j, os
+    specs = _j.load(open(sys.argv[1], encoding="utf-8"))
+    for s in specs:
+        im = RENDER[s["type"]](s); im.save("out/" + s["file"], optimize=True)
+        im.convert("RGB").save("../docs/posts/" + s["file"].replace(".png", ".jpg"), quality=90); print("wrote", s["file"])
