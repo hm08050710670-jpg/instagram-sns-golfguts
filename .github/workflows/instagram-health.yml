@@ -20,6 +20,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
+      - name: Refresh long-lived token (extends 60 days)
+        if: env.IG_ACCESS_TOKEN != ''
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: python3 automation/refresh_token.py || echo "refresh skipped/failed (see log)"
+
       - name: Check
         id: chk
         shell: bash {0}

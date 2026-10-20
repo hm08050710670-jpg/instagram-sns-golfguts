@@ -87,8 +87,8 @@
 - 自動化しないもの：指導内容の最終判断（堀コーチ）、事実確認の最終OK
 - 承認は `automation/schedule.json` の `approved` 欄。`needs_hori: true` は堀コーチ確認が前提
 - **GitHubは無料プランのまま。リポジトリは2つ（本体Public＋写真Private）で運用（2026-10-20 依頼者決定）。有料化・一本化はしない**
-- Facebookページは未作成（2026-10-20時点）。SETUP.md STEP 1 から依頼者が作成する
-- トークンは「ページアクセストークン」（期限なし）を使う。週次ヘルスチェック（`automation/health.py`、月曜09:30 JST）でトークン・承認漏れ・画像欠落を検知しIssue化
+- **Facebookページは作らない（2026-10-20 依頼者決定「Instagramだけ」）**。方式は Instagram API with Instagram Login（graph.instagram.com）。必要なのはInstagramのプロアカウントとMetaアプリのみ
+- トークンは長期トークン（60日）。毎週月曜09:30 JST に `automation/refresh_token.py` が延長し、GH_PAT があれば Secret に書き戻す。同時に `health.py` でトークン・承認漏れ・画像欠落を検知しIssue化
 
 - 最重要指標：**初回スイングdockの予約完了数**
 - 最終成果：来店人数 → 回数券購入・継続受講
@@ -310,7 +310,8 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - `automation_plan.md`：投稿自動化の設計・段階・必要な準備
 - `automation/schedule.json`：**投稿の正**。1日1レコード（date／kind／images／caption／hashtags／needs_hori／approved／status）。承認＝approved を true にする
 - `automation/build_schedule.py`：schedule.json を生成（キャプションの元）。再生成すると approved がリセットされるので、運用開始後は schedule.json を直接編集する
-- `automation/publish.py`：Graph API 投稿スクリプト（--dry-run／--check あり）
+- `automation/publish.py`：graph.instagram.com 投稿スクリプト（--dry-run／--check あり）
+- `automation/refresh_token.py`／`automation/health.py`：週次のトークン延長とヘルスチェック（`.github/workflows/instagram-health.yml`）
 - `automation/SETUP.md`：Metaアプリ・トークン・Secrets の手順
 - `.github/workflows/instagram-daily.yml`：毎日 03:00 UTC（12:00 JST）実行。POST_MODE 変数が live のとき本番投稿。未承認・失敗時は Issue を自動作成
 - `docs/posts/*.jpg`：自動投稿が参照する公開JPEG（images/out から生成）

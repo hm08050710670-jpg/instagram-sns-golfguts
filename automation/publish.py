@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Instagram 自動投稿スクリプト（Instagram Graph API / Content Publishing）
+Instagram 自動投稿スクリプト（Instagram API with Instagram Login — Facebookページ不要）
 
 使い方
   python3 publish.py --date 2026-11-03            # その日の投稿を公開
@@ -9,8 +9,8 @@ Instagram 自動投稿スクリプト（Instagram Graph API / Content Publishing
   python3 publish.py --today --check               # 画像URLの到達確認＋トークン確認まで（投稿はしない）
 
 環境変数（GitHub Secrets から渡す）
-  IG_USER_ID       Instagram プロアカウントの ID（数字）
-  IG_ACCESS_TOKEN  長期アクセストークン
+  IG_USER_ID       Instagram プロアカウントの ID（数字。/me で取得）
+  IG_ACCESS_TOKEN  長期アクセストークン（60日。refresh_token.py が自動延長）
   PAGES_BASE_URL   例 https://hm08050710670-jpg.github.io/instagram-sns-golfguts/posts/
 
 ルール
@@ -22,7 +22,7 @@ Instagram 自動投稿スクリプト（Instagram Graph API / Content Publishing
 """
 import argparse, datetime as dt, json, os, sys, time, urllib.parse, urllib.request
 
-GRAPH = "https://graph.facebook.com/v21.0"
+GRAPH = "https://graph.instagram.com/v21.0"
 JST = dt.timezone(dt.timedelta(hours=9))
 
 def http(method, url, data=None):
@@ -96,8 +96,8 @@ def main():
 
     bad = [u for u in urls if not head_ok(u)]
     if bad: sys.exit("画像URLに到達できません: " + ", ".join(bad))
-    me = http("GET", f"{GRAPH}/{ig}?fields=id,username&access_token={token}")
-    print("  account:", me.get("username"), me.get("id"))
+    me = http("GET", f"{GRAPH}/me?fields=user_id,username&access_token={token}")
+    print("  account:", me.get("username"), me.get("user_id"))
     if a.check:
         print("  CHECK OK（投稿はしていません）"); return 0
 

@@ -1,21 +1,16 @@
 # -*- coding: utf-8 -*-
 """週次ヘルスチェック：トークンの有効性・期限、今後7日の承認状況、画像の存在。問題があれば終了コード1。"""
 import datetime as dt, json, os, sys, urllib.request
-GRAPH="https://graph.facebook.com/v21.0"; JST=dt.timezone(dt.timedelta(hours=9))
+GRAPH="https://graph.instagram.com/v21.0"; JST=dt.timezone(dt.timedelta(hours=9))
 problems=[]
 ig, tok = os.environ.get("IG_USER_ID"), os.environ.get("IG_ACCESS_TOKEN")
 if not ig or not tok:
     problems.append("Secrets IG_USER_ID / IG_ACCESS_TOKEN が未設定（SETUP.md STEP 5）")
 else:
     try:
-        with urllib.request.urlopen(f"{GRAPH}/{ig}?fields=id,username&access_token={tok}", timeout=30) as r:
-            me=json.loads(r.read()); print("token OK:", me.get("username"), me.get("id"))
-        with urllib.request.urlopen(f"{GRAPH}/debug_token?input_token={tok}&access_token={tok}", timeout=30) as r:
-            d=json.loads(r.read()).get("data",{}); exp=d.get("expires_at",0)
-            if exp:
-                left=(dt.datetime.fromtimestamp(exp,JST)-dt.datetime.now(JST)).days; print(f"token expires in {left} days")
-                if left<14: problems.append(f"トークンの期限まで {left} 日。再発行してください（SETUP.md STEP 4）")
-            else: print("token has no expiry (page token)")
+        with urllib.request.urlopen(f"{GRAPH}/me?fields=user_id,username&access_token={tok}", timeout=30) as r:
+            me=json.loads(r.read()); print("token OK:", me.get("username"), me.get("user_id"))
+        # 期限は refresh_token.py が毎週延長する。ここでは有効性のみ確認
         with urllib.request.urlopen(f"{GRAPH}/{ig}/content_publishing_limit?access_token={tok}", timeout=30) as r:
             print("publish quota:", json.loads(r.read()))
     except Exception as e:
