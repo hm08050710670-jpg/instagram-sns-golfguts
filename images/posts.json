@@ -79,10 +79,10 @@
    "同時に2つ以上を変えていないか",
    "何が効いたか分かる状態か"
   ],
-  "photo": "../photos/lesson_kneel_portrait.jpg",
+  "photo": "../photos/lesson_address_portrait.jpg",
   "photo_pos": [
    0.5,
-   0.4
+   0.55
   ],
   "photo_h": 420
  },
@@ -333,5 +333,258 @@
    "違いは曲がり幅と「狙って打てているか」"
   ],
   "cta": "自分のは、どっち？"
+ },
+ {
+  "type": "cover",
+  "file": "w3_carousel_01.png",
+  "label": "スコアの悩み",
+  "page": 1,
+  "total": 8,
+  "eyebrow": "練習場では打てるのに",
+  "title": "コースで\n崩れる。",
+  "title_size": 150,
+  "sub": "変わっているのは、スイング？ 状況？",
+  "note": "分けて考えると、練習が変わる。",
+  "photo": "../photos/lesson_kneel_portrait.jpg",
+  "photo_pos": [
+   0.5,
+   0.35
+  ]
+ },
+ {
+  "type": "list",
+  "file": "w3_carousel_02.png",
+  "label": "前提",
+  "page": 2,
+  "total": 8,
+  "head": "練習場とコースの違い",
+  "sub": "練習場は「同じ条件の繰り返し」。コースは「毎回違う」。",
+  "bullets": [
+   "足場：平らなマット → 傾斜と芝",
+   "クラブ：同じ番手を連続 → 毎回違う番手",
+   "球数：次がある → 1球だけ"
+  ],
+  "numbered": true
+ },
+ {
+  "type": "step",
+  "file": "w3_carousel_03.png",
+  "label": "確認 01",
+  "page": 3,
+  "total": 8,
+  "photo": "../photos/lesson_top_portrait.jpg",
+  "photo_pos": [
+   0.5,
+   0.4
+  ],
+  "photo_h": 440,
+  "head": "クラブを替えて打つ",
+  "sub": "同じクラブを続けて打たず、1球ごとに替える。",
+  "bullets": [
+   "7番→ドライバー→ウェッジ、のように",
+   "番手が変わっても同じ動きができるか"
+  ]
+ },
+ {
+  "type": "list",
+  "file": "w3_carousel_04.png",
+  "label": "確認 02",
+  "page": 4,
+  "total": 8,
+  "head": "目標を変える",
+  "sub": "1球ごとに狙う方向・距離を変える。",
+  "bullets": [
+   "右の的、左の的、手前、奥",
+   "毎回「違う一打」として打てているか"
+  ]
+ },
+ {
+  "type": "step",
+  "file": "w3_carousel_05.png",
+  "label": "確認 03",
+  "page": 5,
+  "total": 8,
+  "photo": "../photos/coach_monitor_explain_3.jpg",
+  "photo_pos": [
+   0.5,
+   0.45
+  ],
+  "photo_h": 440,
+  "head": "ミスの次の1球",
+  "sub": "ミスした直後に、いつも通り打てるか。",
+  "bullets": [
+   "コースは「1球だけ」の連続",
+   "ミスの後に崩れるなら、ここが確認ポイント"
+  ]
+ },
+ {
+  "type": "list",
+  "file": "w3_carousel_06.png",
+  "label": "POINT",
+  "page": 6,
+  "total": 8,
+  "head": "3つとも崩れるなら",
+  "sub": "スイングの再現性から確認します。",
+  "bullets": [
+   "3つとも平気なら：状況（傾斜・ライ・判断）側",
+   "どちらかを見極めてから、練習を決める"
+  ]
+ },
+ {
+  "type": "step",
+  "file": "w3_carousel_07.png",
+  "label": "STEP",
+  "page": 7,
+  "total": 8,
+  "photo": "../photos/coach_monitor_closeup_safe.jpg",
+  "photo_pos": [
+   0.5,
+   0.5
+  ],
+  "photo_h": 440,
+  "head": "「できている」の中身を見る",
+  "sub": "映像とデータで、どの条件なら安定し、どの条件で崩れやすいかを整理します。",
+  "bullets": [
+   "条件を変えたときの動きの変化",
+   "数値のばらつき"
+  ]
+ },
+ {
+  "type": "cta",
+  "file": "w3_carousel_08.png",
+  "label": "初回体験",
+  "page": 8,
+  "total": 8,
+  "head": "練習場の自分は、\n本物？",
+  "sub": "初回スイングdock｜目安60分｜8,800円（税込）",
+  "bullets": [
+   "カウンセリング",
+   "スイング撮影・分析",
+   "体験レッスン",
+   "今後のプラン相談"
+  ],
+  "cta": "まずは初回スイングdockから",
+  "cta_note": "予約はプロフィールのリンクから「会員登録せずに予約」へ"
+ },
+ {
+  "type": "cover",
+  "file": "w4_carousel_01.png",
+  "label": "初回の不安",
+  "page": 1,
+  "total": 8,
+  "eyebrow": "初回スイングdock",
+  "title": "何を\n相談できる？",
+  "title_size": 140,
+  "sub": "よくある質問 8つ",
+  "note": "うまく説明できなくて、大丈夫。",
+  "photo": "../photos/reception.jpg",
+  "photo_pos": [
+   0.5,
+   0.5
+  ]
+ },
+ {
+  "type": "list",
+  "file": "w4_carousel_02.png",
+  "label": "Q1・Q2",
+  "page": 2,
+  "total": 8,
+  "head": "初心者でも？\n何をするの？",
+  "bullets": [
+   "Q 初心者でも受けられる？ → はい。経験に合わせて進めます",
+   "Q 何をするの？ → カウンセリング→撮影・分析→体験レッスン→プラン相談。目安60分"
+  ]
+ },
+ {
+  "type": "list",
+  "file": "w4_carousel_03.png",
+  "label": "Q3・Q4",
+  "page": 3,
+  "total": 8,
+  "head": "60分ずっと打つ？\n道具は？",
+  "bullets": [
+   "Q 60分ずっと打つの？ → いいえ。カウンセリングや分析の時間も含みます",
+   "Q 道具は必要？ → クラブ・シューズ・グローブは無料レンタル。靴下だけご用意を"
+  ]
+ },
+ {
+  "type": "step",
+  "file": "w4_carousel_04.png",
+  "label": "Q5・Q6",
+  "page": 4,
+  "total": 8,
+  "photo": "../photos/lesson_kneel_1.jpg",
+  "photo_pos": [
+   0.5,
+   0.5
+  ],
+  "photo_h": 400,
+  "head": "入会は必須？\nコーチは選べる？",
+  "bullets": [
+   "Q 入会しないとダメ？ → 任意です。入会金・月会費もありません",
+   "Q コーチは選べる？ → ご希望があれば予約時に。日時は空き状況によります"
+  ]
+ },
+ {
+  "type": "list",
+  "file": "w4_carousel_05.png",
+  "label": "Q7・Q8",
+  "page": 5,
+  "total": 8,
+  "head": "支払いは？\n予約はどうやって？",
+  "bullets": [
+   "Q 支払いは？ → 当日、受付で現金かカード（一括）",
+   "Q 予約は？ → プロフィールのリンク→「会員登録せずに予約」。電話でも可"
+  ]
+ },
+ {
+  "type": "list",
+  "file": "w4_carousel_06.png",
+  "label": "相談できること",
+  "page": 6,
+  "total": 8,
+  "head": "こんな相談で来てください",
+  "bullets": [
+   "ドライバーが曲がる理由を知りたい",
+   "アイアンのダフリ・トップを減らしたい",
+   "何を練習すればいいか分からない",
+   "100切り・90切りに向けて整理したい"
+  ]
+ },
+ {
+  "type": "step",
+  "file": "w4_carousel_07.png",
+  "label": "ACCESS",
+  "page": 7,
+  "total": 8,
+  "photo": "../photos/logo_wall.jpg",
+  "photo_pos": [
+   0.5,
+   0.5
+  ],
+  "photo_h": 440,
+  "head": "恵比寿駅から徒歩1分",
+  "sub": "JR恵比寿駅東口からガーデンプレイス方面へ。スカイウォーク出口を右折。",
+  "bullets": [
+   "EBISU FORT B2F",
+   "平日 10:00〜22:00",
+   "土日祝 8:00〜20:00"
+  ]
+ },
+ {
+  "type": "cta",
+  "file": "w4_carousel_08.png",
+  "label": "初回体験",
+  "page": 8,
+  "total": 8,
+  "head": "何が悪いか、\n分からなくて大丈夫。",
+  "head_size": 76,
+  "sub": "それを一緒に確認する60分です。｜8,800円（税込）",
+  "bullets": [
+   "予約画面で「会員登録せずに予約」",
+   "お電話でも 03-6452-2349"
+  ],
+  "cta": "初回スイングdockを予約する",
+  "cta_note": "予約はプロフィールのリンクから"
  }
 ]
