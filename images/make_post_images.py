@@ -88,8 +88,16 @@ def header(d, spec, label_fill=SAGE):
     if spec.get("page"):
         pill(d, W-52, 56, f'{spec["page"]}/{spec["total"]}', PILL, sans(28, "Bold"), right=True)
 
-def footer(d, spec):
-    d.text((60, H-78), "golfguts", font=sans(26, "Regular"), fill=SUB)
+LOGO_PATH = "../photos/logo/golfguts_wordmark_ink.png"
+_logo_cache = {}
+def footer(d, spec, im=None):
+    if im is not None and os.path.exists(LOGO_PATH):
+        if "wm" not in _logo_cache:
+            lg = Image.open(LOGO_PATH).convert("RGBA"); r = 22/lg.height
+            _logo_cache["wm"] = lg.resize((int(lg.width*r), 22), Image.LANCZOS)
+        lg = _logo_cache["wm"]; im.paste(lg, (62, H-78), lg)
+    else:
+        d.text((60, H-78), "golfguts", font=sans(26, "Regular"), fill=SUB)
     if spec.get("page"): dots(d, spec["page"], spec["total"], H-66)
 
 
@@ -219,7 +227,7 @@ def render_step(spec, return_y=False):
             d.ellipse([92, y+rh/2-9, 110, y+rh/2+9], fill=SAGE)
         text_lines(d, lines, 156, y + (31 if big else 24), sans(bf_size, "Medium"), INK, lh_b)
         y += rh + (22 if big else 18)
-    footer(d, spec)
+    footer(d, spec, im)
     return (im, y) if return_y else im
 
 def render_list(spec):
@@ -262,7 +270,7 @@ def render_cta(spec):
         d.text((bx + 40, by + 20), spec["cta"], font=f, fill="#FFFFFF")
         if spec.get("cta_note"):
             text_lines(d, wrap(spec["cta_note"], 34), 0, by + bh + 24, sans(26), SUB, 38, "center", W/2)
-    footer(d, spec)
+    footer(d, spec, im)
     return im
 
 RENDER = {"cover": render_cover, "step": render_step, "list": render_list, "cta": render_cta}
