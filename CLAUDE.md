@@ -80,15 +80,15 @@
 
 ### 運用の最終目的（2026-10-20 依頼者決定）
 **企画・原稿・画像の生成からInstagramへの投稿まで自動化する。** 人がやるのは承認のみ。設計と段階は `automation_plan.md`。
-- **対象はInstagramのみ（2026-10-20 依頼者決定「一旦Instagramだけ」）。X・YouTube・ブログ展開は保留**
+- **対象はInstagram（＋Facebookページへの同時投稿）。X・YouTube・ブログ展開は保留（2026-10-20 依頼者決定）**
 - 段階A（11/1〜）：半自動。投稿パッケージをMeta Business Suiteで予約（Bが間に合わない場合の保険）
 - 段階B：GitHub Actions＋Instagram Graph API で承認済み投稿を毎日12:00 JSTに自動公開。**仕組みは構築済み（`automation/`）。残りはMeta側の設定（`automation/SETUP.md`）**
 - 段階C・D：原稿生成と分析の自動化
 - 自動化しないもの：指導内容の最終判断（堀コーチ）、事実確認の最終OK
 - 承認は `automation/schedule.json` の `approved` 欄。`needs_hori: true` は堀コーチ確認が前提
 - **GitHubは無料プランのまま。リポジトリは2つ（本体Public＋写真Private）で運用（2026-10-20 依頼者決定）。有料化・一本化はしない**
-- **Facebookページは作らない（2026-10-20 依頼者決定「Instagramだけ」）**。方式は Instagram API with Instagram Login（graph.instagram.com）。必要なのはInstagramのプロアカウントとMetaアプリのみ
-- トークンは長期トークン（60日）。毎週月曜09:30 JST に `automation/refresh_token.py` が延長し、GH_PAT があれば Secret に書き戻す。同時に `health.py` でトークン・承認漏れ・画像欠落を検知しIssue化
+- **Facebookページ「GOLF GUTS」を作成（2026-10-20 依頼者決定「どうせならFacebookもやりましょう」。「Instagramだけ」の決定を上書き）**。Instagram @golfguts とリンク。方式は Facebookログイン＋ページアクセストークン（graph.facebook.com）。Instagram投稿と同時にFacebookページにも同内容を投稿（`FB_PAGE_ID` Secret を設定した場合）。Facebook個人アカウント「ゴルフ ガッツ」はページ管理者・開発者ログイン用なので削除しない
+- トークンはページアクセストークン（期限なし）。毎週月曜09:30 JST に `health.py` でトークン有効性・ページ到達・承認漏れ・画像欠落を検知しIssue化。失効時のみ手動で再発行（`automation/SETUP.md` STEP 3）
 
 - 最重要指標：**初回スイングdockの予約完了数**
 - 最終成果：来店人数 → 回数券購入・継続受講
@@ -308,11 +308,11 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - `CLAUDE.md`：この仕様書（更新時は「最終更新」と該当節を修正）
 - `brand_guide.md`／`brand_colors.png`：デザイン指定書。制作時はこれに従う
 - `automation_plan.md`：投稿自動化の設計・段階・必要な準備
-- `automation/schedule.json`：**投稿の正**。1日1レコード（date／kind／images／caption／hashtags／needs_hori／approved／status）。承認＝approved を true にする
+- `automation/schedule.json`：**投稿の正**。1日1レコード（date／kind／images／caption／hashtags／needs_hori／approved／status／ig_media_id／fb_post_id）。承認＝approved を true にする
 - `automation/build_schedule.py`：schedule.json を生成（キャプションの元）。再生成すると approved がリセットされるので、運用開始後は schedule.json を直接編集する
-- `automation/publish.py`：graph.instagram.com 投稿スクリプト（--dry-run／--check あり）
-- `automation/refresh_token.py`／`automation/health.py`：週次のトークン延長とヘルスチェック（`.github/workflows/instagram-health.yml`）
-- `automation/SETUP.md`：Metaアプリ・トークン・Secrets の手順
+- `automation/publish.py`：graph.facebook.com 投稿スクリプト（Instagram＋Facebookページ同時投稿。--dry-run／--check あり）
+- `automation/health.py`：週次ヘルスチェック（`.github/workflows/instagram-health.yml`）
+- `automation/SETUP.md`：Metaアプリ・ページトークン・Secrets（IG_USER_ID／IG_ACCESS_TOKEN／FB_PAGE_ID）の手順
 - `.github/workflows/instagram-daily.yml`：毎日 03:00 UTC（12:00 JST）実行。POST_MODE 変数が live のとき本番投稿。未承認・失敗時は Issue を自動作成
 - `docs/posts/*.jpg`：自動投稿が参照する公開JPEG（images/out から生成）
 - **リール（動画）は未対応**。リール予定日は代替の画像投稿を入れている。動画が届いたら差し替え

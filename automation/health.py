@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
-"""週次ヘルスチェック：トークンの有効性・期限、今後7日の承認状況、画像の存在。問題があれば終了コード1。"""
+"""週次ヘルスチェック：トークンの有効性、Facebookページ到達、今後7日の承認状況、画像の存在。問題があれば終了コード1。"""
 import datetime as dt, json, os, sys, urllib.request
-GRAPH="https://graph.instagram.com/v21.0"; JST=dt.timezone(dt.timedelta(hours=9))
+GRAPH="https://graph.facebook.com/v21.0"; JST=dt.timezone(dt.timedelta(hours=9))
 problems=[]
-ig, tok = os.environ.get("IG_USER_ID"), os.environ.get("IG_ACCESS_TOKEN")
+ig, tok, page = os.environ.get("IG_USER_ID"), os.environ.get("IG_ACCESS_TOKEN"), os.environ.get("FB_PAGE_ID","").strip()
+def get(url):
+    with urllib.request.urlopen(url, timeout=30) as r: return json.loads(r.read())
 if not ig or not tok:
     problems.append("Secrets IG_USER_ID / IG_ACCESS_TOKEN が未設定（SETUP.md STEP 5）")
 else:
     try:
-        with urllib.request.urlopen(f"{GRAPH}/me?fields=user_id,username&access_token={tok}", timeout=30) as r:
-            me=json.loads(r.read()); print("token OK:", me.get("username"), me.get("user_id"))
-        # 期限は refresh_token.py が毎週延長する。ここでは有効性のみ確認
-        with urllib.request.urlopen(f"{GRAPH}/{ig}/content_publishing_limit?access_token={tok}", timeout=30) as r:
-            print("publish quota:", json.loads(r.read()))
+        me=get(f"{GRAPH}/{ig}?fields=id,username&access_token={tok}"); print("token OK: instagram", me.get("username"), me.get("id"))
+        print("publish quota:", get(f"{GRAPH}/{ig}/content_publishing_limit?access_token={tok}"))
+        if page:
+            pg=get(f"{GRAPH}/{page}?fields=id,name&access_token={tok}"); print("facebook page OK:", pg.get("name"), pg.get("id"))
+        else:
+            print("FB_PAGE_ID 未設定（Facebook同時投稿なし）")
     except Exception as e:
-        problems.append(f"トークン確認でエラー: {e}")
+        problems.append(f"トークン確認でエラー（ページトークンを再発行して IG_ACCESS_TOKEN を更新）: {e}")
 S=json.load(open(os.path.join(os.path.dirname(__file__),"schedule.json"),encoding="utf-8"))
 today=dt.datetime.now(JST).date()
 for r in S:

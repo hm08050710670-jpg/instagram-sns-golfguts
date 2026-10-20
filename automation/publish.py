@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Instagram 自動投稿スクリプト（Instagram API with Instagram Login — Facebookページ不要）
+Instagram 自動投稿スクリプト（Facebookページ連携・ページアクセストークン方式）
 
 使い方
   python3 publish.py --date 2026-11-03            # その日の投稿を公開
@@ -9,27 +9,32 @@ Instagram 自動投稿スクリプト（Instagram API with Instagram Login — F
   python3 publish.py --today --check               # 画像URLの到達確認＋トークン確認まで（投稿はしない）
 
 環境変数（GitHub Secrets から渡す）
-  IG_USER_ID       Instagram プロアカウントの ID（数字。/me で取得）
-  IG_ACCESS_TOKEN  長期アクセストークン（60日。refresh_token.py が自動延長）
+  IG_USER_ID       Instagram ビジネスアカウントの ID（me/accounts の instagram_business_account.id）
+  IG_ACCESS_TOKEN  ページアクセストークン（長期ユーザートークンから取得したもの。期限なし）
+  FB_PAGE_ID       （任意）Facebookページ ID。設定すると同じ内容をページにも投稿する
   PAGES_BASE_URL   例 https://hm08050710670-jpg.github.io/instagram-sns-golfguts/posts/
 
 ルール
   - schedule.json の date が一致し、approved == true のものだけ投稿する
   - needs_hori == true で approved == false の場合は投稿せず、理由を出力して終了コード 2（未承認）
   - 画像は公開URL（GitHub Pages）の JPEG を参照
-  - 成功したら schedule.json の status / ig_media_id / posted_at を更新する（Actions 側で commit）
+  - Instagram 投稿が成功したら schedule.json の status / ig_media_id / posted_at を更新する（Actions 側で commit）
+  - Facebook への同時投稿は補助。失敗しても Instagram の結果は保持し、警告として出力する
   - 同じ日に status == "posted" が既にあれば二重投稿しない
 """
 import argparse, datetime as dt, json, os, sys, time, urllib.parse, urllib.request
 
-GRAPH = "https://graph.instagram.com/v21.0"
+GRAPH = "https://graph.facebook.com/v21.0"
 JST = dt.timezone(dt.timedelta(hours=9))
 
 def http(method, url, data=None):
     body = urllib.parse.urlencode(data).encode() if data else None
     req = urllib.request.Request(url, data=body, method=method)
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode())
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read().decode())
+    except urllib.error.HTTPError as e:
+        raise RuntimeError(f"HTTP {e.code} {url.split('?')[0]}: {e.read().decode(errors='replace')[:600]}")
 
 def head_ok(url):
     try:
@@ -60,6 +65,17 @@ def create_carousel_container(ig, token, children, caption):
 def publish(ig, token, container_id):
     return http("POST", f"{GRAPH}/{ig}/media_publish", {"creation_id": container_id, "access_token": token})["id"]
 
+def post_to_facebook(page, token, urls, message):
+    """Facebookページへ同じ画像・本文を投稿。1枚なら /photos、複数なら未公開写真→/feed にまとめる。"""
+    if len(urls) == 1:
+        res = http("POST", f"{GRAPH}/{page}/photos", {"url": urls[0], "message": message, "access_token": token})
+        return res.get("post_id") or res.get("id")
+    ids = [http("POST", f"{GRAPH}/{page}/photos", {"url": u, "published": "false", "access_token": token})["id"] for u in urls]
+    data = {"message": message, "access_token": token}
+    for i, pid in enumerate(ids):
+        data[f"attached_media[{i}]"] = json.dumps({"media_fbid": pid})
+    return http("POST", f"{GRAPH}/{page}/feed", data)["id"]
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date"); ap.add_argument("--today", action="store_true")
@@ -84,7 +100,8 @@ def main():
     base = os.environ.get("PAGES_BASE_URL", "").rstrip("/") + "/"
     urls = [base + img for img in r["images"]]
     caption = r["caption"] + "\n\n" + r["hashtags"]
-    print("  caption chars:", len(caption))
+    page = os.environ.get("FB_PAGE_ID", "").strip()
+    print("  caption chars:", len(caption), " facebook:", "yes" if page else "no (FB_PAGE_ID 未設定)")
     for u in urls: print("  ", u)
 
     if a.dry_run:
@@ -96,8 +113,11 @@ def main():
 
     bad = [u for u in urls if not head_ok(u)]
     if bad: sys.exit("画像URLに到達できません: " + ", ".join(bad))
-    me = http("GET", f"{GRAPH}/me?fields=user_id,username&access_token={token}")
-    print("  account:", me.get("username"), me.get("user_id"))
+    me = http("GET", f"{GRAPH}/{ig}?fields=id,username&access_token={token}")
+    print("  instagram:", me.get("username"), me.get("id"))
+    if page:
+        pg = http("GET", f"{GRAPH}/{page}?fields=id,name&access_token={token}")
+        print("  facebook page:", pg.get("name"), pg.get("id"))
     if a.check:
         print("  CHECK OK（投稿はしていません）"); return 0
 
@@ -116,8 +136,16 @@ def main():
         media_id = publish(ig, token, car)
 
     r["status"] = "posted"; r["ig_media_id"] = media_id; r["posted_at"] = dt.datetime.now(JST).isoformat(timespec="seconds")
+    print("  POSTED instagram media_id =", media_id)
+
+    if page:
+        try:
+            r["fb_post_id"] = post_to_facebook(page, token, urls, caption)
+            print("  POSTED facebook post_id =", r["fb_post_id"])
+        except Exception as e:
+            r["fb_post_id"] = ""; print("  WARNING: Facebook 投稿に失敗（Instagram は投稿済み）:", e)
+
     json.dump(S, open(a.schedule, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print("  POSTED media_id =", media_id)
     return 0
 
 if __name__ == "__main__":
