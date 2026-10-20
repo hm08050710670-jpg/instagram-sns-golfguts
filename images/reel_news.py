@@ -74,9 +74,23 @@ def frame(spec, s):
         d.text((64, H - 120), "golfguts", font=m.sans(28), fill=SUB)
     return im
 
-def render(spec, out, seconds=15):
-    cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
-           "-c:v", "libx264", "-pix_fmt", "yuv420p", "-profile:v", "high", "-level", "4.1", "-movflags", "+faststart", "-r", str(FPS), out]
+BGM_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "audio")
+BGM_GAIN_DB = -14   # 「うっすら」。0 が原音量
+
+def pick_bgm(seed):
+    """photos/audio/*.mp3 からローテーションで1曲選ぶ（seed=日付など）。無ければ None"""
+    import glob
+    files = sorted(glob.glob(os.path.join(BGM_DIR, "*.mp3")))
+    if not files: return None
+    return files[sum(map(ord, str(seed))) % len(files)]
+
+def render(spec, out, seconds=15, bgm=None):
+    cmd = ["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-"]
+    if bgm:
+        cmd += ["-stream_loop", "-1", "-i", bgm,
+                "-filter_complex", f"[1:a]volume={BGM_GAIN_DB}dB,afade=t=in:st=0:d=1.0,afade=t=out:st={seconds-1.5}:d=1.5[a]",
+                "-map", "0:v", "-map", "[a]", "-c:a", "aac", "-b:a", "128k", "-shortest"]
+    cmd += ["-c:v", "libx264", "-pix_fmt", "yuv420p", "-profile:v", "high", "-level", "4.1", "-movflags", "+faststart", "-r", str(FPS), "-t", str(seconds), out]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     n = seconds * FPS
     for i in range(n):
@@ -91,4 +105,5 @@ def render(spec, out, seconds=15):
 
 if __name__ == "__main__":
     spec = json.load(open(sys.argv[1], encoding="utf-8")); out = sys.argv[2]
-    render(spec, out); print("wrote", out)
+    bgm = pick_bgm(spec.get("date", out))
+    render(spec, out, bgm=bgm); print("wrote", out, "bgm:", os.path.basename(bgm) if bgm else "none")

@@ -9,7 +9,7 @@
 cd ~/instagram-sns-golfguts 2>/dev/null || gh repo clone hm08050710670-jpg/instagram-sns-golfguts ~/instagram-sns-golfguts
 cd ~/instagram-sns-golfguts && git pull -q
 # ロゴ（フッター用）。無ければ文字ロゴにフォールバックするので必須ではない
-[ -f photos/logo/golfguts_wordmark_brown.png ] || (gh repo clone hm08050710670-jpg/photos-photos-photos-photos-photos- /tmp/gg_photos -q && mkdir -p photos/logo && cp /tmp/gg_photos/logo/*.png photos/logo/)
+[ -f photos/logo/golfguts_wordmark_brown.png ] || (gh repo clone hm08050710670-jpg/photos-photos-photos-photos-photos- /tmp/gg_photos -q && mkdir -p photos/logo photos/audio && cp /tmp/gg_photos/logo/*.png photos/logo/ && cp /tmp/gg_photos/audio/*.mp3 photos/audio/)
 ```
 `CLAUDE.md` を読む（ルールの正）。
 

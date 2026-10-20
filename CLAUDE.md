@@ -336,6 +336,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - `automation/schedule.json`：**投稿の正**。1日1レコード（date／kind／images／caption／hashtags／needs_hori／approved／status／ig_media_id／fb_post_id）。承認＝approved を true にする
 - `automation/build_schedule.py`：schedule.json を生成（キャプションの元）。再生成すると approved がリセットされるので、運用開始後は schedule.json を直接編集する
 - `automation/publish.py`：graph.facebook.com 投稿スクリプト（Instagram＋Facebookページ同時投稿。--dry-run／--check あり）
+- `images/reel_news.py`：ニュースのリール版（9:16・15秒・文字アニメ）。BGMは写真リポジトリ `audio/*.mp3`（依頼者提供、2026-10-20 bgm_01）をローテーションで -14dB 合成。リールは `publish.py` の kind: reel で投稿可（2026-10-20 本番確認済み）
 - `automation/news_job.py`／`automation/DAILY_NEWS.md`：毎朝のニュース候補の登録・承認・破棄と、その手順書
 - `automation/health.py`：週次ヘルスチェック（`.github/workflows/instagram-health.yml`）
 - `automation/SETUP.md`：Metaアプリ・ページトークン・Secrets（IG_USER_ID／IG_ACCESS_TOKEN／FB_PAGE_ID）の手順
