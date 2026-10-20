@@ -28,7 +28,7 @@ def frame(spec, s):
     card = spec["card"]; det = spec["detail"]
     # ラベルと日付（0〜0.6s フェード）
     t0 = ease(s / 0.6)
-    m.pill(d, 64, 120, "ゴルフニュース", blend(BG, SAGE, t0), m.sans(30, "Bold"), h=66)
+    m.pill(d, 64, 120, spec.get("label", "ゴルフニュース"), blend(BG, SAGE, t0), m.sans(30, "Bold"), h=66)
     d.text((64, 230), card.get("eyebrow", ""), font=m.sans(44, "Bold"), fill=blend(BG, SAGE, t0))
     # 見出し：1行ずつ 0.35s 間隔でスライドイン（1.0s から）
     size = 100; y = 320
@@ -61,7 +61,7 @@ def frame(spec, s):
     if t > 0:
         cy = y + 30
         d.text((64, cy), det.get("cta", ""), font=m.sans(44, "Bold"), fill=blend(BG, INK, t)); cy += 74
-        m.pill(d, 64, cy, "初回スイングdock｜目安60分", blend(BG, SAGE, t), m.sans(34, "Bold"), h=72); cy += 90
+        m.pill(d, 64, cy, spec.get("cta_pill", "初回スイングdock｜目安60分"), blend(BG, SAGE, t), m.sans(34, "Bold"), h=72); cy += 90
         d.text((64, cy), "詳細・ご予約はプロフィールのリンクから", font=m.sans(32), fill=blend(BG, SUB, t))
     # 出典（常時・小さく）
     if card.get("source"):
