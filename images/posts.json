@@ -10,10 +10,10 @@
   "title_size": 175,
   "sub": "最初に確認する3つ",
   "note": "直す前に、確認する。",
-  "photo": "../photos/coach_monitor_explain_2.jpg",
+  "photo": "../photos/lesson_kneel_2.jpg",
   "photo_pos": [
-   0.55,
-   0.45
+   0.5,
+   0.5
   ]
  },
  {
@@ -33,7 +33,7 @@
   "cta_note": ""
  },
  {
-  "type": "list",
+  "type": "step",
   "file": "w1_carousel_03.png",
   "label": "確認 01",
   "page": 3,
@@ -44,7 +44,13 @@
    "同じミスなら：傾向がある。原因候補を絞りやすい",
    "バラバラなら：動きが毎回違う可能性。再現性から確認",
    "※右打ち・左打ちで左右は逆になります"
-  ]
+  ],
+  "photo": "../photos/lesson_address_wide.jpg",
+  "photo_pos": [
+   0.45,
+   0.6
+  ],
+  "photo_h": 420
  },
  {
   "type": "list",
@@ -61,7 +67,7 @@
   ]
  },
  {
-  "type": "list",
+  "type": "step",
   "file": "w1_carousel_05.png",
   "label": "確認 03",
   "page": 5,
@@ -72,7 +78,13 @@
    "毎回違うことを意識していないか",
    "同時に2つ以上を変えていないか",
    "何が効いたか分かる状態か"
-  ]
+  ],
+  "photo": "../photos/lesson_kneel_portrait.jpg",
+  "photo_pos": [
+   0.5,
+   0.4
+  ],
+  "photo_h": 420
  },
  {
   "type": "list",
@@ -94,7 +106,7 @@
   "label": "STEP",
   "page": 7,
   "total": 8,
-  "photo": "../photos/coach_monitor_point.jpg",
+  "photo": "../photos/coach_monitor_explain_1.jpg",
   "photo_h": 460,
   "head": "映像とデータで見る",
   "sub": "自分では見えない動きを、コーチと一緒に確認します。",
@@ -104,8 +116,8 @@
    "取り組むことを1つに絞る"
   ],
   "photo_pos": [
-   0.6,
-   0.4
+   0.55,
+   0.45
   ]
  },
  {
@@ -126,7 +138,7 @@
   "cta_note": "予約はプロフィールのリンクから「会員登録せずに予約」へ"
  },
  {
-  "type": "list",
+  "type": "step",
   "file": "w1_gear_1028.png",
   "label": "ゴルフギア",
   "head": "クラブを変える前に",
@@ -136,7 +148,12 @@
    "まっすぐ出てから、右へ曲がる",
    "原因が違えば、合うクラブも違う"
   ],
-  "cta": "詳しくはプロフィールへ"
+  "photo": "../photos/booth.jpg",
+  "photo_pos": [
+   0.5,
+   0.5
+  ],
+  "photo_h": 420
  },
  {
   "type": "list",
@@ -151,7 +168,7 @@
   "cta": "持っている？コメントで"
  },
  {
-  "type": "list",
+  "type": "step",
   "file": "w2_items_1108.png",
   "label": "初回スイングdock",
   "head": "持っていくもの・\nいらないもの",
@@ -161,7 +178,12 @@
    "靴下（レンタルシューズを使う方）",
    "普段のクラブ（確認したい方のみ）"
   ],
-  "cta": "予約はプロフィールから"
+  "photo": "../photos/reception.jpg",
+  "photo_pos": [
+   0.5,
+   0.5
+  ],
+  "photo_h": 420
  },
  {
   "type": "cover",
@@ -196,7 +218,7 @@
   ]
  },
  {
-  "type": "list",
+  "type": "step",
   "file": "w2_carousel_03.png",
   "label": "候補 01",
   "page": 3,
@@ -206,7 +228,13 @@
   "bullets": [
    "打ち出しから右に出やすい",
    "グリップ・アドレスの時点で開いていることも"
-  ]
+  ],
+  "photo": "../photos/lesson_top_assist_1.jpg",
+  "photo_pos": [
+   0.5,
+   0.35
+  ],
+  "photo_h": 420
  },
  {
   "type": "step",
@@ -224,7 +252,7 @@
   ]
  },
  {
-  "type": "list",
+  "type": "step",
   "file": "w2_carousel_05.png",
   "label": "候補 03",
   "page": 5,
@@ -234,7 +262,13 @@
   "bullets": [
    "当たる場所が毎回違っていないか",
    "ヒールに当たると右に曲がりやすい（右打ち）"
-  ]
+  ],
+  "photo": "../photos/lesson_kneel_3.jpg",
+  "photo_pos": [
+   0.55,
+   0.55
+  ],
+  "photo_h": 420
  },
  {
   "type": "list",
@@ -256,10 +290,10 @@
   "label": "STEP",
   "page": 7,
   "total": 8,
-  "photo": "../photos/coach_monitor_explain_2.jpg",
+  "photo": "../photos/lesson_top_assist_2.jpg",
   "photo_pos": [
-   0.55,
-   0.45
+   0.5,
+   0.4
   ],
   "photo_h": 460,
   "head": "映像とデータで見る",
