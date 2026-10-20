@@ -4,6 +4,8 @@ on:
   schedule:
     # 毎日 12:00 JST（= 03:00 UTC）。GitHubのcronは数分遅れることがある
     - cron: "0 3 * * *"
+    # 18:00 JST（= 09:00 UTC）：ニュースのリール版（承認された日のみ）
+    - cron: "0 9 * * *"
   workflow_dispatch:
     inputs:
       date:
@@ -13,13 +15,16 @@ on:
         description: "live / dry-run / check"
         required: false
         default: "dry-run"
+      slot:
+        description: "noon / evening（空なら時刻から自動判定）"
+        required: false
 
 permissions:
   contents: write
   issues: write
 
 concurrency:
-  group: instagram-post
+  group: instagram-post-${{ github.run_id }}
   cancel-in-progress: false
 
 jobs:
@@ -44,6 +49,11 @@ jobs:
           DATE="${{ github.event.inputs.date }}"
           ARGS=""
           if [ -n "$DATE" ]; then ARGS="--date $DATE"; else ARGS="--today"; fi
+          SLOT="${{ github.event.inputs.slot }}"
+          if [ -z "$SLOT" ]; then
+            H=$(date -u +%H); if [ "$H" -ge 6 ] && [ "$H" -lt 18 ]; then SLOT=evening; else SLOT=noon; fi
+          fi
+          ARGS="$ARGS --slot $SLOT"
           case "$MODE" in
             live) ;;
             check) ARGS="$ARGS --check" ;;
@@ -51,6 +61,7 @@ jobs:
           esac
           echo "args=$ARGS" >> $GITHUB_OUTPUT
           echo "mode=$MODE" >> $GITHUB_OUTPUT
+          echo "slot=$SLOT" >> $GITHUB_OUTPUT
 
       - name: Probe public image URL (Pages)
         run: |

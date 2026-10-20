@@ -94,13 +94,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--date"); ap.add_argument("--today", action="store_true")
     ap.add_argument("--dry-run", action="store_true"); ap.add_argument("--check", action="store_true")
+    ap.add_argument("--slot", default="noon", choices=["noon", "evening"], help="noon=12:00 の投稿／evening=18:00 のリール")
     ap.add_argument("--schedule", default=os.path.join(os.path.dirname(__file__), "schedule.json"))
     a = ap.parse_args()
     date = a.date or (dt.datetime.now(JST).date().isoformat() if a.today else None)
     if not date: sys.exit("--date か --today を指定してください")
 
     S = json.load(open(a.schedule, encoding="utf-8"))
-    todays = [r for r in S if r["date"] == date]
+    todays = [r for r in S if r["date"] == date and r.get("slot", "noon") == a.slot]
     r = todays[0] if todays else None
     if r: print(f"{date} [{r['kind']}] {r['label']}  images={len(r['images'])}  needs_hori={r['needs_hori']}  approved={r['approved']}  status={r['status']}")
     else: print(f"{date}: 予定なし")
@@ -109,7 +110,9 @@ def main():
         print("  既に投稿済み（二重投稿を防止）"); return 0
     if not r or not r["approved"]:
         # 当日分が無い／未承認 → ストック（date=="stock"、approved、未投稿）を順番に使う
-        stock = [x for x in S if x["date"] == "stock" and x["approved"] and x["status"] != "posted"]
+        stock = [x for x in S if x["date"] == "stock" and x["approved"] and x["status"] != "posted"] if a.slot == "noon" else []
+        if a.slot == "evening" and not r:
+            print("  夕方枠の予定なし（ニュースのリールが承認されていない日は投稿しない）"); return 0
         if not stock:
             print("  未承認で、ストックもありません。", ("堀コーチ確認が必要です。" if r and r["needs_hori"] else "schedule.json の approved を確認してください。") if r else "")
             return 2

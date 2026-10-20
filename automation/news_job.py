@@ -40,6 +40,12 @@ def draft(path):
     sm = importlib.util.spec_from_file_location("m", "make_post_images.py"); m = importlib.util.module_from_spec(sm); sm.loader.exec_module(m)
     im = m.RENDER["list"](detail); im.save("out/" + detail["file"], optimize=True)
     im.convert("RGB").save("../docs/posts/" + detail["file"].replace(".png", ".jpg"), quality=90)
+    # リール版（BGM付き）も生成
+    reel_out = f"out/{tag}_reel.mp4"
+    json.dump(dict(c, date=d), open("_cand_reel.json", "w", encoding="utf-8"), ensure_ascii=False)
+    subprocess.run([sys.executable, "reel_news.py", "_cand_reel.json", reel_out], check=True)
+    os.remove("_cand_reel.json")
+    import shutil; shutil.copy(reel_out, "../docs/posts/" + os.path.basename(reel_out))
     P = json.load(open("posts.json", encoding="utf-8"))
     P = [p for p in P if p["file"] not in (card["file"], detail["file"])] + [card, detail]
     json.dump(P, open("posts.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
@@ -47,19 +53,23 @@ def draft(path):
     rec = {"date": d, "kind": "carousel", "label": c["label"], "images": [f"{tag}_01.jpg", f"{tag}.jpg"],
            "caption": c["caption"], "hashtags": c["hashtags"], "needs_hori": False, "approved": False,
            "approved_by": "", "status": "pending", "ig_media_id": "", "posted_at": "", "sources": c.get("sources", [])}
-    json.dump(rec, open(CAND, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print("候補を保存:", CAND); print("画像:", rec["images"])
+    reel = dict(rec, kind="reel", slot="evening", label=c["label"] + "（リール）", images=[f"{tag}_reel.mp4", f"{tag}_01.jpg"])
+    json.dump({"carousel": rec, "reel": reel}, open(CAND, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("候補を保存:", CAND); print("画像:", rec["images"], "リール:", reel["images"])
 
 def approve():
-    rec = json.load(open(CAND, encoding="utf-8")); S = load()
+    c = json.load(open(CAND, encoding="utf-8")); S = load()
+    recs = [c["carousel"], c["reel"]] if "carousel" in c else [c]
+    d = recs[0]["date"]
     for r in S:
-        if r["date"] == rec["date"] and r["status"] != "posted":
+        if r["date"] == d and r["status"] != "posted" and r.get("slot", "noon") == "noon" and r["kind"] != "reel":
             r["date"] = "stock"; r["label"] = "【ストック】" + r["label"].replace("【ストック】", "")
             print("既存の当日分をストックへ退避:", r["label"])
-    rec["approved"] = True; rec["approved_by"] = f"依頼者（{dt.datetime.now().strftime('%Y-%m-%d %H:%M')} OK）"
-    S = [r for r in S if not (r["date"] == rec["date"] and r["status"] != "posted")] + [rec]
-    S.sort(key=lambda r: (r["date"] == "stock", r["date"]))
-    save(S); os.remove(CAND); print("承認:", rec["date"], rec["label"])
+    stamp = f"依頼者（{dt.datetime.now().strftime('%Y-%m-%d %H:%M')} OK）"
+    for r in recs: r["approved"] = True; r["approved_by"] = stamp
+    S = [r for r in S if not (r["date"] == d and r["status"] != "posted")] + recs
+    S.sort(key=lambda r: (r["date"] == "stock", r["date"], r.get("slot", "noon")))
+    save(S); os.remove(CAND); print("承認:", d, [r["label"] for r in recs])
 
 def discard():
     if os.path.exists(CAND): os.remove(CAND)
