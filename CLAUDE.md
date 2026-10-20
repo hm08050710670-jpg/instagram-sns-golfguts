@@ -92,13 +92,13 @@
 **企画・原稿・画像の生成からInstagramへの投稿まで自動化する。** 人がやるのは承認のみ。設計と段階は `automation_plan.md`。
 - **対象はInstagram（＋Facebookページへの同時投稿）。X・YouTube・ブログ展開は保留（2026-10-20 依頼者決定）**
 - 段階A（11/1〜）：半自動。投稿パッケージをMeta Business Suiteで予約（Bが間に合わない場合の保険）
-- 段階B：GitHub Actions＋Instagram Graph API で承認済み投稿を毎日12:00 JSTに自動公開。**2026-10-20 本番投稿テスト成功**（Metaアプリ「GOLF GUTS SNS」、ページトークン、Secrets 登録済み。テスト投稿 media_id 18199373029388195 はアーカイブ済み）。**11/1 開始には GitHub Variables の `POST_MODE` を `live` に変更する（10/31まで。依頼者操作）**。それまでは毎日 dry-run で動く
+- 段階B：GitHub Actions＋Instagram Graph API で承認済み投稿を毎日12:00 JSTに自動公開。**2026-10-20 本番投稿テスト成功**（Metaアプリ「GOLF GUTS SNS」、ページトークン、Secrets 登録済み。テスト投稿 media_id 18199373029388195 はアーカイブ済み）。**`POST_MODE=live` 設定済み（2026-10-20 16:47）。本番稼働中。承認済みの日だけ投稿される**
 - 段階C・D：原稿生成と分析の自動化
 - 自動化しないもの：指導内容の最終判断（堀コーチ）、事実確認の最終OK
 - 承認は `automation/schedule.json` の `approved` 欄。`needs_hori: true` は堀コーチ確認が前提
 - **GitHubは無料プランのまま。リポジトリは2つ（本体Public＋写真Private）で運用（2026-10-20 依頼者決定）。有料化・一本化はしない**
 - **Facebookページ「GOLF GUTS」を作成（2026-10-20 依頼者決定「どうせならFacebookもやりましょう」。「Instagramだけ」の決定を上書き）**。Instagram @golfguts とリンク。方式は Facebookログイン＋ページアクセストークン（graph.facebook.com）。Instagram投稿と同時にFacebookページにも同内容を投稿（`FB_PAGE_ID` Secret を設定した場合）。Facebook個人アカウント「ゴルフ ガッツ」はページ管理者・開発者ログイン用なので削除しない
-- Facebook同時投稿は **未稼働**：トークンに `pages_manage_posts` が未付与（要確認：テスト実行で fb_post_id が記録されなかった。FB_PAGE_ID Secret の値も再確認）。アプリの権限追加→トークン再発行→`IG_ACCESS_TOKEN` 更新で有効化する
+- Facebook同時投稿：`pages_manage_posts` を追加しトークン再発行・Secret更新済み（2026-10-20 16:43、check 成功）。**実投稿での動作は 11/1 の初回で確認**（fb_post_id が記録されるか）
 - トークンはページアクセストークン（期限なし）。毎週月曜09:30 JST に `health.py` でトークン有効性・ページ到達・承認漏れ・画像欠落を検知しIssue化。失効時のみ手動で再発行（`automation/SETUP.md` STEP 3）
 
 - 最重要指標：**初回スイングdockの予約完了数**
@@ -309,9 +309,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - 2026-10-20：Meta開発者登録・アプリ作成・権限追加・ページトークン取得・GitHub Secrets 登録・check 実行・live 実行（スタジオ紹介1枚、`docs/posts/test_studio_20261020.jpg`）まで完了。本番投稿を確認後アーカイブ
 
 ### 次に決めること
-- `POST_MODE` を `live` にする日（10/31 推奨）
-- Facebook同時投稿の有効化（`pages_manage_posts` 追加）
-- Instagramプロフィールの「全米No.1…」の差し替え文
+- 11/1 12:00 の初回自動投稿を確認（Instagram＋Facebook）
 - 堀コーチ確認：リールAのセリフ、「上達しないときに最初に確認する3つ」の妥当性
 - 撮影日程と撮影可否（ArtRay・GCQuad画面、受付、受講者役）
 - プロフィールのリンク先（LP公開後URL or 既存案内記事）
