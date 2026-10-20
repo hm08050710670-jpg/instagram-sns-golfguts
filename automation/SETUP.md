@@ -65,3 +65,12 @@ https://github.com/hm08050710670-jpg/instagram-sns-golfguts/settings/secrets/act
 | Facebookだけ失敗 | `pages_manage_posts` 未許可。Instagramは投稿されるので急ぎではない |
 | `Media ID is not available` | 画像URLにMetaが到達できない → GitHub Pagesの公開を確認（私が見ます） |
 | 審査（App Review）を求められる | 自分のアカウント・ページへの投稿は開発モードで動く見込み。求められた場合のみ申請（申請文は私が用意） |
+
+---
+
+## 実施記録（2026-10-20）
+- STEP 1〜4 完了。アプリ名 `GOLF GUTS SNS`。ページトークンは「ユーザーまたはページ」で GOLF GUTS を選んで取得
+- check 実行：成功（run 39383566756）
+- live 実行：成功（2026-10-20 テスト投稿 → アーカイブ）
+- 未完了：`pages_manage_posts`（Facebook同時投稿用）。アプリの「アクセス許可と機能」で追加 → エクスプローラで再度 Generate → ページトークンを取り直し → `IG_ACCESS_TOKEN` を更新
+- 残り：`POST_MODE` を `live` に変更（10/31 まで）
