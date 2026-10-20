@@ -51,6 +51,13 @@ jobs:
           echo "args=$ARGS" >> $GITHUB_OUTPUT
           echo "mode=$MODE" >> $GITHUB_OUTPUT
 
+      - name: Probe public image URL (Pages)
+        run: |
+          URL="${PAGES_BASE_URL}w1_carousel_01.jpg"
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" -I "$URL")
+          echo "probe $URL -> $CODE" | tee -a "$GITHUB_STEP_SUMMARY"
+          test "$CODE" = "200"
+
       - name: Publish
         id: pub
         shell: bash {0}
