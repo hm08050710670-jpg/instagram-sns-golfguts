@@ -296,5 +296,5 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - `sns/shooting_list.md`：撮影リスト
 - `images/make_post_images.py`／`images/posts.json`：画像投稿の生成スクリプトと原稿データ。出力は `images/out/`
 - `data/weekly_review.xlsx`：週次振り返り記録表
-- `photos/`：店内写真（リポジトリを非公開にしてから追加）
+- 写真ストックは別リポジトリ **`hm08050710670-jpg/photos-photos-photos-photos-photos-`（Private）**。`studio/`・`lesson/`・`monitor_safe/`、使用履歴は `used.md`。作業時はここから取得し、使ったら `used.md` に追記。このリポジトリの `photos/` はローカル作業用（Git管理外）
 - 以後の原稿・記録表はこの構成に沿って追加する
