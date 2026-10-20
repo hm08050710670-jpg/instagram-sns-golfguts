@@ -85,7 +85,10 @@
 - 段階B：GitHub Actions＋Instagram Graph API で承認済み投稿を毎日12:00 JSTに自動公開。**仕組みは構築済み（`automation/`）。残りはMeta側の設定（`automation/SETUP.md`）**
 - 段階C・D：原稿生成と分析の自動化
 - 自動化しないもの：指導内容の最終判断（堀コーチ）、事実確認の最終OK
-- 承認は posts.json の `approved` 欄。`needs_hori: true` は堀コーチ確認が前提
+- 承認は `automation/schedule.json` の `approved` 欄。`needs_hori: true` は堀コーチ確認が前提
+- **GitHubは無料プランのまま。リポジトリは2つ（本体Public＋写真Private）で運用（2026-10-20 依頼者決定）。有料化・一本化はしない**
+- Facebookページは未作成（2026-10-20時点）。SETUP.md STEP 1 から依頼者が作成する
+- トークンは「ページアクセストークン」（期限なし）を使う。週次ヘルスチェック（`automation/health.py`、月曜09:30 JST）でトークン・承認漏れ・画像欠落を検知しIssue化
 
 - 最重要指標：**初回スイングdockの予約完了数**
 - 最終成果：来店人数 → 回数券購入・継続受講
