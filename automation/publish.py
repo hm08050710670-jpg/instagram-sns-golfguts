@@ -135,8 +135,16 @@ def main():
     if bad: sys.exit("画像URLに到達できません: " + ", ".join(bad))
     me = http("GET", f"{GRAPH}/{ig}?fields=id,username&access_token={token}")
     print("  instagram:", me.get("username"), me.get("id"))
+    page_token = token
     if page:
-        pg = http("GET", f"{GRAPH}/{page}?fields=id,name&access_token={token}")
+        # ユーザートークンからページトークンを取り出す（ページ投稿にはページトークンが必要）
+        try:
+            accts = http("GET", f"{GRAPH}/me/accounts?fields=id,name,access_token&access_token={token}").get("data", [])
+            hit = [a for a in accts if a.get("id") == page]
+            if hit: page_token = hit[0]["access_token"]
+        except Exception as e:
+            print("  me/accounts 取得に失敗（渡されたトークンをそのまま使用）:", e)
+        pg = http("GET", f"{GRAPH}/{page}?fields=id,name&access_token={page_token}")
         print("  facebook page:", pg.get("name"), pg.get("id"))
     if a.check:
         print("  CHECK OK（投稿はしていません）"); return 0
@@ -167,7 +175,7 @@ def main():
         print("  Facebook同時投稿はリール未対応のためスキップ")
     elif page:
         try:
-            r["fb_post_id"] = post_to_facebook(page, token, urls, caption)
+            r["fb_post_id"] = post_to_facebook(page, page_token, urls, caption)
             print("  POSTED facebook post_id =", r["fb_post_id"])
         except Exception as e:
             r["fb_post_id"] = ""; print("  WARNING: Facebook 投稿に失敗（Instagram は投稿済み）:", e)

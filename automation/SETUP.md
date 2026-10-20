@@ -74,3 +74,10 @@ https://github.com/hm08050710670-jpg/instagram-sns-golfguts/settings/secrets/act
 - live 実行：成功（2026-10-20 テスト投稿 → アーカイブ）
 - 未完了：`pages_manage_posts`（Facebook同時投稿用）。アプリの「アクセス許可と機能」で追加 → エクスプローラで再度 Generate → ページトークンを取り直し → `IG_ACCESS_TOKEN` を更新
 - 残り：`POST_MODE` を `live` に変更（10/31 まで）
+
+## 重要：トークンの正しい取り方（2026-10-20 失効事故のあとに確定）
+1. グラフAPIエクスプローラで Generate Access Token（権限6件）
+2. アクセストークンデバッガーに貼って「デバッグ」→ 一番下の「アクセストークンを延長」
+3. 「この長期アクセストークンは期限切れになりません」と出た緑の文字列をそのまま `IG_ACCESS_TOKEN` に登録する
+   - 延長を飛ばすと1時間で失効する（同日18:00に失効して投稿失敗した）
+   - Facebookページ用のページトークンは `publish.py` が実行時に `me/accounts` から取り出すので、手作業は不要
