@@ -53,9 +53,10 @@ def draft(path):
     rec = {"date": d, "kind": "carousel", "label": c["label"], "images": [f"{tag}_01.jpg", f"{tag}.jpg"],
            "caption": c["caption"], "hashtags": c["hashtags"], "needs_hori": False, "approved": False,
            "approved_by": "", "status": "pending", "ig_media_id": "", "posted_at": "", "sources": c.get("sources", [])}
-    reel = dict(rec, kind="reel", slot="evening", label=c["label"] + "（リール）", images=[f"{tag}_reel.mp4", f"{tag}_01.jpg"])
-    json.dump({"carousel": rec, "reel": reel}, open(CAND, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-    print("候補を保存:", CAND); print("画像:", rec["images"], "リール:", reel["images"])
+    # 依頼者決定（2026-10-20 20:57）：ニュースはリールのみ（カルーセルは出さない）。12:00 枠に1本
+    reel = dict(rec, kind="reel", label=c["label"] + "（リール）", images=[f"{tag}_reel.mp4", f"{tag}_01.jpg"])
+    json.dump(reel, open(CAND, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print("候補を保存:", CAND); print("リール:", reel["images"], "（カバー画像 =", reel["images"][1], "）")
 
 def approve():
     c = json.load(open(CAND, encoding="utf-8")); S = load()
