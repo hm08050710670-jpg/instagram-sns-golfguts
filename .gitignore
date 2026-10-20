@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+images/out/_contact_sheet.png
+.DS_Store
