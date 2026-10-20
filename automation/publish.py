@@ -16,6 +16,7 @@ Instagram 自動投稿スクリプト（Facebookページ連携・ページア�
 
 ルール
   - schedule.json の date が一致し、approved == true のものだけ投稿する
+  - kind: image（1枚）／carousel（2〜20枚）／reel（images[0]=MP4 の公開URL、images[1]=カバーJPEG 任意。Facebook同時投稿は動画未対応のためスキップ）
   - needs_hori == true で approved == false の場合は投稿せず、理由を出力して終了コード 2（未承認）
   - 画像は公開URL（GitHub Pages）の JPEG を参照
   - Instagram 投稿が成功したら schedule.json の status / ig_media_id / posted_at を更新する（Actions 側で commit）
@@ -44,7 +45,15 @@ def head_ok(url):
     except Exception as e:
         print("  URL check failed:", url, e); return False
 
-def wait_ready(container_id, token, tries=20):
+def head_ok_video(url):
+    try:
+        req = urllib.request.Request(url, method="HEAD")
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return r.status == 200 and "video/mp4" in r.headers.get("Content-Type", "")
+    except Exception as e:
+        print("  URL check failed:", url, e); return False
+
+def wait_ready(container_id, token, tries=60):
     for _ in range(tries):
         s = http("GET", f"{GRAPH}/{container_id}?fields=status_code,status&access_token={token}")
         if s.get("status_code") == "FINISHED": return True
@@ -60,6 +69,11 @@ def create_image_container(ig, token, url, caption=None, is_item=False):
 
 def create_carousel_container(ig, token, children, caption):
     data = {"media_type": "CAROUSEL", "children": ",".join(children), "caption": caption, "access_token": token}
+    return http("POST", f"{GRAPH}/{ig}/media", data)["id"]
+
+def create_reel_container(ig, token, video_url, caption, cover_url=None):
+    data = {"media_type": "REELS", "video_url": video_url, "caption": caption, "share_to_feed": "true", "access_token": token}
+    if cover_url: data["cover_url"] = cover_url
     return http("POST", f"{GRAPH}/{ig}/media", data)["id"]
 
 def publish(ig, token, container_id):
@@ -117,7 +131,7 @@ def main():
     if not base.startswith("http") or not ig or not token:
         sys.exit("環境変数 PAGES_BASE_URL / IG_USER_ID / IG_ACCESS_TOKEN が未設定です")
 
-    bad = [u for u in urls if not head_ok(u)]
+    bad = [u for u in urls if not (head_ok_video(u) if r["kind"] == "reel" and u.endswith(".mp4") else head_ok(u))]
     if bad: sys.exit("画像URLに到達できません: " + ", ".join(bad))
     me = http("GET", f"{GRAPH}/{ig}?fields=id,username&access_token={token}")
     print("  instagram:", me.get("username"), me.get("id"))
@@ -127,7 +141,12 @@ def main():
     if a.check:
         print("  CHECK OK（投稿はしていません）"); return 0
 
-    if r["kind"] == "image":
+    if r["kind"] == "reel":
+        # images[0] = MP4、images[1]（任意）= カバーJPEG
+        cid = create_reel_container(ig, token, urls[0], caption, urls[1] if len(urls) > 1 else None)
+        if not wait_ready(cid, token): sys.exit("reel container not ready")
+        media_id = publish(ig, token, cid)
+    elif r["kind"] == "image":
         cid = create_image_container(ig, token, urls[0], caption)
         if not wait_ready(cid, token): sys.exit("container not ready")
         media_id = publish(ig, token, cid)
@@ -144,7 +163,9 @@ def main():
     r["status"] = "posted"; r["ig_media_id"] = media_id; r["posted_at"] = dt.datetime.now(JST).isoformat(timespec="seconds")
     print("  POSTED instagram media_id =", media_id)
 
-    if page:
+    if page and r["kind"] == "reel":
+        print("  Facebook同時投稿はリール未対応のためスキップ")
+    elif page:
         try:
             r["fb_post_id"] = post_to_facebook(page, token, urls, caption)
             print("  POSTED facebook post_id =", r["fb_post_id"])
