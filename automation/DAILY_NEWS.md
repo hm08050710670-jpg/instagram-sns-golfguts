@@ -35,6 +35,7 @@ python3 automation/publish.py --date $(date +%F) --dry-run   # 当日の予定�
 git add -A && git commit -m "news candidate $(date +%F)" && git push
 ```
 生成した `images/out/news_MMDD_01.png` と `news_MMDD.png` を **必ず開いて目視**（はみ出し・重なりがあれば文字を削って作り直す）。
+**画像内の日付が今日の日付と一致しているか必ず確認する**（candidate.json の `date` は今日の日付にする。日付は `news_job.py` が投稿日から自動で入れる。2026-10-20 のテストで、別日の原稿をそのまま使い日付がずれた事故あり）。
 
 ## 4. 依頼者へ提示（この文面で）
 - 見出し／本文（キャプション全文）／出典URL／2枚の画像

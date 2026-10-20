@@ -30,7 +30,8 @@ def save(S): json.dump(S, open(SCHED, "w", encoding="utf-8"), ensure_ascii=False
 def draft(path):
     c = json.load(open(path, encoding="utf-8"))
     d = c["date"]; tag = "news_" + d.replace("-", "")[4:]
-    card = dict(c["card"], type="newscard", file=f"{tag}_01.png", label="ゴルフニュース", page=1, total=2)
+    # 画像内の日付は必ず投稿日（c["date"]）から生成する（原稿側の eyebrow は無視）
+    card = dict(c["card"], type="newscard", file=f"{tag}_01.png", label="ゴルフニュース", page=1, total=2, eyebrow=d.replace("-", "."))
     detail = dict(c["detail"], type="list", file=f"{tag}.png", label="ゴルフニュース", page=2, total=2)
     os.chdir(os.path.join(ROOT, "images"))
     json.dump([card], open("_cand_hero.json", "w", encoding="utf-8"), ensure_ascii=False)
