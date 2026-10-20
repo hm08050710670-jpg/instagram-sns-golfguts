@@ -53,11 +53,17 @@ jobs:
 
       - name: Publish
         id: pub
-        continue-on-error: true
+        shell: bash {0}
         run: |
-          set -o pipefail
-          python3 automation/publish.py ${{ steps.args.outputs.args }} 2>&1 | tee publish.log
-          echo "code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+          python3 automation/publish.py ${{ steps.args.outputs.args }} > publish.log 2>&1
+          CODE=$?
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
+          {
+            echo "### Instagram daily post — mode: ${{ steps.args.outputs.mode }}, args: ${{ steps.args.outputs.args }}, exit: $CODE"
+            echo '```'; cat publish.log; echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          cat publish.log
+          exit 0
 
       - name: Commit schedule update
         if: steps.args.outputs.mode == 'live' && steps.pub.outputs.code == '0'
