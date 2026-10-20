@@ -1,5 +1,21 @@
 [
  {
+  "date": "2026-10-20",
+  "kind": "image",
+  "label": "テスト投稿｜スタジオ紹介（API疎通確認）",
+  "images": [
+   "test_studio_20261020.jpg"
+  ],
+  "caption": "恵比寿のインドアゴルフスクール GOLF GUTS です。\n完全個室のマンツーマンで、スイング映像と弾道データをコーチと一緒に確認します。\n\nJR恵比寿駅 スカイウォーク出口から徒歩1分。\n平日 10:00〜22:00／土日祝 8:00〜20:00\n\n初回スイングdock（目安60分・8,800円税込）の詳細はプロフィールのリンクから。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #マンツーマン",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者（2026-10-20 選択C：テスト投稿）",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": ""
+ },
+ {
   "date": "2026-11-01",
   "kind": "carousel",
   "label": "開始のあいさつ",
