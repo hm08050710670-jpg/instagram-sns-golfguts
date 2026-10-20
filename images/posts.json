@@ -10,10 +10,10 @@
   "title_size": 175,
   "sub": "最初に確認する3つ",
   "note": "直す前に、確認する。",
-  "photo": "../photos/booth.jpg",
+  "photo": "../photos/coach_monitor_explain_2.jpg",
   "photo_pos": [
-   0.5,
-   0.5
+   0.55,
+   0.45
   ]
  },
  {
@@ -94,7 +94,7 @@
   "label": "STEP",
   "page": 7,
   "total": 8,
-  "photo": "../photos/booth.jpg",
+  "photo": "../photos/coach_monitor_point.jpg",
   "photo_h": 460,
   "head": "映像とデータで見る",
   "sub": "自分では見えない動きを、コーチと一緒に確認します。",
@@ -102,6 +102,10 @@
    "スイング映像で身体とクラブの動き",
    "弾道測定で打ち出しと曲がり",
    "取り組むことを1つに絞る"
+  ],
+  "photo_pos": [
+   0.6,
+   0.4
   ]
  },
  {
