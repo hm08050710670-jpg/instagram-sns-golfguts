@@ -63,7 +63,9 @@ def approve():
     recs = [c["carousel"], c["reel"]] if "carousel" in c else [c]
     d = recs[0]["date"]
     for r in S:
-        if r["date"] == d and r["status"] != "posted" and r.get("slot", "noon") == "noon" and r["kind"] != "reel":
+        # 当日の昼枠の既存投稿はすべてストックへ退避（全投稿がリール化された 2026-10-20 以降、kind による除外は行わない。
+        # 除外すると下の絞り込みで承認済みの当日分が消えてしまう）
+        if r["date"] == d and r["status"] != "posted" and r.get("slot", "noon") == "noon":
             r["date"] = "stock"; r["label"] = "【ストック】" + r["label"].replace("【ストック】", "")
             print("既存の当日分をストックへ退避:", r["label"])
     stamp = f"依頼者（{dt.datetime.now().strftime('%Y-%m-%d %H:%M')} OK）"
