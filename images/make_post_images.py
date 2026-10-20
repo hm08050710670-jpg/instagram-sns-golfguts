@@ -92,6 +92,66 @@ def footer(d, spec):
     d.text((60, H-78), "golfguts", font=sans(26, "Regular"), fill=SUB)
     if spec.get("page"): dots(d, spec["page"], spec["total"], H-66)
 
+
+# ---------- 図解（線画） ----------
+def _panel(d, x, y, w, h):
+    d.rounded_rectangle([x, y, x+w, y+h], radius=22, fill=ROW, outline=LINE, width=2)
+
+def draw_ball_flight(d, x, y, w, h, kind="both"):
+    """右打ち基準の球筋を2枚並べて比較。左：右に出て右へ／右：左に出て右へ"""
+    _panel(d, x, y, w, h)
+    half = w/2
+    def one(ox, start_dx, bend, color, title, sub):
+        gx = ox + half*0.5; gy = y + h*0.84; L = h*0.58
+        d.line([gx, gy, gx, gy-L-20], fill="#D6D0C3", width=4)
+        d.polygon([(gx, gy-L-34), (gx-10, gy-L-18), (gx+10, gy-L-18)], fill="#D6D0C3")
+        pts=[]
+        for i in range(41):
+            t=i/40
+            pts.append((gx + (start_dx*t + bend*t*t)*L, gy - t*L))
+        d.line(pts, fill=color, width=10, joint="curve")
+        ex,ey=pts[-1]; d.ellipse([ex-10,ey-10,ex+10,ey+10], fill=color)
+        d.ellipse([gx-12, gy-12, gx+12, gy+12], fill=INK)
+        tf=sans(30,"Bold"); tw=d.textlength(title,font=tf)
+        d.text((ox+half/2-tw/2, y+26), title, font=tf, fill=color)
+        sf=sans(24); sw=d.textlength(sub,font=sf)
+        d.text((ox+half/2-sw/2, y+66), sub, font=sf, fill=SUB)
+    one(x,        0.30, 0.30, SAGE,     "右に出て、右へ",   "打ち出しから右")
+    one(x+half,  -0.30, 0.75, "#B98A5A", "左に出て、右へ", "途中から大きく右")
+    d.line([x+half, y+24, x+half, y+h-24], fill=LINE, width=2)
+    nf=sans(22); note="※右打ちの場合。左打ちは左右が逆"; nw=d.textlength(note,font=nf)
+    d.text((x+w-nw-26, y+h-40), note, font=nf, fill=SUB)
+
+def draw_face_path(d, x, y, w, h):
+    """上から見た図：ターゲットライン、外から内に入るクラブ軌道、開いたフェース"""
+    import math
+    _panel(d, x, y, w, h)
+    cx = x + w*0.44; cy = y + h*0.58
+    # ターゲットライン（横・灰）
+    d.line([x+w*0.08, cy, x+w*0.92, cy], fill="#CFC9BC", width=5)
+    d.polygon([(x+w*0.92+18, cy), (x+w*0.92-8, cy-12), (x+w*0.92-8, cy+12)], fill="#CFC9BC")
+    d.text((x+w*0.70, cy+16), "ターゲット方向", font=sans(24), fill=SUB)
+    # クラブ軌道（外から内）：右上→左下、角度35°
+    a=math.radians(35); L=h*0.42
+    sx,sy = cx+L*math.cos(a), cy-L*math.sin(a)
+    ex,ey = cx-L*math.cos(a), cy+L*math.sin(a)
+    d.line([sx,sy,ex,ey], fill="#B98A5A", width=12)
+    hx,hy = ex-22*math.cos(a), ey+22*math.sin(a)
+    d.polygon([(hx,hy),(ex+22*math.sin(a),ey+22*math.cos(a)),(ex-22*math.sin(a),ey-22*math.cos(a))], fill="#B98A5A")
+    d.text((sx-320, sy-48), "クラブ軌道：外から内", font=sans(28,"Medium"), fill="#B98A5A")
+    # ボール
+    d.ellipse([cx-16, cy-16, cx+16, cy+16], fill=INK)
+    # フェース：ターゲットより右（上）を向く＝垂線を15°傾ける。ボール上に太い短線＋法線矢印
+    f=math.radians(15); fl=95
+    d.line([cx-fl*math.sin(f), cy-fl*math.cos(f), cx+fl*math.sin(f), cy+fl*math.cos(f)], fill=SAGE, width=14)
+    nx,ny = cx+150*math.cos(f), cy-150*math.sin(f)
+    d.line([cx,cy,nx,ny], fill=SAGE, width=6)
+    d.polygon([(nx+16*math.cos(f),ny-16*math.sin(f)),(nx-14*math.sin(f),ny-14*math.cos(f)),(nx+14*math.sin(f),ny+14*math.cos(f))], fill=SAGE)
+    d.text((nx+18, ny-18), "フェース：右を向く", font=sans(28,"Medium"), fill=SAGE)
+    d.text((x+26, y+h-44), "※右打ち・上から見た図。軌道とフェースの差が大きいほど曲がる", font=sans(22), fill=SUB)
+
+DIAGRAMS = {"push_vs_pull": draw_ball_flight, "face_path": draw_face_path}
+
 # ---------- templates ----------
 def render_cover(spec):
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
@@ -125,7 +185,10 @@ def render_step(spec, return_y=False):
     d.rounded_rectangle([42, 118, W-42, H-110], radius=34, fill=CARD, outline=LINE, width=2)
     header(d, spec)
     y = 148
-    if spec.get("photo"):
+    if spec.get("diagram"):
+        pw, ph = W-124, spec.get("photo_h", 500)
+        DIAGRAMS[spec["diagram"]](d, 62, y, pw, ph); y += ph + 60
+    elif spec.get("photo"):
         pw, ph = W-124, spec.get("photo_h", 500)
         if os.path.exists(spec["photo"]):
             rounded_paste(im, photo(spec["photo"], pw, ph, tuple(spec.get("photo_pos", (0.5, 0.45)))), 62, y)
@@ -135,7 +198,7 @@ def render_step(spec, return_y=False):
         y += ph + 60
     else:
         y += 20
-    big = not spec.get("photo")          # 写真なしページは文字を大きく
+    big = not spec.get("photo") and not spec.get("diagram")   # 写真・図なしページは文字を大きく
     hs = spec.get("head_size", 84 if big else 72)
     bf_size, lh_b, wrap_b = (46, 62, 18) if big else (38, 52, 20)
     f = sans(hs, "Bold")
