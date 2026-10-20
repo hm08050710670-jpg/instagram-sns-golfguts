@@ -1,0 +1,85 @@
+name: Instagram daily post
+
+on:
+  schedule:
+    # 毎日 12:00 JST（= 03:00 UTC）。GitHubのcronは数分遅れることがある
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "投稿する日付 YYYY-MM-DD（空なら今日 JST）"
+        required: false
+      mode:
+        description: "live / dry-run / check"
+        required: false
+        default: "dry-run"
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: instagram-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      IG_USER_ID: ${{ secrets.IG_USER_ID }}
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      PAGES_BASE_URL: https://hm08050710670-jpg.github.io/instagram-sns-golfguts/posts/
+      POST_MODE: ${{ vars.POST_MODE || 'dry-run' }}   # リポジトリ変数 POST_MODE=live にすると本番投稿
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Decide args
+        id: args
+        run: |
+          MODE="${{ github.event.inputs.mode || env.POST_MODE }}"
+          DATE="${{ github.event.inputs.date }}"
+          ARGS=""
+          if [ -n "$DATE" ]; then ARGS="--date $DATE"; else ARGS="--today"; fi
+          case "$MODE" in
+            live) ;;
+            check) ARGS="$ARGS --check" ;;
+            *) ARGS="$ARGS --dry-run" ;;
+          esac
+          echo "args=$ARGS" >> $GITHUB_OUTPUT
+          echo "mode=$MODE" >> $GITHUB_OUTPUT
+
+      - name: Publish
+        id: pub
+        continue-on-error: true
+        run: |
+          set -o pipefail
+          python3 automation/publish.py ${{ steps.args.outputs.args }} 2>&1 | tee publish.log
+          echo "code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+
+      - name: Commit schedule update
+        if: steps.args.outputs.mode == 'live' && steps.pub.outputs.code == '0'
+        run: |
+          git config user.name "golfguts-bot"
+          git config user.email "noreply@golf-guts.co.jp"
+          git add automation/schedule.json
+          git diff --cached --quiet || git commit -m "post: $(date -u +%F) published"
+          git push
+
+      - name: Open issue on failure or unapproved
+        if: steps.pub.outputs.code != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const log = fs.readFileSync('publish.log','utf8').slice(-4000);
+            const code = '${{ steps.pub.outputs.code }}';
+            const title = code === '2' ? `未承認のため投稿されませんでした（${new Date().toISOString().slice(0,10)}）` : `自動投稿が失敗しました（${new Date().toISOString().slice(0,10)}）`;
+            await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title,
+              body: "```\n" + log + "\n```\n\n対応：schedule.json の approved を確認するか、ログのエラーを確認してください。", labels: ['instagram'] });
+
+      - name: Fail job if error (not unapproved)
+        if: steps.pub.outputs.code != '0' && steps.pub.outputs.code != '2'
+        run: exit 1
