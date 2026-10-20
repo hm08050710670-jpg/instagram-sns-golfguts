@@ -78,6 +78,14 @@
 
 ## 2. ゴールと指標（確定）
 
+### 運用の最終目的（2026-10-20 依頼者決定）
+**企画・原稿・画像の生成からInstagramへの投稿まで自動化する。** 人がやるのは承認のみ。設計と段階は `automation_plan.md`。
+- 段階A（11/1〜）：半自動。投稿パッケージをMeta Business Suiteで予約
+- 段階B（11月中旬目標）：GitHub Actions＋Instagram Graph API で承認済み投稿を毎日自動公開
+- 段階C・D：原稿生成と分析の自動化
+- 自動化しないもの：指導内容の最終判断（堀コーチ）、事実確認の最終OK
+- 承認は posts.json の `approved` 欄。`needs_hori: true` は堀コーチ確認が前提
+
 - 最重要指標：**初回スイングdockの予約完了数**
 - 最終成果：来店人数 → 回数券購入・継続受講
 - 過程指標：再生数・リーチ・保存数・保存率・プロフィール閲覧・リンククリック・予約ページ遷移
@@ -295,6 +303,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 
 - `CLAUDE.md`：この仕様書（更新時は「最終更新」と該当節を修正）
 - `brand_guide.md`／`brand_colors.png`：デザイン指定書。制作時はこれに従う
+- `automation_plan.md`：投稿自動化の設計・段階・必要な準備
 - `docs/index.html`：初回スイングdock予約LP（GitHub Pagesの確認用公開は `/docs`）
 - `sns/sns_plan_2026-10.md`：初回4週間の企画・原稿一式
 - `sns/sns_drafts_week1-2.md`／`sns/sns_drafts_week3-4.md`：各週の原稿
