@@ -79,6 +79,12 @@ def spread(spec, size):
     if slack <= 0: return 0, 0, 0
     return int(slack * 0.25), int(slack * 0.2), int(slack * 0.1)   # 残り約35％は箇条書き〜バナーの間に残る
 
+def paste_logo(im, spec):
+    """公式ロゴを右上に。高さは LOGO_H（spec["logo_h"] で試し用に上書き可）。左上のラベルと縦の中心をそろえる"""
+    h = int(spec.get("logo_h", LOGO_H))
+    lg = Image.open(LOGO_FULL).convert("RGBA"); lg = lg.resize((round(lg.width * h / lg.height), h), Image.LANCZOS)
+    im.paste(lg, (W - 64 - lg.width, 153 - h // 2), lg)
+
 def frame_article(spec, s):
     """s = 秒"""
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
@@ -165,8 +171,7 @@ def frame_article(spec, s):
     # フッター（ロゴ）
     if os.path.exists(LOGO_FULL):
         # 公式ロゴ（GOLF GUTS＋DESIGN YOUR GOLF LIFE）。2026-10-21 依頼者指示で文字だけの版から変更
-        lg = Image.open(LOGO_FULL).convert("RGBA"); k = LOGO_H / lg.height
-        lg = lg.resize((int(lg.width * k), LOGO_H), Image.LANCZOS); im.paste(lg, (W - 64 - lg.width, LOGO_Y), lg)   # 右上（2026-10-21 依頼者指示）
+        paste_logo(im, spec)   # 右上（2026-10-21 依頼者指示）
     elif os.path.exists(m.LOGO_PATH):
         lg = Image.open(m.LOGO_PATH).convert("RGBA"); k = 28 / lg.height
         lg = lg.resize((int(lg.width * k), 28), Image.LANCZOS); im.paste(lg, (64, H - 120), lg)
@@ -189,8 +194,7 @@ def endcard(spec, s):
         msg = "ご予約はプロフィールのリンクから"; f = m.sans(38)
         tw = d.textlength(msg, font=f); d.text(((W - tw) / 2, by + b2.height + 60), msg, font=f, fill=blend(BG, SUB, t))
     if os.path.exists(LOGO_FULL):
-        lg = Image.open(LOGO_FULL).convert("RGBA"); kk = LOGO_H / lg.height
-        lg = lg.resize((int(lg.width * kk), LOGO_H), Image.LANCZOS); im.paste(lg, (W - 64 - lg.width, LOGO_Y), lg)
+        paste_logo(im, spec)
     return im
 
 def frame(spec, s):
