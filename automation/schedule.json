@@ -2,19 +2,25 @@
  {
   "date": "2026-10-21",
   "kind": "reel",
-  "label": "開始のあいさつ（スタジオ紹介）（リール）",
+  "label": "ニュース｜鈴木愛が富士通レディース優勝・開幕から同じ14本（リール）",
   "images": [
-   "reel_1021.mp4",
-   "reel_1021_cover.jpg"
+   "news_1021_reel.mp4",
+   "news_1021_01.jpg"
   ],
-  "caption": "恵比寿のインドアゴルフスタジオ GOLF GUTS です。\n今日から毎日、ゴルフの雑学・ギア・ニュース・注目選手、そしてスタジオのことを投稿していきます。\n\n完全個室のマンツーマン。スイング映像と弾道データを、コーチと一緒に確認します。\nJR恵比寿駅 スカイウォーク出口から徒歩1分。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #マンツーマン",
+  "caption": "鈴木愛選手が、10月18日に最終日を迎えた富士通レディース（千葉・東急セブンハンドレッドクラブ）で優勝。通算15アンダーで2位に2打差をつけ、今季初優勝、ツアー通算23勝目と報じられています。\n\n報道で目を引いたのは道具の話。3月の開幕戦から、バッグの14本を一度も入れ替えていないとのことです（GDO・ゴルフサプリ）。\n\nアマチュアの私たちは、プロと体格もヘッドスピードも違います。同じ道具にすれば同じ結果になる、という話ではありません。\nただ、「曲がるから新しいクラブに」と考える前に、今のスイングでボールに何が起きているかを知ることは、誰にとっても順番として先です。\n\nそれを映像と弾道データで確認するのが、初回スイングdockです。\n\n出典：ALBA Net（2026年10月19日）https://www.alba.co.jp/articles/category/tour/jlpga/post/3we9g72qi/ ／GDO ゴルフダイジェスト・オンライン（10月19日）https://news.golfdigest.co.jp/news/winnersbag/jlpga/article/196176/1/ ／ゴルフサプリ（10月19日）https://golfsapuri.com/article/20042055/\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフニュース #JLPGA #富士通レディース #女子ゴルフ",
   "needs_hori": false,
   "approved": true,
-  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "approved_by": "依頼者（2026-10-21 00:03 OK）",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "sources": [
+   "https://www.alba.co.jp/articles/category/tour/jlpga/post/3we9g72qi/",
+   "https://news.golfdigest.co.jp/news/winnersbag/jlpga/article/196176/1/",
+   "https://golfsapuri.com/article/20042055/",
+   "https://www.golfnetwork.co.jp/news/detail/41788"
+  ]
  },
  {
   "date": "2026-10-22",
@@ -648,6 +654,23 @@
   "needs_hori": false,
   "approved": false,
   "approved_by": "",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": ""
+ },
+ {
+  "date": "stock",
+  "kind": "reel",
+  "label": "【ストック】開始のあいさつ（スタジオ紹介）（リール）",
+  "images": [
+   "reel_1021.mp4",
+   "reel_1021_cover.jpg"
+  ],
+  "caption": "恵比寿のインドアゴルフスタジオ GOLF GUTS です。\n今日から毎日、ゴルフの雑学・ギア・ニュース・注目選手、そしてスタジオのことを投稿していきます。\n\n完全個室のマンツーマン。スイング映像と弾道データを、コーチと一緒に確認します。\nJR恵比寿駅 スカイウォーク出口から徒歩1分。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #マンツーマン",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
   "status": "pending",
   "ig_media_id": "",
   "posted_at": ""
