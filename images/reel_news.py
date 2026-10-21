@@ -20,7 +20,7 @@ def blend(a, b, t):
     return tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(3))
 
 LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
-LOGO_H = 72
+LOGO_H = 112   # 2026-10-21 依頼者決定「Aでもう少しだけ大きく」（A=100）
 LOGO_Y = 117   # ラベル（y=120・高さ66）と中心をそろえる
 BANNER_BOTTOM = H - 130   # ロゴを右上へ移し、空いた下端までバナーを下げる（2026-10-21 依頼者指示）。下に案内1行
 BANNER_W, BANNER_H = 952, 290   # バナーは全種類この枠にそろえる（2026-10-21 依頼者指示「同じ高さ・同じ大きさ」）
