@@ -21,7 +21,7 @@ def blend(a, b, t):
 
 LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
 LOGO_H = 72
-BANNER_BOTTOM = H - 318   # 下に案内1行＋出典（H-230）。2026-10-21 案内行を追加
+BANNER_BOTTOM = H - 250   # 下に案内1行とロゴだけ。出典は記事の下へ移した（2026-10-21 依頼者指示「バナーを全体的に下へ」）
 GAP_BAR_MIN = 60          # バーは原則いつも入れる（2026-10-21 依頼者決定）。空きが極端に狭いときだけ省く
 BAR_W = 160
 BANNER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "banners", "prepped")
@@ -88,7 +88,7 @@ def frame_article(spec, s):
     lines = card["title"].split("\n")
     # 見出しが4行以上でバナーを出す日は、バナーの場所を空けるため見出しを少し小さく（2026-10-21）
     size = 88 if (len(lines) >= 4 and banner_enabled() and spec.get("banner") != "none") else 100; y = 320
-    e_title, e_sub, e_bul = spread(spec, size)
+    e_title, e_sub, e_bul = 0, 0, 0   # 余白の配分はやめ、記事は上にまとめてバナーとの間を空ける（2026-10-21 依頼者指示：記事とバナーがつながって見える）
     for i, ln in enumerate(lines):
         t = ease((s - 1.0 - i * 0.35) / 0.5)
         if t > 0:
@@ -100,8 +100,10 @@ def frame_article(spec, s):
     y += 80 + e_title
     # 要約（3.2s〜）
     t = ease((s - 3.2) / 0.5)
+    sub_lines = m.wrap(card.get("sub", ""), 24)
     if t > 0:
-        y = m.text_lines(d, m.wrap(card.get("sub", ""), 24), 64, y, m.sans(40), blend(BG, INK, t), 58)
+        m.text_lines(d, sub_lines, 64, y, m.sans(40), blend(BG, INK, t), 58)
+    y += len(sub_lines) * 58   # 表示前も位置は確保（出典の位置が途中で動かないように）
     y += 40 + e_sub
     # 事実3点（6.0s から 0.9s 間隔でスライドイン）
     for i, b in enumerate(det.get("bullets", [])[:3]):
@@ -112,6 +114,10 @@ def frame_article(spec, s):
             d.ellipse([x + 34, y + rh / 2 - 9, x + 52, y + rh / 2 + 9], fill=blend(BG, SAGE, t))
             d.text((x + 80, y + 26), b, font=m.sans(38, "Bold"), fill=blend(BG, INK, t))
         y += 100 + 18 + (e_bul if i < len(det.get("bullets", [])[:3]) - 1 else 0)
+    # バナーを出す日は、出典を記事のすぐ下に置く（記事のまとまりとして見せ、画面下はバナー専用にする）
+    src_inline = bool(card.get("source")) and load_banner(spec) is not None and banner_style(spec) == "inline"
+    if src_inline:
+        y = m.text_lines(d, m.wrap("出典：" + card["source"], 34), 64, y + 4, m.sans(26), SUB, 36)
     # 締め（10.5s〜）：橋渡しの一言＋CTA
     t = ease((s - 10.5) / 0.6)
     if t > 0 and not spec.get("_no_closing"):
@@ -132,7 +138,7 @@ def frame_article(spec, s):
             if gap >= GAP_BAR_MIN:
                 # 空きが目立つときは区切りのバーを入れる（2026-10-21 依頼者指示）
                 # バーはバナー寄りに置く（2026-10-21 依頼者指示「下に下げて全体のバランスを」）。空きが大きいほど少し離す
-                gy = y + int(gap * 0.6); bw = int(BAR_W * t)
+                gy = top - min(90, max(40, gap // 3)); bw = int(BAR_W * t)
                 d.rounded_rectangle([(W - bw) // 2, gy - 2, (W + bw) // 2, gy + 2], radius=2, fill=blend(BG, LINE, t))
             bx = (W - bn.width) // 2; by = top + int((1 - t) * 40)
             if banner_style(spec) == "panel":
@@ -148,7 +154,7 @@ def frame_article(spec, s):
             m.pill(d, 64, cy, spec.get("cta_pill", "初回スイングdock｜目安60分"), blend(BG, SAGE, t), m.sans(34, "Bold"), h=72); cy += 90
             d.text((64, cy), "詳細・ご予約はプロフィールのリンクから", font=m.sans(32), fill=blend(BG, SUB, t))
     # 出典（常時・小さく）
-    if card.get("source"):
+    if card.get("source") and not src_inline:
         m.text_lines(d, m.wrap("出典：" + card["source"], 34), 64, H - 230, m.sans(26), SUB, 36)
     # フッター（ロゴ）
     if os.path.exists(LOGO_FULL):
