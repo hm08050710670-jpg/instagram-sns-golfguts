@@ -95,8 +95,27 @@ jobs:
           git config user.name "golfguts-bot"
           git config user.email "noreply@golf-guts.co.jp"
           git add automation/schedule.json
-          git diff --cached --quiet || git commit -m "post: $(date -u +%F) published"
-          git push
+          git diff --cached --quiet && exit 0
+          git commit -m "post: $(TZ=Asia/Tokyo date +%F) published"
+          # 投稿中に別の push があっても記録を必ず残す（2026-10-21 に push が拒否され、投稿済みが未記録になった）。
+          # 記録が残らないと予備の起動が二重投稿するため、rebase して最大5回まで再試行する
+          for i in 1 2 3 4 5; do
+            git push && exit 0
+            git fetch origin main && git rebase origin/main || { git rebase --abort; exit 1; }
+            sleep 5
+          done
+          exit 1
+
+      - name: Open issue if the post was published but could not be recorded
+        if: failure() && steps.args.outputs.mode == 'live' && steps.pub.outputs.code == '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const log = fs.readFileSync('publish.log','utf8').slice(-3000);
+            await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo,
+              title: `投稿は成功しましたが schedule.json に記録できませんでした（${new Date().toISOString().slice(0,10)}）`,
+              body: "```\n" + log + "\n```\n\n**至急**：schedule.json の当日分を status: posted にして push してください。記録が無いと次の起動で二重投稿になります。", labels: ['instagram'] });
 
       - name: Open issue on failure or unapproved
         if: steps.pub.outputs.code != '0'
