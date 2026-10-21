@@ -1,6 +1,6 @@
 # CLAUDE.md — GOLF GUTS SNS集客AI社員 運用仕様
 
-最終更新：2026-10-20
+最終更新：2026-10-21
 対象：GOLF GUTS（ゴルフ ガッツ）のSNS企画・原稿・クリエイティブ・分析・LP制作
 根拠：運用指示①（SNS運用方針）、②（5役割の運用指示）、③（初回スイングドックLP制作依頼）、既存サイト golf-guts.co.jp の確認結果
 
@@ -92,7 +92,7 @@
 **企画・原稿・画像の生成からInstagramへの投稿まで自動化する。** 人がやるのは承認のみ。設計と段階は `automation_plan.md`。
 - **対象はInstagram（＋Facebookページへの同時投稿）。X・YouTube・ブログ展開は保留（2026-10-20 依頼者決定）**
 - 段階A（11/1〜）：半自動。投稿パッケージをMeta Business Suiteで予約（Bが間に合わない場合の保険）
-- 段階B：GitHub Actions＋Instagram Graph API で承認済み投稿を毎日12:00 JSTに自動公開。**2026-10-20 本番投稿テスト成功**（Metaアプリ「GOLF GUTS SNS」、ページトークン、Secrets 登録済み。テスト投稿 media_id 18199373029388195 はアーカイブ済み）。**`POST_MODE=live` 設定済み（2026-10-20 16:47）。本番稼働中。承認済みの日だけ投稿される**
+- 段階B：GitHub Actions＋Instagram Graph API で承認済み投稿を毎日昼（11:41 JST 起動。GitHub の schedule 遅延・欠落対策で 12:23／13:47 にも予備起動。投稿済みなら空振り）に自動公開。**2026-10-20 本番投稿テスト成功**（Metaアプリ「GOLF GUTS SNS」、ページトークン、Secrets 登録済み。テスト投稿 media_id 18199373029388195 はアーカイブ済み）。**`POST_MODE=live` 設定済み（2026-10-20 16:47）。本番稼働中。承認済みの日だけ投稿される**
 - 段階C・D：原稿生成と分析の自動化
 - 自動化しないもの：指導内容の最終判断（堀コーチ）、事実確認の最終OK
 - 承認は `automation/schedule.json` の `approved` 欄。`needs_hori: true` は堀コーチ確認が前提
@@ -188,7 +188,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - 旧計画（11月4週テーマ、`schedule.json` のラベル【旧計画】）は保留。画像36枚は確認後に使う
 - 曜日の型（目安）：雑学／ギア／ニュース／注目選手を回し、週1でスタジオ・初回案内。全投稿の末尾に初回スイングdockか「自分のスイングで確認」の橋渡し
 - 制作ペース：週1回、翌週7本を先行して作り承認済みにする。ニュース・選手は投稿の2〜4日前に検索で事実確認し、キャプションに出典を書く
-- **ニュースは毎日（2026-10-20 依頼者決定）**。画像はイラスト不要の文字カード（`images/hero.py` の newscard）＋詳細（list）の2枚。毎朝 08:52 JST の定期タスクが候補（**リール1本・BGM付き**。文字カードはリールのカバーと素材に使う）を作り依頼者に提示 → 「OK」で `news_job.py approve` → **12:00 にリールを投稿**（2026-10-20 20:57 依頼者決定「カルーセルはなし、リールだけ」。18:00 枠は仕組みとして残すが当面使わない）。OK がない／候補なしの日は、`schedule.json` の `date:"stock"` の投稿が自動で出る（`publish.py` のフォールバック。`health.py` がストック2本未満で警告）。手順は `automation/DAILY_NEWS.md`
+- **ニュースは毎日（2026-10-20 依頼者決定）**。画像はイラスト不要の文字カード（`images/hero.py` の newscard）＋詳細（list）の2枚。毎朝 08:52 JST の定期タスクが候補（**リール1本・BGM付き**。文字カードはリールのカバーと素材に使う）を作り依頼者に提示 → 「OK」で `news_job.py approve` → **昼（11:41 起動、予備 12:23／13:47）にリールを投稿**（2026-10-20 20:57 依頼者決定「カルーセルはなし、リールだけ」。18:00 枠は仕組みとして残すが当面使わない）。OK がない／候補なしの日は、`schedule.json` の `date:"stock"` の投稿が自動で出る（`publish.py` のフォールバック。`health.py` がストック2本未満で警告）。手順は `automation/DAILY_NEWS.md`
 - **全投稿をリール（15秒・文字アニメ・BGM付き）で統一（2026-10-20 20:59 依頼者決定）**。静止画・カルーセルは当面出さない。`images/reel_news.py` が共通の生成器（label／card／detail／cta_pill を指定）。ストック投稿2本もリール化済み（stock_01／stock_02）
 - 10/21〜10/28 の8本は制作・承認済み（すべてリール `docs/posts/reel_MMDD.mp4`＋カバー）
 
@@ -320,7 +320,8 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - 2026-10-20：Meta開発者登録・アプリ作成・権限追加・ページトークン取得・GitHub Secrets 登録・check 実行・live 実行（スタジオ紹介1枚、`docs/posts/test_studio_20261020.jpg`）まで完了。本番投稿を確認後アーカイブ
 
 ### 次に決めること
-- 10/21 12:00 の初回自動投稿を確認（Instagram＋Facebook）
+- 10/21 初回投稿：schedule の 03:00 UTC が起動せず（GitHub 側の遅延・欠落）、12:16 JST に手動 live 実行で投稿済み（media_id 18360260653221878）。同時 push で記録コミットが拒否されたため schedule.json は手で posted に更新。対策：cron を 00分回避＋3回起動＋直列化、記録 push の rebase 再試行、記録失敗時の Issue 化（2026-10-21）
+- 10/22 以降、予定起動（11:41 JST）で自動投稿されることを Actions の実行履歴（event: schedule）で確認する
 - 10/29以降の翌週分を 10/26 までに作成・承認
 - 堀コーチ確認：リールAのセリフ、「上達しないときに最初に確認する3つ」の妥当性
 - 撮影日程と撮影可否（ArtRay・GCQuad画面、受付、受講者役）
@@ -341,7 +342,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - `automation/news_job.py`／`automation/DAILY_NEWS.md`：毎朝のニュース候補の登録・承認・破棄と、その手順書
 - `automation/health.py`：週次ヘルスチェック（`.github/workflows/instagram-health.yml`）
 - `automation/SETUP.md`：Metaアプリ・ページトークン・Secrets（IG_USER_ID／IG_ACCESS_TOKEN／FB_PAGE_ID）の手順
-- `.github/workflows/instagram-daily.yml`：毎日 03:00 UTC（12:00 JST）実行。POST_MODE 変数が live のとき本番投稿。未承認・失敗時は Issue を自動作成
+- `.github/workflows/instagram-daily.yml`：毎日 02:41／03:23／04:47 UTC（11:41／12:23／13:47 JST）に起動し、未投稿なら投稿（投稿済みなら何もしない。concurrency で直列化）。POST_MODE 変数が live のとき本番投稿。未承認・失敗時は Issue を自動作成
 - `docs/posts/*.jpg`：自動投稿が参照する公開JPEG（images/out から生成）
 - リール：`kind: reel`（images[0]=MP4、images[1]=カバー）。`slot: evening` の投稿は 18:00 JST の実行で出る。撮影ありのリールは未着手
 - `docs/index.html`：初回スイングdock予約LP（GitHub Pagesの確認用公開は `/docs`）
