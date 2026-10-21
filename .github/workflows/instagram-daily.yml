@@ -2,10 +2,14 @@ name: Instagram daily post
 
 on:
   schedule:
-    # 毎日 12:00 JST（= 03:00 UTC）。GitHubのcronは数分遅れることがある
-    - cron: "0 3 * * *"
-    # 18:00 JST（= 09:00 UTC）：ニュースのリール版（承認された日のみ）
-    - cron: "0 9 * * *"
+    # 昼の投稿（目標 12:00 JST 前後）。GitHub の schedule は混雑時に遅延・欠落するため
+    # （2026-10-21 初回の 03:00 UTC が起動せず手動実行した）、00分を避けた時刻で3回起動する。
+    # publish.py は投稿済みなら何もしないので、最初に成功した1回だけ投稿され、残りは空振りする。
+    - cron: "41 2 * * *"   # 11:41 JST（本命）
+    - cron: "23 3 * * *"   # 12:23 JST（予備1）
+    - cron: "47 4 * * *"   # 13:47 JST（予備2）
+    # 18:00 JST 枠（当面未使用。slot: evening の投稿がある日だけ動く）
+    - cron: "11 9 * * *"
   workflow_dispatch:
     inputs:
       date:
@@ -24,7 +28,8 @@ permissions:
   issues: write
 
 concurrency:
-  group: instagram-post-${{ github.run_id }}
+  # 固定グループ名で直列化：予備の起動が本命と同時に走って二重投稿になるのを防ぐ（後続は待ってから実行）
+  group: instagram-post
   cancel-in-progress: false
 
 jobs:
