@@ -29,6 +29,15 @@ BANNER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "pho
 BANNER_EXCLUDE = {"banner_01_60min.png"}
 _banner_cache = {}
 
+def banner_style(spec):
+    """endcard＝記事のあとに締めの画面へ切り替える／panel＝記事の下にカード面で区切って置く／inline＝従来"""
+    if spec.get("banner_style"): return spec["banner_style"]
+    try:
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "automation", "features.json")
+        return json.load(open(p, encoding="utf-8")).get("reel_banner_style", "inline")
+    except Exception:
+        return "inline"
+
 def banner_enabled():
     try:
         p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "automation", "features.json")
@@ -47,6 +56,8 @@ def load_banner(spec):
     """spec["banner"] があればそれ（"none" で無し）、無ければ日付で選ぶ。features.json の reel_banner が false なら None"""
     if not banner_enabled() or spec.get("banner") == "none": return None
     path = os.path.join(BANNER_DIR, spec["banner"]) if spec.get("banner") else pick_banner(spec.get("date", ""))
+    if path and banner_style(spec) == "panel":
+        path = os.path.join(os.path.dirname(BANNER_DIR), "prepped_card", os.path.basename(path))
     if not path or not os.path.exists(path): return None
     if path not in _banner_cache: _banner_cache[path] = Image.open(path).convert("RGB")
     return _banner_cache[path]
@@ -62,7 +73,7 @@ def spread(spec, size):
     if slack <= 0: return 0, 0, 0
     return int(slack * 0.25), int(slack * 0.2), int(slack * 0.1)   # 残り約35％は箇条書き〜バナーの間に残る
 
-def frame(spec, s):
+def frame_article(spec, s):
     """s = 秒"""
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
     # 右上の円（ゆっくり拡大）
@@ -103,7 +114,7 @@ def frame(spec, s):
         y += 100 + 18 + (e_bul if i < len(det.get("bullets", [])[:3]) - 1 else 0)
     # 締め（10.5s〜）：橋渡しの一言＋CTA
     t = ease((s - 10.5) / 0.6)
-    if t > 0:
+    if t > 0 and not spec.get("_no_closing"):
         bn = load_banner(spec)
         cy = y + 70   # 箇条書きの3点目との間（2026-10-21 依頼者指示で 30→70）
         if bn is not None and BANNER_BOTTOM - cy < bn.height:
@@ -124,10 +135,15 @@ def frame(spec, s):
                 gy = y + int(gap * 0.6); bw = int(BAR_W * t)
                 d.rounded_rectangle([(W - bw) // 2, gy - 2, (W + bw) // 2, gy + 2], radius=2, fill=blend(BG, LINE, t))
             bx = (W - bn.width) // 2; by = top + int((1 - t) * 40)
-            im.paste(Image.blend(Image.new("RGB", bn.size, BG), bn, t), (bx, by))
+            if banner_style(spec) == "panel":
+                pad = 20
+                d.rounded_rectangle([bx - pad, by - pad, bx + bn.width + pad, by + bn.height + pad], radius=28, fill=blend(BG, CARD, t))
+                im.paste(Image.blend(Image.new("RGB", bn.size, blend(BG, CARD, t)), bn, t), (bx, by))
+            else:
+                im.paste(Image.blend(Image.new("RGB", bn.size, BG), bn, t), (bx, by))
             # リール内はタップできないため、予約の入口を明記（2026-10-21 依頼者決定）
             msg = "ご予約はプロフィールのリンクから"; f = m.sans(32)
-            tw = d.textlength(msg, font=f); d.text(((W - tw) / 2, by + bn.height + 16), msg, font=f, fill=blend(BG, SUB, t))
+            tw = d.textlength(msg, font=f); d.text(((W - tw) / 2, by + bn.height + (36 if banner_style(spec) == "panel" else 16)), msg, font=f, fill=blend(BG, SUB, t))
         else:
             m.pill(d, 64, cy, spec.get("cta_pill", "初回スイングdock｜目安60分"), blend(BG, SAGE, t), m.sans(34, "Bold"), h=72); cy += 90
             d.text((64, cy), "詳細・ご予約はプロフィールのリンクから", font=m.sans(32), fill=blend(BG, SUB, t))
@@ -145,6 +161,34 @@ def frame(spec, s):
     else:
         d.text((64, H - 120), "golfguts", font=m.sans(28), fill=SUB)
     return im
+
+END_START = 10.0   # 締めの画面に切り替える時刻（endcard）
+
+def endcard(spec, s):
+    """締めの画面：記事とは別の画面にバナーを大きく置く（2026-10-21 依頼者指示「記事とバナーがつながって見える」への対策）"""
+    im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
+    r = 420 + 40 * ease(s / 15)
+    d.ellipse([W - r, -r * 0.6, W + r * 0.6, r], fill=CARD)
+    bn = load_banner(spec); t = ease((s - END_START - 0.3) / 0.6)
+    if bn is not None:
+        k = 1000 / bn.width; b2 = bn.resize((1000, int(bn.height * k)), Image.LANCZOS)
+        by = int(H * 0.40 - b2.height / 2 + (1 - t) * 40)
+        im.paste(Image.blend(Image.new("RGB", b2.size, BG), b2, t), ((W - b2.width) // 2, by))
+        msg = "ご予約はプロフィールのリンクから"; f = m.sans(38)
+        tw = d.textlength(msg, font=f); d.text(((W - tw) / 2, by + b2.height + 60), msg, font=f, fill=blend(BG, SUB, t))
+    if os.path.exists(LOGO_FULL):
+        lg = Image.open(LOGO_FULL).convert("RGBA"); kk = LOGO_H / lg.height
+        lg = lg.resize((int(lg.width * kk), LOGO_H), Image.LANCZOS); im.paste(lg, (64, H - LOGO_H - 80), lg)
+    return im
+
+def frame(spec, s):
+    if banner_style(spec) == "endcard" and load_banner(spec) is not None:
+        art = dict(spec, _no_closing=True, banner="none")   # 記事は従来のレイアウト（見出しの縮小・余白の配分なし）
+        if s < END_START: return frame_article(art, s)
+        k = ease((s - END_START) / 0.5)
+        if k >= 1: return endcard(spec, s)
+        return Image.blend(frame_article(art, s), endcard(spec, s), k)
+    return frame_article(spec, s)
 
 BGM_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "audio")
 BGM_GAIN_DB = -14   # 「うっすら」。0 が原音量

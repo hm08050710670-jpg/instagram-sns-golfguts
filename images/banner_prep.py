@@ -16,7 +16,7 @@ LINE = np.array([0xC4, 0xB6, 0xA3], float)
 GREEN = np.array([0x4F, 0x6B, 0x57], float)   # 予約ボタンの色（2026-10-21 依頼者決定「ボタンはグリーンで」）
 WIDTH = 952
 
-def prep(path):
+def prep(path, BG=BG):
     im = np.array(Image.open(path).convert("RGB")).astype(float)
     lum = im @ [0.299, 0.587, 0.114]
     bg_l = np.percentile(lum, 90)            # 最も多いクリームの明るさ
@@ -55,5 +55,8 @@ def prep(path):
 
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
+    CARD_OUT = os.path.join(SRC, "prepped_card"); os.makedirs(CARD_OUT, exist_ok=True)
+    CARD = np.array([0xD6, 0xC8, 0xB6], float)   # サンドベージュ（カード面）に載せる版
     for f in sorted(glob.glob(os.path.join(SRC, "*.png"))):
         img = prep(f); img.save(os.path.join(OUT, os.path.basename(f))); print("wrote", os.path.basename(f), img.size)
+        prep(f, CARD).save(os.path.join(CARD_OUT, os.path.basename(f)))
