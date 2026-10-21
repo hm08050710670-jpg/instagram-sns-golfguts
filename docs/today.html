@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>今日の投稿 | GOLF GUTS SNS</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--bg:#E8DFD3;--card:#D6C8B6;--ink:#3F3A36;--sub:#8B857E;--green:#4F6B57;--line:#C4B6A3}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Noto Sans JP",-apple-system,"Hiragino Sans",sans-serif;font-size:16px;line-height:1.7;padding:16px 16px calc(24px + env(safe-area-inset-bottom))}
+  h1{font-size:20px;margin:8px 0 4px}
+  .date{color:var(--sub);font-size:14px;margin-bottom:16px}
+  .sec{background:var(--card);border-radius:16px;padding:16px;margin-bottom:16px}
+  .sec h2{font-size:15px;margin:0 0 10px;color:var(--sub);font-weight:600}
+  .badge{display:inline-block;padding:2px 10px;border-radius:999px;font-size:13px;font-weight:700;margin-right:6px}
+  .ok{background:var(--green);color:var(--bg)}
+  .ng{background:var(--line);color:var(--ink)}
+  .label{font-weight:700;margin:6px 0}
+  video,img{display:block;width:100%;max-width:360px;border-radius:12px;background:#000;margin:10px 0}
+  img{background:none}
+  .cap{white-space:pre-wrap;word-break:break-word;font-size:15px;background:var(--bg);border-radius:12px;padding:12px;margin-top:8px}
+  .tags{color:var(--sub);font-size:14px;margin-top:6px;word-break:break-word}
+  .note{color:var(--sub);font-size:13px}
+  a{color:var(--green)}
+  details summary{cursor:pointer;font-weight:700}
+  ul{padding-left:18px;margin:6px 0}
+</style>
+</head>
+<body>
+<h1>今日の投稿（12:00 JST）</h1>
+<div class="date" id="date"></div>
+<div id="app"><p class="note">読み込み中…</p></div>
+<p class="note">投稿の正は <code>automation/schedule.json</code>、候補は <code>automation/news_candidate.json</code>。このページは GitHub の最新コミットを表示します（反映まで1〜2分かかることがあります）。</p>
+<script>
+(async function(){
+  const q = new URLSearchParams(location.search);
+  const RAW = q.get('base') || 'https://raw.githubusercontent.com/hm08050710670-jpg/instagram-sns-golfguts/main/';
+  const POSTS = q.get('posts') || 'posts/';
+  const now = new Date(Date.now() + 9*3600*1000);  // JST
+  const today = q.get('date') || now.toISOString().slice(0,10);
+  document.getElementById('date').textContent = today + '（JST）';
+  const app = document.getElementById('app');
+  const esc = s => String(s||'').replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const bust = '?t=' + Date.now();
+  async function getJSON(p){ const r = await fetch(RAW + p + bust, {cache:'no-store'}); if(!r.ok) throw new Error(p + ' ' + r.status); return r.json(); }
+  function media(r){
+    const v = (r.images||[]).find(x => x.endsWith('.mp4')); const im = (r.images||[]).filter(x => !x.endsWith('.mp4'));
+    let h = '';
+    if (v) h += `<video controls playsinline preload="metadata" poster="${POSTS + (im[0]||'')}" src="${POSTS + v}"></video>`;
+    else im.forEach(x => h += `<img src="${POSTS + x}" alt="">`);
+    return h;
+  }
+  function block(r, title){
+    return `<div class="sec"><h2>${title}</h2>
+      <span class="badge ${r.approved?'ok':'ng'}">${r.approved?'承認済み':'未承認'}</span><span class="badge ng">${esc(r.kind)}</span>${r.status==='posted'?'<span class="badge ok">投稿済み</span>':''}
+      <div class="label">${esc(r.label)}</div>${media(r)}
+      <div class="cap">${esc(r.caption)}</div><div class="tags">${esc(r.hashtags)}</div></div>`;
+  }
+  try{
+    const S = await getJSON('automation/schedule.json');
+    let C = null; try { C = await getJSON('automation/news_candidate.json'); } catch(e){}
+    const todays = S.filter(r => r.date === today && (r.slot||'noon') === 'noon');
+    const stock = S.filter(r => r.date === 'stock' && r.approved && r.status !== 'posted');
+    let h = '';
+    if (C && C.date === today) h += block(C, 'ニュース候補（OK 待ち）');
+    const r = todays[0];
+    if (r && r.approved) h += block(r, '12:00 に出る予定の投稿');
+    else {
+      h += `<div class="sec"><h2>12:00 に出る予定の投稿</h2><p>${r ? '当日分はありますが未承認です。' : '当日分の予定はありません。'}ストックの先頭が自動で出ます。</p>${stock[0] ? media(stock[0]) + '<div class="label">' + esc(stock[0].label) + '</div>' : '<p><b>ストックがありません。</b></p>'}</div>`;
+    }
+    h += `<div class="sec"><details><summary>ストック（${stock.length}本）</summary><ul>${stock.map(x => '<li>' + esc(x.label) + '</li>').join('')}</ul></details></div>`;
+    const next = S.filter(r => r.date > today && r.date !== 'stock').sort((a,b) => a.date.localeCompare(b.date)).slice(0,7);
+    h += `<div class="sec"><details><summary>今後の予定（7日分）</summary><ul>${next.map(x => '<li>' + x.date + '　' + (x.approved?'✓':'未承認') + '　' + esc(x.label) + '</li>').join('')}</ul></details></div>`;
+    app.innerHTML = h;
+  }catch(e){ app.innerHTML = '<p>読み込みに失敗しました：' + esc(e.message) + '</p>'; }
+})();
+</script>
+</body>
+</html>
