@@ -19,6 +19,8 @@ def blend(a, b, t):
     a = Image.new("RGB", (1, 1), a).getpixel((0, 0)); b = Image.new("RGB", (1, 1), b).getpixel((0, 0))
     return tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(3))
 
+LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
+LOGO_H = 72
 BANNER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "banners", "prepped")
 # banner_01「最初の60分で、変わる。」は brand_guide の禁止表現（60分で変わる＝効果の保証）に当たるため使わない（2026-10-21）
 BANNER_EXCLUDE = {"banner_01_60min.png"}
@@ -86,9 +88,11 @@ def frame(spec, s):
     # 締め（10.5s〜）：橋渡しの一言＋CTA
     t = ease((s - 10.5) / 0.6)
     if t > 0:
-        cy = y + 30
-        d.text((64, cy), det.get("cta", ""), font=m.sans(44, "Bold"), fill=blend(BG, INK, t)); cy += 74
+        cy = y + 70   # 箇条書きの3点目との間（2026-10-21 依頼者指示で 30→70）
         bn = load_banner(spec)
+        # 橋渡しの一言（detail.cta）は、バナーがある場合は出さない（2026-10-21 依頼者決定「キャッチフレーズはなしで」。橋渡しはバナーとキャプションが担う）
+        if bn is None:
+            d.text((64, cy), det.get("cta", ""), font=m.sans(44, "Bold"), fill=blend(BG, INK, t)); cy += 74
         room = H - 250 - cy   # 出典の上までに収める
         if bn is not None and room >= 180:
             if bn.height > room:
@@ -102,7 +106,11 @@ def frame(spec, s):
     if card.get("source"):
         m.text_lines(d, m.wrap("出典：" + card["source"], 34), 64, H - 230, m.sans(26), SUB, 36)
     # フッター（ロゴ）
-    if os.path.exists(m.LOGO_PATH):
+    if os.path.exists(LOGO_FULL):
+        # 公式ロゴ（GOLF GUTS＋DESIGN YOUR GOLF LIFE）。2026-10-21 依頼者指示で文字だけの版から変更
+        lg = Image.open(LOGO_FULL).convert("RGBA"); k = LOGO_H / lg.height
+        lg = lg.resize((int(lg.width * k), LOGO_H), Image.LANCZOS); im.paste(lg, (64, H - LOGO_H - 80), lg)
+    elif os.path.exists(m.LOGO_PATH):
         lg = Image.open(m.LOGO_PATH).convert("RGBA"); k = 28 / lg.height
         lg = lg.resize((int(lg.width * k), 28), Image.LANCZOS); im.paste(lg, (64, H - 120), lg)
     else:
