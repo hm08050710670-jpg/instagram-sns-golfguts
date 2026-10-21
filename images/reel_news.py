@@ -22,6 +22,7 @@ def blend(a, b, t):
 LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
 LOGO_H = 112   # 2026-10-21 依頼者決定「Aでもう少しだけ大きく」（A=100）
 LOGO_RIGHT = 40   # 右端からの余白（2026-10-21 依頼者指示「もう少し右に」。64→40）
+CIRCLE_R = 460
 LOGO_Y = 117   # ラベル（y=120・高さ66）と中心をそろえる
 BANNER_BOTTOM = H - 130   # ロゴを右上へ移し、空いた下端までバナーを下げる（2026-10-21 依頼者指示）。下に案内1行
 BANNER_W, BANNER_H = 952, 290   # バナーは全種類この枠にそろえる（2026-10-21 依頼者指示「同じ高さ・同じ大きさ」）
@@ -85,13 +86,18 @@ def paste_logo(im, spec):
     h = int(spec.get("logo_h", LOGO_H))
     lg = Image.open(LOGO_FULL).convert("RGBA"); lg = lg.resize((round(lg.width * h / lg.height), h), Image.LANCZOS)
     lg = lg.crop(lg.getbbox())   # 大きさは承認済みのまま、透明の余白だけ除いて右端の位置を正確に
-    im.paste(lg, (W - LOGO_RIGHT - lg.width, 153 - lg.height // 2), lg)
+    # 右上の丸の中で、ロゴの左（丸のふち〜G）と右（S〜画面の右端）の空きを同じにする（2026-10-21 依頼者指示）
+    import math
+    r = CIRCLE_R; cx, cy, rad = W - 0.2 * r, 0.2 * r, 0.8 * r
+    left_edge = cx - math.sqrt(max(rad ** 2 - (153 - cy) ** 2, 0))
+    margin = max((W - left_edge - lg.width) / 2, 16)
+    im.paste(lg, (int(W - margin - lg.width), 153 - lg.height // 2), lg)
 
 def frame_article(spec, s):
     """s = 秒"""
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
     # 右上の円（ゆっくり拡大）
-    r = 420 + 40 * ease(s / 15)
+    r = CIRCLE_R   # 丸は大きさ固定（2026-10-21：ロゴを丸の中で左右均等に収めるため、拡大アニメを停止）
     d.ellipse([W - r, -r * 0.6, W + r * 0.6, r], fill=CARD)
     card = spec["card"]; det = spec["detail"]
     # ラベルと日付（0〜0.6s フェード）
@@ -186,7 +192,7 @@ END_START = 10.0   # 締めの画面に切り替える時刻（endcard）
 def endcard(spec, s):
     """締めの画面：記事とは別の画面にバナーを大きく置く（2026-10-21 依頼者指示「記事とバナーがつながって見える」への対策）"""
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
-    r = 420 + 40 * ease(s / 15)
+    r = CIRCLE_R   # 丸は大きさ固定（2026-10-21：ロゴを丸の中で左右均等に収めるため、拡大アニメを停止）
     d.ellipse([W - r, -r * 0.6, W + r * 0.6, r], fill=CARD)
     bn = load_banner(spec); t = ease((s - END_START - 0.3) / 0.6)
     if bn is not None:
