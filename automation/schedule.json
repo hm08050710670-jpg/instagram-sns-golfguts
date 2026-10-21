@@ -37,7 +37,24 @@
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1022.mp4": "be09ea8a2abdfe9a9d1d1e11a2ebb1451ae9b218a62ee80f7712e130f97fe43b",
+   "reel_1022_cover.jpg": "43b8625ff405d3e10d2a9bb08477c64c1f27297732fe56f28a00626328c8dfec"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1022.mp4": "be09ea8a2abdfe9a9d1d1e11a2ebb1451ae9b218a62ee80f7712e130f97fe43b",
+     "reel_1022_cover.jpg": "43b8625ff405d3e10d2a9bb08477c64c1f27297732fe56f28a00626328c8dfec"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-10-23",
@@ -54,7 +71,24 @@
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "news_1023_reel.mp4": "cd5db31bfffe12614c5a741846d51e210a819c2b2594eac2365dc5c11ec58857",
+   "news_1023_01.jpg": "69294a2fdb109eeda8e67bbaf96b82efdcf271e3d4dbb05358207d8b408476c4"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "news_1023_reel.mp4": "cd5db31bfffe12614c5a741846d51e210a819c2b2594eac2365dc5c11ec58857",
+     "news_1023_01.jpg": "69294a2fdb109eeda8e67bbaf96b82efdcf271e3d4dbb05358207d8b408476c4"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-10-24",
@@ -71,7 +105,24 @@
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
+   "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
+     "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-10-25",
@@ -88,7 +139,24 @@
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
+   "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
+     "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-10-26",
@@ -105,7 +173,24 @@
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1026.mp4": "cc737a1c4c956d8f89daa2d5610fd39a3bb5c52867ef697012cd12daf02d4d4f",
+   "reel_1026_cover.jpg": "f80f60c52afc3339386b179b6b97f8d86bdbf19c5a5cf4a573774edda8523341"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1026.mp4": "cc737a1c4c956d8f89daa2d5610fd39a3bb5c52867ef697012cd12daf02d4d4f",
+     "reel_1026_cover.jpg": "f80f60c52afc3339386b179b6b97f8d86bdbf19c5a5cf4a573774edda8523341"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-10-27",
@@ -122,7 +207,24 @@
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1027.mp4": "b3cac70038c2862a88588ca5db5a1e0c34df180714820fc98caa52232733e409",
+   "reel_1027_cover.jpg": "564dda36dca115c63836c75108682283a9ad516fb7cf5ba0e0cb6a0d9762cd03"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1027.mp4": "b3cac70038c2862a88588ca5db5a1e0c34df180714820fc98caa52232733e409",
+     "reel_1027_cover.jpg": "564dda36dca115c63836c75108682283a9ad516fb7cf5ba0e0cb6a0d9762cd03"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-10-28",
@@ -139,7 +241,24 @@
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1028.mp4": "320f78d234074846ca82601de7e11a73985913f2574299a7c472263f41933f5f",
+   "reel_1028_cover.jpg": "7ff07963def9d32827a9679362bc8270438604815a410984e8d01b66c9c310d8"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1028.mp4": "320f78d234074846ca82601de7e11a73985913f2574299a7c472263f41933f5f",
+     "reel_1028_cover.jpg": "7ff07963def9d32827a9679362bc8270438604815a410984e8d01b66c9c310d8"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-11-01",
@@ -673,7 +792,24 @@
   "approved_by": "依頼者方針（未承認日の自動差し替え用）",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "stock_01.mp4": "f4aaa6e5c8a23692d5e742850f518297ec4afb63889331a1b75978fa98fef974",
+   "stock_01_cover.jpg": "e44fa0d84534c92f5dbaeb8774d50a4d6ec023b3d931a7545222620d6d203e40"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:38+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "stock_01.mp4": "f4aaa6e5c8a23692d5e742850f518297ec4afb63889331a1b75978fa98fef974",
+     "stock_01_cover.jpg": "e44fa0d84534c92f5dbaeb8774d50a4d6ec023b3d931a7545222620d6d203e40"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "stock",
@@ -690,7 +826,24 @@
   "approved_by": "依頼者方針（未承認日の自動差し替え用）",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "stock_02.mp4": "802973ec83b619cd107c4301251295fdf30caae9e294493543647238ee80dec9",
+   "stock_02_cover.jpg": "23dce9e2ee7dc6a9ddee99a5002091a526c2e4b42b809d45187f64b2e642726f"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:38+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "stock_02.mp4": "802973ec83b619cd107c4301251295fdf30caae9e294493543647238ee80dec9",
+     "stock_02_cover.jpg": "23dce9e2ee7dc6a9ddee99a5002091a526c2e4b42b809d45187f64b2e642726f"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "stock",
@@ -707,7 +860,24 @@
   "approved_by": "依頼者決定（2026-10-21：いつでも使えるストック投稿）",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "stock_03.mp4": "153fefbef273c3271f5f4ce6ea7dabf844f942155b77e70558dc31f529d0735c",
+   "stock_03_cover.jpg": "12dc2334602cb08651cbf11ea5f8471b6522fc341eee339910d017205f9b77e4"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:38+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "stock_03.mp4": "153fefbef273c3271f5f4ce6ea7dabf844f942155b77e70558dc31f529d0735c",
+     "stock_03_cover.jpg": "12dc2334602cb08651cbf11ea5f8471b6522fc341eee339910d017205f9b77e4"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "stock",
@@ -724,6 +894,23 @@
   "approved_by": "依頼者決定（2026-10-21：いつでも使えるストック投稿）",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "approved_hashes": {
+   "stock_04.mp4": "9250fffcba06fea196bfc331e9ae7b404647c845988e9773d0256223b916292b",
+   "stock_04_cover.jpg": "6ea7a7a9d6c77dc01767803e53fbedfae30fe6c740b44b4f9646f65f4b0011f7"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:38+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "stock_04.mp4": "9250fffcba06fea196bfc331e9ae7b404647c845988e9773d0256223b916292b",
+     "stock_04_cover.jpg": "6ea7a7a9d6c77dc01767803e53fbedfae30fe6c740b44b4f9646f65f4b0011f7"
+    }
+   }
+  ],
+  "approval_version": 1
  }
 ]
