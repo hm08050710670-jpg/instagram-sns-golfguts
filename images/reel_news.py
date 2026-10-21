@@ -51,6 +51,17 @@ def load_banner(spec):
     if path not in _banner_cache: _banner_cache[path] = Image.open(path).convert("RGB")
     return _banner_cache[path]
 
+def spread(spec, size):
+    """バナーの上に余る空きを、見出し・要約・箇条書きの間にも配分して、1か所に大きな空白が出ないようにする（2026-10-21 依頼者指示「全体のバランス」）。
+    戻り値：(見出し下の追加, 要約下の追加, 箇条書き同士の追加)。バナーなしの日は 0"""
+    bn = load_banner(spec)
+    if bn is None: return 0, 0, 0
+    card = spec["card"]; nb = len(spec["detail"].get("bullets", [])[:3])
+    y_end = 320 + len(card["title"].split("\n")) * (size + 16) + 80 + len(m.wrap(card.get("sub", ""), 24)) * 58 + 40 + nb * 118
+    slack = min((BANNER_BOTTOM - bn.height) - (y_end + 110), 360)   # 110＝箇条書き〜バナーの最低限の間（バー込み）
+    if slack <= 0: return 0, 0, 0
+    return int(slack * 0.25), int(slack * 0.2), int(slack * 0.1)   # 残り約35％は箇条書き〜バナーの間に残る
+
 def frame(spec, s):
     """s = 秒"""
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
@@ -66,6 +77,7 @@ def frame(spec, s):
     lines = card["title"].split("\n")
     # 見出しが4行以上でバナーを出す日は、バナーの場所を空けるため見出しを少し小さく（2026-10-21）
     size = 88 if (len(lines) >= 4 and banner_enabled() and spec.get("banner") != "none") else 100; y = 320
+    e_title, e_sub, e_bul = spread(spec, size)
     for i, ln in enumerate(lines):
         t = ease((s - 1.0 - i * 0.35) / 0.5)
         if t > 0:
@@ -74,12 +86,12 @@ def frame(spec, s):
     # 下線
     tl = ease((s - 1.0 - len(lines) * 0.35) / 0.4)
     if tl > 0: d.line([64, y + 20, 64 + 300 * tl, y + 20], fill=SAGE, width=6)
-    y += 80
+    y += 80 + e_title
     # 要約（3.2s〜）
     t = ease((s - 3.2) / 0.5)
     if t > 0:
         y = m.text_lines(d, m.wrap(card.get("sub", ""), 24), 64, y, m.sans(40), blend(BG, INK, t), 58)
-    y += 40
+    y += 40 + e_sub
     # 事実3点（6.0s から 0.9s 間隔でスライドイン）
     for i, b in enumerate(det.get("bullets", [])[:3]):
         t = ease((s - 6.0 - i * 0.9) / 0.5)
@@ -88,7 +100,7 @@ def frame(spec, s):
             d.rounded_rectangle([x, y, W - 64, y + rh], radius=24, fill=blend(BG, CARD, t), outline=blend(BG, LINE, t), width=2)
             d.ellipse([x + 34, y + rh / 2 - 9, x + 52, y + rh / 2 + 9], fill=blend(BG, SAGE, t))
             d.text((x + 80, y + 26), b, font=m.sans(38, "Bold"), fill=blend(BG, INK, t))
-        y += 100 + 18
+        y += 100 + 18 + (e_bul if i < len(det.get("bullets", [])[:3]) - 1 else 0)
     # 締め（10.5s〜）：橋渡しの一言＋CTA
     t = ease((s - 10.5) / 0.6)
     if t > 0:
@@ -108,7 +120,8 @@ def frame(spec, s):
             gap = top - y   # 箇条書きの下端からバナー上端までの空き
             if gap >= GAP_BAR_MIN:
                 # 空きが目立つときは区切りのバーを入れる（2026-10-21 依頼者指示）
-                gy = y + gap // 2; bw = int(BAR_W * t)
+                # バーはバナー寄りに置く（2026-10-21 依頼者指示「下に下げて全体のバランスを」）。空きが大きいほど少し離す
+                gy = y + int(gap * 0.6); bw = int(BAR_W * t)
                 d.rounded_rectangle([(W - bw) // 2, gy - 2, (W + bw) // 2, gy + 2], radius=2, fill=blend(BG, LINE, t))
             bx = (W - bn.width) // 2; by = top + int((1 - t) * 40)
             im.paste(Image.blend(Image.new("RGB", bn.size, BG), bn, t), (bx, by))
