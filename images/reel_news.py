@@ -21,7 +21,9 @@ def blend(a, b, t):
 
 LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
 LOGO_H = 72
-BANNER_BOTTOM = H - 250   # 下に案内1行とロゴだけ。出典は記事の下へ移した（2026-10-21 依頼者指示「バナーを全体的に下へ」）
+LOGO_Y = 117   # ラベル（y=120・高さ66）と中心をそろえる
+BANNER_BOTTOM = H - 130   # ロゴを右上へ移し、空いた下端までバナーを下げる（2026-10-21 依頼者指示）。下に案内1行
+BANNER_W, BANNER_H = 952, 290   # バナーは全種類この枠にそろえる（2026-10-21 依頼者指示「同じ高さ・同じ大きさ」）
 GAP_BAR_MIN = 60          # バーは原則いつも入れる（2026-10-21 依頼者決定）。空きが極端に狭いときだけ省く
 BAR_W = 160
 BANNER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "banners", "prepped")
@@ -59,7 +61,11 @@ def load_banner(spec):
     if path and banner_style(spec) == "panel":
         path = os.path.join(os.path.dirname(BANNER_DIR), "prepped_card", os.path.basename(path))
     if not path or not os.path.exists(path): return None
-    if path not in _banner_cache: _banner_cache[path] = Image.open(path).convert("RGB")
+    if path not in _banner_cache:
+        src = Image.open(path).convert("RGB")
+        k = min(BANNER_W / src.width, BANNER_H / src.height); src = src.resize((round(src.width * k), round(src.height * k)), Image.LANCZOS)
+        bg = src.getpixel((2, 2)); box = Image.new("RGB", (BANNER_W, BANNER_H), bg)
+        box.paste(src, ((BANNER_W - src.width) // 2, (BANNER_H - src.height) // 2)); _banner_cache[path] = box
     return _banner_cache[path]
 
 def spread(spec, size):
@@ -129,8 +135,8 @@ def frame_article(spec, s):
         if bn is None:
             d.text((64, cy), det.get("cta", ""), font=m.sans(44, "Bold"), fill=blend(BG, INK, t)); cy += 74
         room = BANNER_BOTTOM - cy   # 案内行・出典の上までに収める
-        if bn is not None and room >= 200:
-            if bn.height > room:
+        if bn is not None:
+            if False:
                 bn = bn.resize((int(bn.width * room / bn.height), room), Image.LANCZOS)
             # バナーは下寄せ（出典の少し上に下端をそろえる。2026-10-21 依頼者指示「もうちょっと下に」）
             top = max(cy, BANNER_BOTTOM - bn.height)
@@ -160,7 +166,7 @@ def frame_article(spec, s):
     if os.path.exists(LOGO_FULL):
         # 公式ロゴ（GOLF GUTS＋DESIGN YOUR GOLF LIFE）。2026-10-21 依頼者指示で文字だけの版から変更
         lg = Image.open(LOGO_FULL).convert("RGBA"); k = LOGO_H / lg.height
-        lg = lg.resize((int(lg.width * k), LOGO_H), Image.LANCZOS); im.paste(lg, (64, H - LOGO_H - 80), lg)
+        lg = lg.resize((int(lg.width * k), LOGO_H), Image.LANCZOS); im.paste(lg, (W - 64 - lg.width, LOGO_Y), lg)   # 右上（2026-10-21 依頼者指示）
     elif os.path.exists(m.LOGO_PATH):
         lg = Image.open(m.LOGO_PATH).convert("RGBA"); k = 28 / lg.height
         lg = lg.resize((int(lg.width * k), 28), Image.LANCZOS); im.paste(lg, (64, H - 120), lg)
@@ -184,7 +190,7 @@ def endcard(spec, s):
         tw = d.textlength(msg, font=f); d.text(((W - tw) / 2, by + b2.height + 60), msg, font=f, fill=blend(BG, SUB, t))
     if os.path.exists(LOGO_FULL):
         lg = Image.open(LOGO_FULL).convert("RGBA"); kk = LOGO_H / lg.height
-        lg = lg.resize((int(lg.width * kk), LOGO_H), Image.LANCZOS); im.paste(lg, (64, H - LOGO_H - 80), lg)
+        lg = lg.resize((int(lg.width * kk), LOGO_H), Image.LANCZOS); im.paste(lg, (W - 64 - lg.width, LOGO_Y), lg)
     return im
 
 def frame(spec, s):
