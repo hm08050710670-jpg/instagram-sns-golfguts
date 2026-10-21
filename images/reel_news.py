@@ -22,7 +22,7 @@ def blend(a, b, t):
 LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
 LOGO_H = 72
 BANNER_BOTTOM = H - 262   # 出典（H-230）の上
-GAP_BAR_MIN = 150         # 空きがこれ以上ならバーを入れる
+GAP_BAR_MIN = 60          # バーは原則いつも入れる（2026-10-21 依頼者決定）。空きが極端に狭いときだけ省く
 BAR_W = 160
 BANNER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "banners", "prepped")
 # banner_01「最初の60分で、変わる。」は brand_guide の禁止表現（60分で変わる＝効果の保証）に当たるため使わない（2026-10-21）
