@@ -21,7 +21,7 @@ def blend(a, b, t):
 
 LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
 LOGO_H = 72
-BANNER_BOTTOM = H - 262   # 出典（H-230）の上
+BANNER_BOTTOM = H - 318   # 下に案内1行＋出典（H-230）。2026-10-21 案内行を追加
 GAP_BAR_MIN = 60          # バーは原則いつも入れる（2026-10-21 依頼者決定）。空きが極端に狭いときだけ省く
 BAR_W = 160
 BANNER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "banners", "prepped")
@@ -63,8 +63,9 @@ def frame(spec, s):
     m.pill(d, 64, 120, spec.get("label", "ゴルフニュース"), blend(BG, SAGE, t0), m.sans(30, "Bold"), h=66)
     d.text((64, 230), card.get("eyebrow", ""), font=m.sans(44, "Bold"), fill=blend(BG, SAGE, t0))
     # 見出し：1行ずつ 0.35s 間隔でスライドイン（1.0s から）
-    size = 100; y = 320
     lines = card["title"].split("\n")
+    # 見出しが4行以上でバナーを出す日は、バナーの場所を空けるため見出しを少し小さく（2026-10-21）
+    size = 88 if (len(lines) >= 4 and banner_enabled() and spec.get("banner") != "none") else 100; y = 320
     for i, ln in enumerate(lines):
         t = ease((s - 1.0 - i * 0.35) / 0.5)
         if t > 0:
@@ -91,13 +92,15 @@ def frame(spec, s):
     # 締め（10.5s〜）：橋渡しの一言＋CTA
     t = ease((s - 10.5) / 0.6)
     if t > 0:
-        cy = y + 70   # 箇条書きの3点目との間（2026-10-21 依頼者指示で 30→70）
         bn = load_banner(spec)
+        cy = y + 70   # 箇条書きの3点目との間（2026-10-21 依頼者指示で 30→70）
+        if bn is not None and BANNER_BOTTOM - cy < bn.height:
+            cy = y + 36   # 場所が足りない日だけ間を詰める（バーは省かれる）
         # 橋渡しの一言（detail.cta）は、バナーがある場合は出さない（2026-10-21 依頼者決定「キャッチフレーズはなしで」。橋渡しはバナーとキャプションが担う）
         if bn is None:
             d.text((64, cy), det.get("cta", ""), font=m.sans(44, "Bold"), fill=blend(BG, INK, t)); cy += 74
-        room = H - 250 - cy   # 出典の上までに収める
-        if bn is not None and room >= 180:
+        room = BANNER_BOTTOM - cy   # 案内行・出典の上までに収める
+        if bn is not None and room >= 200:
             if bn.height > room:
                 bn = bn.resize((int(bn.width * room / bn.height), room), Image.LANCZOS)
             # バナーは下寄せ（出典の少し上に下端をそろえる。2026-10-21 依頼者指示「もうちょっと下に」）
@@ -109,6 +112,9 @@ def frame(spec, s):
                 d.rounded_rectangle([(W - bw) // 2, gy - 2, (W + bw) // 2, gy + 2], radius=2, fill=blend(BG, LINE, t))
             bx = (W - bn.width) // 2; by = top + int((1 - t) * 40)
             im.paste(Image.blend(Image.new("RGB", bn.size, BG), bn, t), (bx, by))
+            # リール内はタップできないため、予約の入口を明記（2026-10-21 依頼者決定）
+            msg = "ご予約はプロフィールのリンクから"; f = m.sans(32)
+            tw = d.textlength(msg, font=f); d.text(((W - tw) / 2, by + bn.height + 16), msg, font=f, fill=blend(BG, SUB, t))
         else:
             m.pill(d, 64, cy, spec.get("cta_pill", "初回スイングdock｜目安60分"), blend(BG, SAGE, t), m.sans(34, "Bold"), h=72); cy += 90
             d.text((64, cy), "詳細・ご予約はプロフィールのリンクから", font=m.sans(32), fill=blend(BG, SUB, t))

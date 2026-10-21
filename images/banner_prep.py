@@ -13,6 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "photos", "banners"); OUT = os.path.join(SRC, "prepped")
 BG = np.array([0xE8, 0xDF, 0xD3], float)
 LINE = np.array([0xC4, 0xB6, 0xA3], float)
+GREEN = np.array([0x4F, 0x6B, 0x57], float)   # 予約ボタンの色（2026-10-21 依頼者決定「ボタンはグリーンで」）
 WIDTH = 952
 
 def prep(path):
@@ -22,6 +23,17 @@ def prep(path):
     diff = bg_l - lum
     a = np.clip((diff - 28) / 30.0, 0, 1)[..., None]   # 背景・装飾の円（差15〜25）→ 0、文字・ボタン → 1
     out = BG * (1 - a) + im * a
+    # 予約ボタン（焦げ茶の角丸）をグリーンに。最も大きい濃色のかたまり＝ボタンとみなし、その範囲だけ塗り替える
+    from scipy import ndimage
+    dark = lum < 80
+    lab, n = ndimage.label(dark)
+    if n:
+        sizes = ndimage.sum(dark, lab, range(1, n + 1)); k = int(np.argmax(sizes)) + 1
+        ys_, xs_ = np.where(lab == k); p = 4
+        y0, y1, x0, x1 = max(ys_.min() - p, 0), ys_.max() + p + 1, max(xs_.min() - p, 0), xs_.max() + p + 1
+        sub = lum[y0:y1, x0:x1]; l_dark = np.percentile(sub[lab[y0:y1, x0:x1] == k], 50)
+        tt = np.clip((bg_l - sub) / (bg_l - l_dark), 0, 1)[..., None]   # 地＝1→グリーン、白文字・外側＝0→ベージュ
+        out[y0:y1, x0:x1] = BG * (1 - tt) + GREEN * tt
     # 見出し下の区切り線（円と同じ薄さのため上で消える）を、配色ルールの罫線色 #C4B6A3 で同じ位置に引き直す
     h, w = diff.shape; c0, c1 = int(w * 0.2), int(w * 0.8)
     hits = [y for y in range(h) if 8 < diff[y, c0:c1].mean() < 30 and diff[y, c0:c1].std() < 4]
