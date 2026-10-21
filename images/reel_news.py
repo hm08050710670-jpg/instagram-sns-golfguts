@@ -21,6 +21,9 @@ def blend(a, b, t):
 
 LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
 LOGO_H = 72
+BANNER_BOTTOM = H - 262   # 出典（H-230）の上
+GAP_BAR_MIN = 150         # 空きがこれ以上ならバーを入れる
+BAR_W = 160
 BANNER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "banners", "prepped")
 # banner_01「最初の60分で、変わる。」は brand_guide の禁止表現（60分で変わる＝効果の保証）に当たるため使わない（2026-10-21）
 BANNER_EXCLUDE = {"banner_01_60min.png"}
@@ -97,7 +100,14 @@ def frame(spec, s):
         if bn is not None and room >= 180:
             if bn.height > room:
                 bn = bn.resize((int(bn.width * room / bn.height), room), Image.LANCZOS)
-            bx = (W - bn.width) // 2; by = cy + int((1 - t) * 40)
+            # バナーは下寄せ（出典の少し上に下端をそろえる。2026-10-21 依頼者指示「もうちょっと下に」）
+            top = max(cy, BANNER_BOTTOM - bn.height)
+            gap = top - y   # 箇条書きの下端からバナー上端までの空き
+            if gap >= GAP_BAR_MIN:
+                # 空きが目立つときは区切りのバーを入れる（2026-10-21 依頼者指示）
+                gy = y + gap // 2; bw = int(BAR_W * t)
+                d.rounded_rectangle([(W - bw) // 2, gy - 2, (W + bw) // 2, gy + 2], radius=2, fill=blend(BG, LINE, t))
+            bx = (W - bn.width) // 2; by = top + int((1 - t) * 40)
             im.paste(Image.blend(Image.new("RGB", bn.size, BG), bn, t), (bx, by))
         else:
             m.pill(d, 64, cy, spec.get("cta_pill", "初回スイングdock｜目安60分"), blend(BG, SAGE, t), m.sans(34, "Bold"), h=72); cy += 90
