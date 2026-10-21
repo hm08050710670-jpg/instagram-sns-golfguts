@@ -780,74 +780,6 @@
  {
   "date": "stock",
   "kind": "reel",
-  "label": "【ストック】初回スイングdockの流れ（リール）",
-  "images": [
-   "stock_01.mp4",
-   "stock_01_cover.jpg"
-  ],
-  "caption": "初回スイングdockの60分は、こんな流れです。\nカウンセリング → スイング撮影・分析 → 体験レッスン → 今後のプラン相談。\n\n初心者の方も受講できます。クラブ・シューズ・グローブは無料レンタル。入会は任意、入会金はありません。\n\n「何が悪いか分からない」まま来ていただいて大丈夫です。それを一緒に確認する時間です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS",
-  "needs_hori": false,
-  "approved": true,
-  "approved_by": "依頼者方針（未承認日の自動差し替え用）",
-  "status": "pending",
-  "ig_media_id": "",
-  "posted_at": "",
-  "approved_hashes": {
-   "stock_01.mp4": "f4aaa6e5c8a23692d5e742850f518297ec4afb63889331a1b75978fa98fef974",
-   "stock_01_cover.jpg": "e44fa0d84534c92f5dbaeb8774d50a4d6ec023b3d931a7545222620d6d203e40"
-  },
-  "approval_history": [
-   {
-    "version": 1,
-    "approved_at": "2026-10-21T16:40:38+09:00",
-    "approver": "依頼者",
-    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
-    "hashes": {
-     "stock_01.mp4": "f4aaa6e5c8a23692d5e742850f518297ec4afb63889331a1b75978fa98fef974",
-     "stock_01_cover.jpg": "e44fa0d84534c92f5dbaeb8774d50a4d6ec023b3d931a7545222620d6d203e40"
-    }
-   }
-  ],
-  "approval_version": 1
- },
- {
-  "date": "stock",
-  "kind": "reel",
-  "label": "【ストック】こんな相談で来てください（リール）",
-  "images": [
-   "stock_02.mp4",
-   "stock_02_cover.jpg"
-  ],
-  "caption": "初回スイングdockで、よくいただく相談です。\n\nドライバーが曲がる理由を知りたい／アイアンのダフリ・トップを減らしたい／何を練習すればいいか分からない／100切り・90切りに向けて整理したい。\n\nどれも、まずスイング映像と弾道データで「今、何が起きているか」を確認するところから始めます。\n恵比寿ガーデンプレイスから徒歩1分、完全個室のマンツーマンです。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS",
-  "needs_hori": false,
-  "approved": true,
-  "approved_by": "依頼者方針（未承認日の自動差し替え用）",
-  "status": "pending",
-  "ig_media_id": "",
-  "posted_at": "",
-  "approved_hashes": {
-   "stock_02.mp4": "802973ec83b619cd107c4301251295fdf30caae9e294493543647238ee80dec9",
-   "stock_02_cover.jpg": "23dce9e2ee7dc6a9ddee99a5002091a526c2e4b42b809d45187f64b2e642726f"
-  },
-  "approval_history": [
-   {
-    "version": 1,
-    "approved_at": "2026-10-21T16:40:38+09:00",
-    "approver": "依頼者",
-    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
-    "hashes": {
-     "stock_02.mp4": "802973ec83b619cd107c4301251295fdf30caae9e294493543647238ee80dec9",
-     "stock_02_cover.jpg": "23dce9e2ee7dc6a9ddee99a5002091a526c2e4b42b809d45187f64b2e642726f"
-    }
-   }
-  ],
-  "approval_version": 1
- },
- {
-  "date": "stock",
-  "kind": "reel",
   "label": "【ストック】雑学｜クラブは14本まで（リール）",
   "images": [
    "stock_03.mp4",
@@ -874,40 +806,6 @@
     "hashes": {
      "stock_03.mp4": "153fefbef273c3271f5f4ce6ea7dabf844f942155b77e70558dc31f529d0735c",
      "stock_03_cover.jpg": "12dc2334602cb08651cbf11ea5f8471b6522fc341eee339910d017205f9b77e4"
-    }
-   }
-  ],
-  "approval_version": 1
- },
- {
-  "date": "stock",
-  "kind": "reel",
-  "label": "【ストック】初回の持ち物・レンタル（リール）",
-  "images": [
-   "stock_04.mp4",
-   "stock_04_cover.jpg"
-  ],
-  "caption": "初回スイングdockは、手ぶらで来ていただけます。\n\nクラブ・シューズ・グローブは無料レンタル。レンタルシューズをお使いの場合は、靴下だけご持参ください（靴下のレンタル・販売はありません）。\n受付で申込書の記入が5〜10分ほどあります。お支払いは当日、受付で現金またはクレジットカード（一括のみ）です。\n\n初心者の方も受講できます。受講後の入会は任意で、入会金・月会費はありません。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ初心者",
-  "needs_hori": false,
-  "approved": true,
-  "approved_by": "依頼者決定（2026-10-21：いつでも使えるストック投稿）",
-  "status": "pending",
-  "ig_media_id": "",
-  "posted_at": "",
-  "approved_hashes": {
-   "stock_04.mp4": "9250fffcba06fea196bfc331e9ae7b404647c845988e9773d0256223b916292b",
-   "stock_04_cover.jpg": "6ea7a7a9d6c77dc01767803e53fbedfae30fe6c740b44b4f9646f65f4b0011f7"
-  },
-  "approval_history": [
-   {
-    "version": 1,
-    "approved_at": "2026-10-21T16:40:38+09:00",
-    "approver": "依頼者",
-    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
-    "hashes": {
-     "stock_04.mp4": "9250fffcba06fea196bfc331e9ae7b404647c845988e9773d0256223b916292b",
-     "stock_04_cover.jpg": "6ea7a7a9d6c77dc01767803e53fbedfae30fe6c740b44b4f9646f65f4b0011f7"
     }
    }
   ],
