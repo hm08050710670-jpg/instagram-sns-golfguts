@@ -19,6 +19,33 @@ def blend(a, b, t):
     a = Image.new("RGB", (1, 1), a).getpixel((0, 0)); b = Image.new("RGB", (1, 1), b).getpixel((0, 0))
     return tuple(int(a[i] + (b[i] - a[i]) * t) for i in range(3))
 
+BANNER_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "banners", "prepped")
+# banner_01「最初の60分で、変わる。」は brand_guide の禁止表現（60分で変わる＝効果の保証）に当たるため使わない（2026-10-21）
+BANNER_EXCLUDE = {"banner_01_60min.png"}
+_banner_cache = {}
+
+def banner_enabled():
+    try:
+        p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "automation", "features.json")
+        return bool(json.load(open(p, encoding="utf-8")).get("reel_banner"))
+    except Exception:
+        return False
+
+def pick_banner(seed):
+    """photos/banners/prepped/*.png から日付で1枚選ぶ（BGMとは別の順番）。無ければ None"""
+    import glob
+    files = [f for f in sorted(glob.glob(os.path.join(BANNER_DIR, "*.png"))) if os.path.basename(f) not in BANNER_EXCLUDE]
+    if not files: return None
+    return files[(sum(map(ord, str(seed))) * 7 + 3) % len(files)]
+
+def load_banner(spec):
+    """spec["banner"] があればそれ（"none" で無し）、無ければ日付で選ぶ。features.json の reel_banner が false なら None"""
+    if not banner_enabled() or spec.get("banner") == "none": return None
+    path = os.path.join(BANNER_DIR, spec["banner"]) if spec.get("banner") else pick_banner(spec.get("date", ""))
+    if not path or not os.path.exists(path): return None
+    if path not in _banner_cache: _banner_cache[path] = Image.open(path).convert("RGB")
+    return _banner_cache[path]
+
 def frame(spec, s):
     """s = 秒"""
     im = Image.new("RGB", (W, H), BG); d = ImageDraw.Draw(im)
@@ -61,8 +88,16 @@ def frame(spec, s):
     if t > 0:
         cy = y + 30
         d.text((64, cy), det.get("cta", ""), font=m.sans(44, "Bold"), fill=blend(BG, INK, t)); cy += 74
-        m.pill(d, 64, cy, spec.get("cta_pill", "初回スイングdock｜目安60分"), blend(BG, SAGE, t), m.sans(34, "Bold"), h=72); cy += 90
-        d.text((64, cy), "詳細・ご予約はプロフィールのリンクから", font=m.sans(32), fill=blend(BG, SUB, t))
+        bn = load_banner(spec)
+        room = H - 250 - cy   # 出典の上までに収める
+        if bn is not None and room >= 180:
+            if bn.height > room:
+                bn = bn.resize((int(bn.width * room / bn.height), room), Image.LANCZOS)
+            bx = (W - bn.width) // 2; by = cy + int((1 - t) * 40)
+            im.paste(Image.blend(Image.new("RGB", bn.size, BG), bn, t), (bx, by))
+        else:
+            m.pill(d, 64, cy, spec.get("cta_pill", "初回スイングdock｜目安60分"), blend(BG, SAGE, t), m.sans(34, "Bold"), h=72); cy += 90
+            d.text((64, cy), "詳細・ご予約はプロフィールのリンクから", font=m.sans(32), fill=blend(BG, SUB, t))
     # 出典（常時・小さく）
     if card.get("source"):
         m.text_lines(d, m.wrap("出典：" + card["source"], 34), 64, H - 230, m.sans(26), SUB, 36)
@@ -106,4 +141,5 @@ def render(spec, out, seconds=15, bgm=None):
 if __name__ == "__main__":
     spec = json.load(open(sys.argv[1], encoding="utf-8")); out = sys.argv[2]
     bgm = pick_bgm(spec.get("date", out))
-    render(spec, out, bgm=bgm); print("wrote", out, "bgm:", os.path.basename(bgm) if bgm else "none")
+    bn = (os.path.join(BANNER_DIR, spec["banner"]) if spec.get("banner") else pick_banner(spec.get("date", ""))) if banner_enabled() else None
+    render(spec, out, bgm=bgm); print("wrote", out, "bgm:", os.path.basename(bgm) if bgm else "none", "banner:", os.path.basename(bn) if bn else "none")

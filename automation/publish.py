@@ -24,6 +24,7 @@ Instagram 自動投稿スクリプト（Facebookページ連携・ページア�
   - 同じ日に status == "posted" が既にあれば二重投稿しない
 """
 import argparse, datetime as dt, json, os, sys, time, urllib.parse, urllib.request
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 GRAPH = "https://graph.facebook.com/v21.0"
 JST = dt.timezone(dt.timedelta(hours=9))
@@ -119,6 +120,26 @@ def main():
         if r: print("  未承認のため、ストック投稿に差し替えます。")
         r = stock[0]; r["posted_for"] = date
         print(f"  STOCK [{r['kind']}] {r['label']}  images={len(r['images'])}")
+
+    # Instagram 2.0 段階1・2：承認ファイルの指紋照合と投稿前検証（features.json で ON/OFF）
+    try:
+        import integrity
+        F = integrity.features()
+        if F.get("approval_hash") or F.get("preflight"):
+            ok, msgs = integrity.preflight(r, check_hash=bool(F.get("approval_hash")), check_media=bool(F.get("preflight")))
+            for m in msgs: print("  [検証]", m)
+            if not ok and r["date"] != "stock":
+                print("  検証で不合格。この投稿は出さず、ストックに差し替えます。")
+                for x in [x for x in S if x["date"] == "stock" and x["approved"] and x["status"] != "posted"] if a.slot == "noon" else []:
+                    ok2, msgs2 = integrity.preflight(x, check_hash=bool(F.get("approval_hash")), check_media=bool(F.get("preflight")))
+                    for m in msgs2: print("  [検証:ストック]", m)
+                    if ok2:
+                        r["preflight_failed"] = msgs; x["posted_for"] = date; r = x; ok = True
+                        print(f"  STOCK [{r['kind']}] {r['label']}"); break
+            if not ok:
+                sys.exit("投稿前検証で不合格のため投稿しません: " + " / ".join(m for m in msgs if "OK" not in m and "一致" not in m))
+    except ImportError:
+        print("  [検証] integrity.py が見つからないため検証をスキップ")
 
     base = os.environ.get("PAGES_BASE_URL", "").rstrip("/") + "/"
     urls = [base + img for img in r["images"]]

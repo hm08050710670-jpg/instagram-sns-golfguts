@@ -1,0 +1,8 @@
+{
+ "_comment": "Instagram 2.0 の新機能スイッチ。false にすると従来どおりの動作に戻る（2026-10-21 導入）",
+ "approval_hash": true,
+ "preflight": true,
+ "analytics": false,
+ "insights": false,
+ "reel_banner": true
+}

@@ -70,6 +70,10 @@ def approve():
             print("既存の当日分をストックへ退避:", r["label"])
     stamp = f"依頼者（{dt.datetime.now().strftime('%Y-%m-%d %H:%M')} OK）"
     for r in recs: r["approved"] = True; r["approved_by"] = stamp
+    # Instagram 2.0 段階1：承認したファイルの指紋を記録（投稿直前に照合される）
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import integrity
+    for r in recs: integrity.stamp_approval(r, "依頼者", "Claude定期タスクのチャットで「OK」")
     S = [r for r in S if not (r["date"] == d and r["status"] != "posted")] + recs
     S.sort(key=lambda r: (r["date"] == "stock", r["date"], r.get("slot", "noon")))
     save(S); os.remove(CAND); print("承認:", d, [r["label"] for r in recs])
