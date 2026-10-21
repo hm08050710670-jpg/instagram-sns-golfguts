@@ -21,6 +21,7 @@ def blend(a, b, t):
 
 LOGO_FULL = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "photos", "logo", "golfguts_logo_brown.png")
 LOGO_H = 112   # 2026-10-21 依頼者決定「Aでもう少しだけ大きく」（A=100）
+LOGO_RIGHT = 40   # 右端からの余白（2026-10-21 依頼者指示「もう少し右に」。64→40）
 LOGO_Y = 117   # ラベル（y=120・高さ66）と中心をそろえる
 BANNER_BOTTOM = H - 130   # ロゴを右上へ移し、空いた下端までバナーを下げる（2026-10-21 依頼者指示）。下に案内1行
 BANNER_W, BANNER_H = 952, 290   # バナーは全種類この枠にそろえる（2026-10-21 依頼者指示「同じ高さ・同じ大きさ」）
@@ -83,7 +84,8 @@ def paste_logo(im, spec):
     """公式ロゴを右上に。高さは LOGO_H（spec["logo_h"] で試し用に上書き可）。左上のラベルと縦の中心をそろえる"""
     h = int(spec.get("logo_h", LOGO_H))
     lg = Image.open(LOGO_FULL).convert("RGBA"); lg = lg.resize((round(lg.width * h / lg.height), h), Image.LANCZOS)
-    im.paste(lg, (W - 64 - lg.width, 153 - h // 2), lg)
+    lg = lg.crop(lg.getbbox())   # 大きさは承認済みのまま、透明の余白だけ除いて右端の位置を正確に
+    im.paste(lg, (W - LOGO_RIGHT - lg.width, 153 - lg.height // 2), lg)
 
 def frame_article(spec, s):
     """s = 秒"""
