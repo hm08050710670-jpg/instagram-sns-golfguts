@@ -3,11 +3,15 @@ name: Instagram daily post
 on:
   schedule:
     # 昼の投稿（目標 12:00 JST 前後）。GitHub の schedule は混雑時に遅延・欠落するため
-    # （2026-10-21 初回の 03:00 UTC が起動せず手動実行した）、00分を避けた時刻で3回起動する。
+    # （2026-10-21 初回の 03:00 UTC が起動せず手動実行した。2026-10-22 は3回とも約5時間遅れで起動し、
+    # 当時の「実行時刻で枠を判定」する仕様のため全部「夕方枠＝予定なし」で空振りした）、
+    # 本命は Claude の定期タスク（毎日 11:45 JST に workflow_dispatch で live 起動）。ここの cron は予備。
+    # 枠（noon/evening）は実行時刻ではなく起動元の cron から決め、投稿ウィンドウ（昼 11:30〜13:30 JST）を
+    # 外れた定期起動は投稿せず Issue を立てる（遅れて夕方・深夜に出るのを防ぐ）。
     # publish.py は投稿済みなら何もしないので、最初に成功した1回だけ投稿され、残りは空振りする。
-    - cron: "41 2 * * *"   # 11:41 JST（本命）
-    - cron: "23 3 * * *"   # 12:23 JST（予備1）
-    - cron: "47 4 * * *"   # 13:47 JST（予備2）
+    - cron: "41 2 * * *"   # 11:41 JST（予備1）
+    - cron: "23 3 * * *"   # 12:23 JST（予備2）
+    - cron: "13 4 * * *"   # 13:13 JST（予備3。13:30 を過ぎていれば見送り）
     # 18:00 JST 枠（当面未使用。slot: evening の投稿がある日だけ動く）
     - cron: "11 9 * * *"
   workflow_dispatch:
@@ -43,7 +47,10 @@ jobs:
       PAGES_BASE_URL: https://hm08050710670-jpg.github.io/instagram-sns-golfguts/posts/
       POST_MODE: ${{ vars.POST_MODE || 'dry-run' }}   # リポジトリ変数 POST_MODE=live にすると本番投稿
     steps:
+      # ref: main を明示：待ち行列で待った起動が「起動時点の古いコミット」を取り出して、直前の投稿記録を
+      # 見ずに二重投稿するのを防ぐ（既定では起動時の SHA が使われる）
       - uses: actions/checkout@v4
+        with: { ref: main }
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
 
@@ -58,8 +65,10 @@ jobs:
           ARGS=""
           if [ -n "$DATE" ]; then ARGS="--date $DATE"; else ARGS="--today"; fi
           SLOT="${{ github.event.inputs.slot }}"
+          CRON="${{ github.event.schedule }}"
+          # 枠は起動元の cron で決める（実行時刻で決めると、起動が遅れた日に枠を取り違えて空振りする）
           if [ -z "$SLOT" ]; then
-            H=$(date -u +%H); if [ "$H" -ge 6 ] && [ "$H" -lt 18 ]; then SLOT=evening; else SLOT=noon; fi
+            if [ "$CRON" = "11 9 * * *" ]; then SLOT=evening; else SLOT=noon; fi
           fi
           ARGS="$ARGS --slot $SLOT"
           case "$MODE" in
@@ -67,11 +76,40 @@ jobs:
             check) ARGS="$ARGS --check" ;;
             *) ARGS="$ARGS --dry-run" ;;
           esac
+          # 投稿ウィンドウ（定期起動のみ）：昼 11:30〜13:30 JST／夕方 17:45〜19:30 JST。
+          # 外れていたら投稿しない（late=1）。手動起動（workflow_dispatch）は人の判断なので対象外
+          LATE=0; NOW=$(TZ=Asia/Tokyo date +%H%M); NOW=$((10#$NOW))
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            case "$SLOT" in noon) LO=1130; HI=1330;; *) LO=1745; HI=1930;; esac
+            if [ "$NOW" -lt "$LO" ] || [ "$NOW" -gt "$HI" ]; then LATE=1; fi
+          fi
+          echo "now JST=$(TZ=Asia/Tokyo date '+%H:%M') cron='$CRON' slot=$SLOT late=$LATE" | tee -a "$GITHUB_STEP_SUMMARY"
           echo "args=$ARGS" >> $GITHUB_OUTPUT
           echo "mode=$MODE" >> $GITHUB_OUTPUT
           echo "slot=$SLOT" >> $GITHUB_OUTPUT
+          echo "late=$LATE" >> $GITHUB_OUTPUT
+
+      - name: Late scheduled run — do not post; open an issue if today's post is still unposted
+        if: steps.args.outputs.late == '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const S = JSON.parse(fs.readFileSync('automation/schedule.json','utf8'));
+            const today = new Date(Date.now() + 9*3600*1000).toISOString().slice(0,10);
+            const slot = '${{ steps.args.outputs.slot }}';
+            const r = S.find(x => x.date === today && (x.slot || 'noon') === slot);
+            const posted = S.some(x => (x.date === today || x.posted_for === today) && (x.slot || 'noon') === slot && x.status === 'posted');
+            const now = new Date(Date.now() + 9*3600*1000).toISOString().slice(11,16);
+            core.summary.addRaw(`late run at ${now} JST (slot ${slot}); posted today: ${posted}`).write();
+            if (posted || (slot === 'evening' && !r)) return;   // 既に投稿済み（本命の Claude 起動が成功）か、夕方枠に予定なし → 何もしない
+            await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo,
+              title: `定期起動が遅延し、投稿ウィンドウ外のため投稿を見送りました（${today} ${slot} / 起動 ${now} JST）`,
+              body: `GitHub の schedule が遅延して ${now} JST に起動したため、この起動では投稿していません（遅れて出すのを防ぐ仕様）。\n\n当日分：${r ? r.label + '（approved=' + r.approved + ', status=' + r.status + '）' : '予定なし（ストック対象）'}\n\n本命の Claude 定期タスク（11:45 JST の workflow_dispatch）も投稿できていない場合は、依頼者の判断で手動起動（mode=live, slot=${slot}, date=${today}）するか、見送ってください。`,
+              labels: ['instagram'] });
 
       - name: Probe public image URL (Pages)
+        if: steps.args.outputs.late != '1'
         run: |
           URL="${PAGES_BASE_URL}w1_carousel_01.jpg"
           CODE=$(curl -s -o /dev/null -w "%{http_code}" -I "$URL")
@@ -79,6 +117,7 @@ jobs:
           test "$CODE" = "200"
 
       - name: Publish
+        if: steps.args.outputs.late != '1'
         id: pub
         shell: bash {0}
         run: |
@@ -121,7 +160,7 @@ jobs:
               body: "```\n" + log + "\n```\n\n**至急**：schedule.json の当日分を status: posted にして push してください。記録が無いと次の起動で二重投稿になります。", labels: ['instagram'] });
 
       - name: Open issue on failure or unapproved
-        if: steps.pub.outputs.code != '0'
+        if: steps.args.outputs.late != '1' && steps.pub.outputs.code != '0'
         uses: actions/github-script@v7
         with:
           script: |
@@ -133,5 +172,5 @@ jobs:
               body: "```\n" + log + "\n```\n\n対応：schedule.json の approved を確認するか、ログのエラーを確認してください。", labels: ['instagram'] });
 
       - name: Fail job if error (not unapproved)
-        if: steps.pub.outputs.code != '0' && steps.pub.outputs.code != '2'
+        if: steps.args.outputs.late != '1' && steps.pub.outputs.code != '0' && steps.pub.outputs.code != '2'
         run: exit 1
