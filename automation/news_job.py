@@ -42,7 +42,8 @@ def draft(path):
     im.convert("RGB").save("../docs/posts/" + detail["file"].replace(".png", ".jpg"), quality=90)
     # リール版（BGM付き）も生成
     reel_out = f"out/{tag}_reel.mp4"
-    json.dump(dict(c, date=d), open("_cand_reel.json", "w", encoding="utf-8"), ensure_ascii=False)
+    # 左上のピルは短い「ゴルフニュース」固定（長い label だと右上のロゴと重なる。2026-10-22 確認）。schedule 側の label は c["label"] のまま
+    json.dump(dict(c, date=d, label=c.get("pill_label", "ゴルフニュース")), open("_cand_reel.json", "w", encoding="utf-8"), ensure_ascii=False)
     subprocess.run([sys.executable, "reel_news.py", "_cand_reel.json", reel_out], check=True)
     os.remove("_cand_reel.json")
     import shutil; shutil.copy(reel_out, "../docs/posts/" + os.path.basename(reel_out))
