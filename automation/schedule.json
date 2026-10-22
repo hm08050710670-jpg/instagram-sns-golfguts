@@ -60,7 +60,8 @@
     }
    }
   ],
-  "approval_version": 1
+  "approval_version": 1,
+  "note": "18:58 JST に投稿後、依頼者が同日アーカイブ（cron遅延の対応で行き違い）。再投稿しない"
  },
  {
   "date": "2026-10-23",
