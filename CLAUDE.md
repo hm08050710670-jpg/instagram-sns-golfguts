@@ -327,7 +327,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 
 ### 次に決めること
 - 10/21 初回投稿：schedule の 03:00 UTC が起動せず（GitHub 側の遅延・欠落）、12:16 JST に手動 live 実行で投稿済み（media_id 18360260653221878）。同時 push で記録コミットが拒否されたため schedule.json は手で posted に更新。対策：cron を 00分回避＋3回起動＋直列化、記録 push の rebase 再試行、記録失敗時の Issue 化（2026-10-21）
-- 10/22：cron が約5時間遅延し昼の投稿が空振り。依頼者の「今日は不要」の直前に作業者が手動起動してしまい 18:58 JST に TGL リールが投稿された（media_id 18154976389521871）。アーカイブするかは依頼者判断待ち
+- 10/22：cron が約5時間遅延し昼の投稿が空振り。依頼者の「今日は不要」の直前に作業者が手動起動してしまい 18:58 JST に TGL リールが投稿された（media_id 18154976389521871）。依頼者が同日アーカイブ済み。依頼者指示「明日から完全自動投稿で必ず」
 - 10/23 以降、11:45 JST の Claude 定期タスク（workflow_dispatch）で投稿され、通知が届くことを確認する。予備 cron の遅延時に「投稿ウィンドウ外」の Issue が立たない（＝本命が成功している）ことも確認
 - 10/29以降の翌週分を 10/26 までに作成・承認
 - 堀コーチ確認：リールAのセリフ、「上達しないときに最初に確認する3つ」の妥当性
@@ -349,7 +349,7 @@ LP訴求：「今のスイングを確認し、何から取り組むかを整理
 - `automation/news_job.py`／`automation/DAILY_NEWS.md`：毎朝のニュース候補の登録・承認・破棄と、その手順書
 - `automation/health.py`：週次ヘルスチェック（`.github/workflows/instagram-health.yml`）
 - `automation/SETUP.md`：Metaアプリ・ページトークン・Secrets（IG_USER_ID／IG_ACCESS_TOKEN／FB_PAGE_ID）の手順
-- `.github/workflows/instagram-daily.yml`：毎日 02:41／03:23／04:47 UTC（11:41／12:23／13:47 JST）に起動し、未投稿なら投稿（投稿済みなら何もしない。concurrency で直列化）。POST_MODE 変数が live のとき本番投稿。未承認・失敗時は Issue を自動作成
+- `.github/workflows/instagram-daily.yml`：本命は Claude 定期タスク（11:45 JST）の workflow_dispatch（mode=live, slot=noon, date=今日）。予備の cron は 02:41／03:23／04:13 UTC（11:41／12:23／13:13 JST）。枠は起動元の cron で判定し、定期起動が投稿ウィンドウ（昼 11:30〜13:30 JST）を外れたら投稿せず未投稿なら Issue。未投稿なら投稿（投稿済みなら何もしない。concurrency で直列化、checkout は ref: main）。POST_MODE 変数が live のとき本番投稿。未承認・失敗時は Issue を自動作成
 - `docs/posts/*.jpg`：自動投稿が参照する公開JPEG（images/out から生成）
 - リール：`kind: reel`（images[0]=MP4、images[1]=カバー）。`slot: evening` の投稿は 18:00 JST の実行で出る。撮影ありのリールは未着手
 - `docs/index.html`：初回スイングdock予約LP（GitHub Pagesの確認用公開は `/docs`）
