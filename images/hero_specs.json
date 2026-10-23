@@ -1,19 +1,6 @@
 [
  {
   "type": "hero",
-  "file": "news_1023_01.png",
-  "label": "ゴルフニュース",
-  "page": 1,
-  "total": 2,
-  "eyebrow": "USGA・R&A が新ルール案",
-  "title": "クラブは\n46インチ未満に？",
-  "art": "ruler46",
-  "art_dy": -20,
-  "sub": "ツアー向けのローカルルール案。ボール・ドライバー・長さの3点。",
-  "cta": "アマチュアへの影響は→"
- },
- {
-  "type": "hero",
   "file": "trivia_1026_01.png",
   "label": "ゴルフ雑学",
   "page": 1,
