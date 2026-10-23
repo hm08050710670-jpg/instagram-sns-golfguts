@@ -30,6 +30,13 @@ def save(S): json.dump(S, open(SCHED, "w", encoding="utf-8"), ensure_ascii=False
 def draft(path):
     c = json.load(open(path, encoding="utf-8"))
     d = c["date"]; tag = "news_" + d.replace("-", "")[4:]
+    # 同じ日付のファイル名が、既に承認済み（指紋記録あり）の投稿に使われていたら別名にする。
+    # 上書きすると承認済み投稿の指紋照合（integrity）が失敗し、昼の投稿が止まる（2026-10-23 確認：10/23 は事前承認済みのニュースが同名だった）
+    used = {f for r in load() for f in r.get("images", [])}
+    base = tag; n = 0
+    while any(x in used for x in (f"{tag}_reel.mp4", f"{tag}_01.jpg", f"{tag}.jpg")):
+        n += 1; tag = base + "bcdefg"[n - 1]
+    if tag != base: print("ファイル名の衝突を回避:", base, "→", tag)
     # 画像内の日付は必ず投稿日（c["date"]）から生成する（原稿側の eyebrow は無視）
     card = dict(c["card"], type="newscard", file=f"{tag}_01.png", label="ゴルフニュース", page=1, total=2, eyebrow=d.replace("-", "."))
     detail = dict(c["detail"], type="list", file=f"{tag}.png", label="ゴルフニュース", page=2, total=2)
