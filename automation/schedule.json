@@ -105,32 +105,38 @@
  {
   "date": "2026-10-24",
   "kind": "reel",
-  "label": "初回スイングdockとは（Q&A）（リール）",
+  "label": "ニュース｜アン・ソンジュが日本ツアー最後の大会で予選通過（リール）",
   "images": [
-   "reel_1024.mp4",
-   "reel_1024_cover.jpg"
+   "news_1024_reel.mp4",
+   "news_1024_01.jpg"
   ],
-  "caption": "初回スイングdockとは？\nカウンセリング → スイング撮影・分析 → 体験レッスン → 今後のプラン相談。目安60分、8,800円（税込）。\n\n「何が悪いか分からない」状態で来てください。それを一緒に確認する時間です。\nクラブ・シューズ・グローブは無料レンタル。入会は任意です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ初心者",
+  "caption": "日本ツアー通算28勝、賞金女王4度（2010・2011・2014・2018年）のアン・ソンジュ選手（韓国）が、日本ツアー最後の大会とした「NOBUTA GROUP マスターズGCレディース」（兵庫・マスターズゴルフ倶楽部、10月22〜25日）で予選を通過しました。第2日を終えて通算イーブンパー、カットライン上での決勝進出と報じられています。\n\n当初は「現役引退」と報じられましたが、その後、韓国では引退しないと本人が補足しており、区切りとなるのは日本のツアーです。2018年にこの大会で挙げた勝利が日本ツアー28勝目。その舞台で、25日の最終日を迎えます。\n\nなお第2日終了時点の首位は永井花奈選手（通算8アンダー）。1打差に6人が並ぶ混戦です。\n\n28勝を重ねたプロでも、予選通過をかけた1打があります。スコアを安定させる第一歩は、自分のスイングで今なにが起きているかを知ること。映像と弾道データで今の状態を確認し、次の練習で取り組むことを整理する。初回スイングdockは、そのための60分です。\n\n出典：GDO（2026年10月23日）https://news.golfdigest.co.jp/news/results/jlpga/article/196287/1/ ／e!Golf（10月24日）https://egolf.jp/tournews/259716/ ／e!Golf（10月22日）https://egolf.jp/tournews/259433/ ／ALBA Net（10月14日）https://www.alba.co.jp/articles/category/tour/jlpga/post/rvzu-u5opg3/\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフニュース #アンソンジュ #国内女子ツアー #JLPGA",
   "needs_hori": false,
   "approved": true,
-  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "approved_by": "依頼者（2026-10-24 01:33 OK）",
   "status": "pending",
   "ig_media_id": "",
   "posted_at": "",
+  "sources": [
+   "https://news.golfdigest.co.jp/news/results/jlpga/article/196287/1/",
+   "https://egolf.jp/tournews/259716/",
+   "https://egolf.jp/tournews/259433/",
+   "https://www.alba.co.jp/articles/category/tour/jlpga/post/rvzu-u5opg3/"
+  ],
   "approved_hashes": {
-   "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
-   "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+   "news_1024_reel.mp4": "d8bc7d91c12aad6fe3187428446dec013f8be7333bcb190d5126d9878f1f8e10",
+   "news_1024_01.jpg": "8e2e6ec8d4fe0d768601afd0d32476929c360e26d96ffd95c6f212ea7b1f2fd6"
   },
   "approval_history": [
    {
     "version": 1,
-    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approved_at": "2026-10-24T10:33:01+09:00",
     "approver": "依頼者",
-    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "method": "Claude定期タスクのチャットで「OK」",
     "hashes": {
-     "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
-     "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+     "news_1024_reel.mp4": "d8bc7d91c12aad6fe3187428446dec013f8be7333bcb190d5126d9878f1f8e10",
+     "news_1024_01.jpg": "8e2e6ec8d4fe0d768601afd0d32476929c360e26d96ffd95c6f212ea7b1f2fd6"
     }
    }
   ],
@@ -788,6 +794,40 @@
   "status": "pending",
   "ig_media_id": "",
   "posted_at": ""
+ },
+ {
+  "date": "2026-10-29",
+  "kind": "reel",
+  "label": "初回スイングdockとは（Q&A）（リール）",
+  "images": [
+   "reel_1024.mp4",
+   "reel_1024_cover.jpg"
+  ],
+  "caption": "初回スイングdockとは？\nカウンセリング → スイング撮影・分析 → 体験レッスン → 今後のプラン相談。目安60分、8,800円（税込）。\n\n「何が悪いか分からない」状態で来てください。それを一緒に確認する時間です。\nクラブ・シューズ・グローブは無料レンタル。入会は任意です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ初心者",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
+   "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
+     "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "stock",
