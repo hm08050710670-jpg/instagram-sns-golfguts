@@ -145,32 +145,37 @@
  {
   "date": "2026-10-25",
   "kind": "reel",
-  "label": "ギア｜クラブを変える前に（リール）",
+  "label": "ニュース｜桂川有人が63で単独首位、欧州ツアー最終日へ（リール）",
   "images": [
-   "reel_1025.mp4",
-   "reel_1025_cover.jpg"
+   "news_1025_reel.mp4",
+   "news_1025_01.jpg"
   ],
-  "caption": "新しいドライバーが気になる。でも、どれを選べばいいか分からない。\n\n選び方の基準のひとつは「自分がどんなミスをしているか」です。\n同じ「右に曲がる」でも、右に出てそのまま右へ／まっすぐ出てから右へ では原因が違う可能性があります。\n\nブログで、コブラOPTMシリーズの4モデルを「ミスの傾向」から整理しました。\n買い替えの前に、今のスイングで何が起きているかを確認するのも一つの順番です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ドライバー #ゴルフギア",
+  "caption": "欧州（DPワールド）ツアーの「ジェネシス選手権」（韓国・ウジョンヒルズCC、10月22〜25日）第3日、桂川有人選手（28）が8バーディー・ノーボギーの「63」をマーク。5打差10位から通算13アンダーの単独首位に立ち、最終日を迎えます。\n\n「63」は2006年に出たコース記録に並ぶスコア。2位は今季2勝のケーシー・ジャービス選手（南アフリカ）で2打差、3位タイにキム・シウ選手らが3打差で続きます。桂川選手はポイントランキング106位でこの週に入っており、来季のフル出場権（100位以内）がかかる最終戦でもあります。\n\n8つのバーディーを重ねながら、ボギーがひとつもない。調子のいい日のスイングと、崩れる日のスイング。その違いを自分の言葉で説明できる人は、実はあまり多くありません。映像と弾道データで今のスイングを確認し、次の練習で取り組むことを整理する。初回スイングdockは、そのための60分です。\n\n出典：GDO（2026年10月24日）https://news.golfdigest.co.jp/news/results/eupg/article/196336/1/ ／Golf Channel（10月24日）https://www.golfchannel.com/dp-world-tour/news/yuto-katsuragawa-ties-course-record-grabs-54-hole-lead-at-genesis-championship ／Golf Today（10月24日）https://golftoday.co.uk/genesis-championship-2026-r3-yuto-katsuragawa-equals-course-record/\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフニュース #桂川有人 #DPワールドツアー #ジェネシス選手権",
   "needs_hori": false,
   "approved": true,
-  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "approved_by": "依頼者（2026-10-25 02:38 OK）",
   "status": "pending",
   "ig_media_id": "",
   "posted_at": "",
+  "sources": [
+   "https://news.golfdigest.co.jp/news/results/eupg/article/196336/1/",
+   "https://www.golfchannel.com/dp-world-tour/news/yuto-katsuragawa-ties-course-record-grabs-54-hole-lead-at-genesis-championship",
+   "https://golftoday.co.uk/genesis-championship-2026-r3-yuto-katsuragawa-equals-course-record/"
+  ],
   "approved_hashes": {
-   "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
-   "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
+   "news_1025_reel.mp4": "c90ff4dfbe4cee5c0dcad0c2ddae9e0bdf7358c828615ffab738e4cce70d60d5",
+   "news_1025_01.jpg": "ab5718c9b4169b7576b6525eb4548851ee9941267b6d7a622a7ef91abc07df71"
   },
   "approval_history": [
    {
     "version": 1,
-    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approved_at": "2026-10-25T11:38:23+09:00",
     "approver": "依頼者",
-    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "method": "Claude定期タスクのチャットで「OK」",
     "hashes": {
-     "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
-     "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
+     "news_1025_reel.mp4": "c90ff4dfbe4cee5c0dcad0c2ddae9e0bdf7358c828615ffab738e4cce70d60d5",
+     "news_1025_01.jpg": "ab5718c9b4169b7576b6525eb4548851ee9941267b6d7a622a7ef91abc07df71"
     }
    }
   ],
@@ -273,6 +278,40 @@
     "hashes": {
      "reel_1028.mp4": "320f78d234074846ca82601de7e11a73985913f2574299a7c472263f41933f5f",
      "reel_1028_cover.jpg": "7ff07963def9d32827a9679362bc8270438604815a410984e8d01b66c9c310d8"
+    }
+   }
+  ],
+  "approval_version": 1
+ },
+ {
+  "date": "2026-10-29",
+  "kind": "reel",
+  "label": "初回スイングdockとは（Q&A）（リール）",
+  "images": [
+   "reel_1024.mp4",
+   "reel_1024_cover.jpg"
+  ],
+  "caption": "初回スイングdockとは？\nカウンセリング → スイング撮影・分析 → 体験レッスン → 今後のプラン相談。目安60分、8,800円（税込）。\n\n「何が悪いか分からない」状態で来てください。それを一緒に確認する時間です。\nクラブ・シューズ・グローブは無料レンタル。入会は任意です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ初心者",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
+   "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
+     "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
     }
    }
   ],
@@ -796,15 +835,15 @@
   "posted_at": ""
  },
  {
-  "date": "2026-10-29",
+  "date": "2026-10-30",
   "kind": "reel",
-  "label": "初回スイングdockとは（Q&A）（リール）",
+  "label": "ギア｜クラブを変える前に（リール）",
   "images": [
-   "reel_1024.mp4",
-   "reel_1024_cover.jpg"
+   "reel_1025.mp4",
+   "reel_1025_cover.jpg"
   ],
-  "caption": "初回スイングdockとは？\nカウンセリング → スイング撮影・分析 → 体験レッスン → 今後のプラン相談。目安60分、8,800円（税込）。\n\n「何が悪いか分からない」状態で来てください。それを一緒に確認する時間です。\nクラブ・シューズ・グローブは無料レンタル。入会は任意です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ初心者",
+  "caption": "新しいドライバーが気になる。でも、どれを選べばいいか分からない。\n\n選び方の基準のひとつは「自分がどんなミスをしているか」です。\n同じ「右に曲がる」でも、右に出てそのまま右へ／まっすぐ出てから右へ では原因が違う可能性があります。\n\nブログで、コブラOPTMシリーズの4モデルを「ミスの傾向」から整理しました。\n買い替えの前に、今のスイングで何が起きているかを確認するのも一つの順番です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ドライバー #ゴルフギア",
   "needs_hori": false,
   "approved": true,
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
@@ -812,8 +851,8 @@
   "ig_media_id": "",
   "posted_at": "",
   "approved_hashes": {
-   "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
-   "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+   "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
+   "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
   },
   "approval_history": [
    {
@@ -822,8 +861,8 @@
     "approver": "依頼者",
     "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
     "hashes": {
-     "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
-     "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+     "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
+     "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
     }
    }
   ],
