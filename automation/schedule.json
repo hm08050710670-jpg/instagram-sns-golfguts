@@ -184,32 +184,38 @@
  {
   "date": "2026-10-26",
   "kind": "reel",
-  "label": "雑学｜なぜ18ホール（リール）",
+  "label": "ニュース｜桂川有人が欧州ツアー2勝目、ランキング106位から来季出場権を確保（リール）",
   "images": [
-   "reel_1026.mp4",
-   "reel_1026_cover.jpg"
+   "news_1026_reel.mp4",
+   "news_1026_01.jpg"
   ],
-  "caption": "ゴルフはなぜ18ホールなのか。\n\n1764年、スコットランドのセント・アンドリュース オールドコースで、22ホールだったコースが18ホールに短縮されたのが始まりとされています（諸説あり）。\n当時は行きと帰りで同じグリーンを使う設計で、短すぎた最初の4ホールを2つにまとめた結果、18ホールになったと伝えられています。\nその後、「1ラウンド＝18ホール」が規則に書かれ、各地のコースが倣っていきました。\n\n18ホールを同じリズムで回りきるには、「いつもの1球」の再現性が効いてきます。自分のスイングのクセを知るところから。\n\n出典：St Andrews Links／The R&A の歴史資料をもとに要約\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ雑学 #ゴルフの歴史",
+  "caption": "欧州（DPワールド）ツアーの「ジェネシス選手権」（韓国・ウジョンヒルズCC、10月22〜25日）は、桂川有人選手（28）が最終日「71」、通算13アンダーで2打差の逃げ切り優勝。2024年4月のISPS HANDA選手権以来、2年ぶりの欧州ツアー2勝目です。\n\n2位はフレデリック・ラクロワ選手とマルタン・クブラ選手（ともにフランス）。桂川選手はポイントランキング106位でこの最終戦に入り、来季のフル出場権（100位以内）がかかっていましたが、優勝で28位まで浮上。来季の出場権に加え、上位選手だけが出場するプレーオフ（アブダビ）への出場も決めました。\n\n3日目にコース記録に並ぶ「63」を出したあと、最終日はイーブンパーの「71」。スコアを伸ばす日ではなく、崩さずにまとめた日で勝ち切りました。伸びる日と崩れない日では、見るべきところが違います。自分のスイングのどこが安定していて、どこで崩れやすいのか。映像と弾道データで今の状態を確認し、次の練習で取り組むことを整理する。初回スイングdockは、そのための60分です。\n\n出典：GDO（2026年10月25日）https://news.golfdigest.co.jp/news/results/eupg/article/196371/1/ ／PGA TOUR（10月25日）https://www.pgatour.com/article/news/latest/2026/10/25/dp-world-tour-korea-round-4-genesis-championship-scores-leaderboard-si-woo-kim-ryan-fox ／Golf Monthly（10月25日）https://www.golfmonthly.com/news/key-takeaways-yuto-katsuragawa-genesis-championship-win\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフニュース #桂川有人 #DPワールドツアー #ジェネシス選手権",
   "needs_hori": false,
   "approved": true,
-  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "approved_by": "依頼者（2026-10-26 01:26 OK）",
   "status": "pending",
   "ig_media_id": "",
   "posted_at": "",
+  "sources": [
+   "https://news.golfdigest.co.jp/news/results/eupg/article/196371/1/",
+   "https://www.pgatour.com/article/news/latest/2026/10/25/dp-world-tour-korea-round-4-genesis-championship-scores-leaderboard-si-woo-kim-ryan-fox",
+   "https://www.golfmonthly.com/news/key-takeaways-yuto-katsuragawa-genesis-championship-win",
+   "https://www.golfmagic.com/tour/dp-world-tour/genesis-championship-final-leaderboard-and-prize-money-payouts-yuto-katsuragawa"
+  ],
   "approved_hashes": {
-   "reel_1026.mp4": "cc737a1c4c956d8f89daa2d5610fd39a3bb5c52867ef697012cd12daf02d4d4f",
-   "reel_1026_cover.jpg": "f80f60c52afc3339386b179b6b97f8d86bdbf19c5a5cf4a573774edda8523341"
+   "news_1026_reel.mp4": "af1e37b8600b9eaf92742d99ba17c3f9b525667f6fb0e6d43e90a6360b1f73f0",
+   "news_1026_01.jpg": "8096da444a0b3efc1e88523eefc0f8dd7ff03ba06805b3ead5b97f251fee3b9a"
   },
   "approval_history": [
    {
     "version": 1,
-    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approved_at": "2026-10-26T10:26:11+09:00",
     "approver": "依頼者",
-    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "method": "Claude定期タスクのチャットで「OK」",
     "hashes": {
-     "reel_1026.mp4": "cc737a1c4c956d8f89daa2d5610fd39a3bb5c52867ef697012cd12daf02d4d4f",
-     "reel_1026_cover.jpg": "f80f60c52afc3339386b179b6b97f8d86bdbf19c5a5cf4a573774edda8523341"
+     "news_1026_reel.mp4": "af1e37b8600b9eaf92742d99ba17c3f9b525667f6fb0e6d43e90a6360b1f73f0",
+     "news_1026_01.jpg": "8096da444a0b3efc1e88523eefc0f8dd7ff03ba06805b3ead5b97f251fee3b9a"
     }
    }
   ],
@@ -312,6 +318,74 @@
     "hashes": {
      "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
      "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+    }
+   }
+  ],
+  "approval_version": 1
+ },
+ {
+  "date": "2026-10-30",
+  "kind": "reel",
+  "label": "ギア｜クラブを変える前に（リール）",
+  "images": [
+   "reel_1025.mp4",
+   "reel_1025_cover.jpg"
+  ],
+  "caption": "新しいドライバーが気になる。でも、どれを選べばいいか分からない。\n\n選び方の基準のひとつは「自分がどんなミスをしているか」です。\n同じ「右に曲がる」でも、右に出てそのまま右へ／まっすぐ出てから右へ では原因が違う可能性があります。\n\nブログで、コブラOPTMシリーズの4モデルを「ミスの傾向」から整理しました。\n買い替えの前に、今のスイングで何が起きているかを確認するのも一つの順番です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ドライバー #ゴルフギア",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
+   "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
+     "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
+    }
+   }
+  ],
+  "approval_version": 1
+ },
+ {
+  "date": "2026-10-31",
+  "kind": "reel",
+  "label": "雑学｜なぜ18ホール（リール）",
+  "images": [
+   "reel_1026.mp4",
+   "reel_1026_cover.jpg"
+  ],
+  "caption": "ゴルフはなぜ18ホールなのか。\n\n1764年、スコットランドのセント・アンドリュース オールドコースで、22ホールだったコースが18ホールに短縮されたのが始まりとされています（諸説あり）。\n当時は行きと帰りで同じグリーンを使う設計で、短すぎた最初の4ホールを2つにまとめた結果、18ホールになったと伝えられています。\nその後、「1ラウンド＝18ホール」が規則に書かれ、各地のコースが倣っていきました。\n\n18ホールを同じリズムで回りきるには、「いつもの1球」の再現性が効いてきます。自分のスイングのクセを知るところから。\n\n出典：St Andrews Links／The R&A の歴史資料をもとに要約\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ雑学 #ゴルフの歴史",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1026.mp4": "cc737a1c4c956d8f89daa2d5610fd39a3bb5c52867ef697012cd12daf02d4d4f",
+   "reel_1026_cover.jpg": "f80f60c52afc3339386b179b6b97f8d86bdbf19c5a5cf4a573774edda8523341"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1026.mp4": "cc737a1c4c956d8f89daa2d5610fd39a3bb5c52867ef697012cd12daf02d4d4f",
+     "reel_1026_cover.jpg": "f80f60c52afc3339386b179b6b97f8d86bdbf19c5a5cf4a573774edda8523341"
     }
    }
   ],
@@ -833,40 +907,6 @@
   "status": "pending",
   "ig_media_id": "",
   "posted_at": ""
- },
- {
-  "date": "2026-10-30",
-  "kind": "reel",
-  "label": "ギア｜クラブを変える前に（リール）",
-  "images": [
-   "reel_1025.mp4",
-   "reel_1025_cover.jpg"
-  ],
-  "caption": "新しいドライバーが気になる。でも、どれを選べばいいか分からない。\n\n選び方の基準のひとつは「自分がどんなミスをしているか」です。\n同じ「右に曲がる」でも、右に出てそのまま右へ／まっすぐ出てから右へ では原因が違う可能性があります。\n\nブログで、コブラOPTMシリーズの4モデルを「ミスの傾向」から整理しました。\n買い替えの前に、今のスイングで何が起きているかを確認するのも一つの順番です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ドライバー #ゴルフギア",
-  "needs_hori": false,
-  "approved": true,
-  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
-  "status": "pending",
-  "ig_media_id": "",
-  "posted_at": "",
-  "approved_hashes": {
-   "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
-   "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
-  },
-  "approval_history": [
-   {
-    "version": 1,
-    "approved_at": "2026-10-21T16:40:37+09:00",
-    "approver": "依頼者",
-    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
-    "hashes": {
-     "reel_1025.mp4": "9b5a5eeb87175a902dfbbe8e759448b82928e9867f65bff5bc10234f801c936e",
-     "reel_1025_cover.jpg": "de7f5d4d1e25485821eb99e94a68fc66bba808c56a3ee6253d9e795c17c0a13e"
-    }
-   }
-  ],
-  "approval_version": 1
  },
  {
   "date": "stock",
