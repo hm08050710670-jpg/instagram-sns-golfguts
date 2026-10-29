@@ -303,32 +303,37 @@
  {
   "date": "2026-10-29",
   "kind": "reel",
-  "label": "初回スイングdockとは（Q&A）（リール）",
+  "label": "ニュース｜米女子ツアーのスロープレー厳罰化、16秒超過で2罰打（シガンダの事例）（リール）",
   "images": [
-   "reel_1024.mp4",
-   "reel_1024_cover.jpg"
+   "news_1029_reel.mp4",
+   "news_1029_01.jpg"
   ],
-  "caption": "初回スイングdockとは？\nカウンセリング → スイング撮影・分析 → 体験レッスン → 今後のプラン相談。目安60分、8,800円（税込）。\n\n「何が悪いか分からない」状態で来てください。それを一緒に確認する時間です。\nクラブ・シューズ・グローブは無料レンタル。入会は任意です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ初心者",
+  "caption": "米女子ツアー（LPGA）のスロープレー対策が話題です。10月17日のビュイックLPGA上海3日目、カルロタ・シガンダ選手が13番パー4で規定の持ち時間を16秒以上超えたとして2罰打を受け、パーがダブルボギーになりました。それでも最終的に5位に入っています。\n\nLPGAは2025年3月から規定を厳格化。1打ごとの持ち時間を1〜5秒超えると罰金、6〜15秒で1罰打、16秒以上で2罰打です。\n\nアマチュアの私たちに罰打はありませんが、後ろの組を待たせないプレーの速さは同じ課題です。打つ前に迷う時間を減らすには、「自分がどんなミスをしやすいか」「今日はどの球で攻めるか」を分かっておくこと。映像と弾道データで今のスイングを確認し、次の練習で取り組むことを整理する。初回スイングdockは、そのための60分です。\n\n出典：GDO（2026年10月18日）https://news.golfdigest.co.jp/news/lpga/article/196145/1/ ／みんなのゴルフダイジェスト（10月28日）https://www.golfdigest-minna.jp/_ct/17872137 ／GDO（2025年2月15日・規定の内容）https://news.golfdigest.co.jp/news/lpga/article/176961/1/\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフニュース #LPGA #スロープレー #ゴルフルール",
   "needs_hori": false,
   "approved": true,
-  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "approved_by": "依頼者（2026-10-29 02:42 OK）",
   "status": "pending",
   "ig_media_id": "",
   "posted_at": "",
+  "sources": [
+   "https://news.golfdigest.co.jp/news/lpga/article/196145/1/",
+   "https://www.golfdigest-minna.jp/_ct/17872137",
+   "https://news.golfdigest.co.jp/news/lpga/article/176961/1/"
+  ],
   "approved_hashes": {
-   "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
-   "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+   "news_1029_reel.mp4": "bda5f59faab5e187b9d927cb9cb3cf8708f9da6b7eb2824e6d3f7f6dce24c0dc",
+   "news_1029_01.jpg": "b8e1c6fd6d3d7ee85f4a1771932f974d59d4029009d1f7f1f4bc7d935ae23bac"
   },
   "approval_history": [
    {
     "version": 1,
-    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approved_at": "2026-10-29T11:42:32+09:00",
     "approver": "依頼者",
-    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "method": "Claude定期タスクのチャットで「OK」",
     "hashes": {
-     "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
-     "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+     "news_1029_reel.mp4": "bda5f59faab5e187b9d927cb9cb3cf8708f9da6b7eb2824e6d3f7f6dce24c0dc",
+     "news_1029_01.jpg": "b8e1c6fd6d3d7ee85f4a1771932f974d59d4029009d1f7f1f4bc7d935ae23bac"
     }
    }
   ],
@@ -505,6 +510,40 @@
   "status": "pending",
   "ig_media_id": "",
   "posted_at": ""
+ },
+ {
+  "date": "2026-11-03",
+  "kind": "reel",
+  "label": "初回スイングdockとは（Q&A）（リール）",
+  "images": [
+   "reel_1024.mp4",
+   "reel_1024_cover.jpg"
+  ],
+  "caption": "初回スイングdockとは？\nカウンセリング → スイング撮影・分析 → 体験レッスン → 今後のプラン相談。目安60分、8,800円（税込）。\n\n「何が悪いか分からない」状態で来てください。それを一緒に確認する時間です。\nクラブ・シューズ・グローブは無料レンタル。入会は任意です。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフ初心者",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": "",
+  "approved_hashes": {
+   "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
+   "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-10-21T16:40:37+09:00",
+    "approver": "依頼者",
+    "method": "チャットで「オッケー」（2026-10-21 16:40、バナー入りの新レイアウトで作り直した版）",
+    "hashes": {
+     "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
+     "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-11-03",
