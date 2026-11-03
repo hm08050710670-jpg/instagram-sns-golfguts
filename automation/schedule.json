@@ -532,9 +532,9 @@
   "needs_hori": false,
   "approved": true,
   "approved_by": "依頼者方針（2026-10-20：まずは毎日出せるサブ枠中心で開始）／2026-10-20 20:59 依頼者決定「動画（リール）で統一」",
-  "status": "pending",
-  "ig_media_id": "",
-  "posted_at": "",
+  "status": "posted",
+  "ig_media_id": "18059195063569852",
+  "posted_at": "2026-11-03T11:48:31+09:00",
   "approved_hashes": {
    "reel_1024.mp4": "e5532b4175914ec3d7b192693fb1fe7b1bc683471ba51dc340c0a68150b7bc28",
    "reel_1024_cover.jpg": "a9762dc085bf0d65fe063f1735d6172e8383583c4d99909e593a137300fa2992"
