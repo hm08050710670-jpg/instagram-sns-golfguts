@@ -702,9 +702,9 @@
   "needs_hori": false,
   "approved": true,
   "approved_by": "依頼者（2026-11-06 00:09 OK）",
-  "status": "pending",
-  "ig_media_id": "",
-  "posted_at": "",
+  "status": "posted",
+  "ig_media_id": "18106710509007097",
+  "posted_at": "2026-11-06T11:47:24+09:00",
   "sources": [
    "https://news.golfdigest.co.jp/news/results/jgto/article/196808/1/",
    "https://www.daily.co.jp/golf/2026/11/05/0021003533.shtml",
