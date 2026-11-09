@@ -3,7 +3,7 @@
 毎朝のニュース投稿ジョブの補助スクリプト。
 
   python3 news_job.py draft candidate.json   # 候補（下書き）を登録：画像生成＋ docs/posts へ書き出し＋ news_candidate.json 保存
-  python3 news_job.py approve                # 候補を当日の投稿として承認（既存の当日分はストックへ退避）
+  python3 news_job.py approve                # 候補を当日の投稿として承認（既存の当日分：承認済みは保留 date:"hold" へ、未承認はストックへ退避）
   python3 news_job.py discard                # 候補を破棄
 
 candidate.json の形式:
@@ -71,9 +71,15 @@ def approve():
     recs = [c["carousel"], c["reel"]] if "carousel" in c else [c]
     d = recs[0]["date"]
     for r in S:
-        # 当日の昼枠の既存投稿はすべてストックへ退避（全投稿がリール化された 2026-10-20 以降、kind による除外は行わない。
+        # 当日の昼枠の既存投稿はすべて当日から外す（全投稿がリール化された 2026-10-20 以降、kind による除外は行わない。
         # 除外すると下の絞り込みで承認済みの当日分が消えてしまう）
         if r["date"] == d and r["status"] != "posted" and r.get("slot", "noon") == "noon":
+            if r.get("approved"):
+                # 承認済みの予定リールは保留（date:"hold"）へ。自動では出ない。出すのは依頼者が日付を指定したときだけ
+                # （2026-11-09 依頼者決定。次の空き日へ移すと、ニュースの OK がない日に豆知識ではなくそのリールが出てしまうため）
+                r["held_from"] = d; r["date"] = "hold"
+                print("既存の当日分（承認済み）を保留へ:", r["label"])
+                continue
             r["date"] = "stock"; r["label"] = "【ストック】" + r["label"].replace("【ストック】", "")
             print("既存の当日分をストックへ退避:", r["label"])
     stamp = f"依頼者（{dt.datetime.now().strftime('%Y-%m-%d %H:%M')} OK）"

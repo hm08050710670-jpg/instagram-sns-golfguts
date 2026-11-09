@@ -46,9 +46,10 @@ git add -A && git commit -m "news candidate $(date +%F)" && git push
 
 ## 5. OK を受けたら
 ```
-python3 automation/news_job.py approve     # 既存の当日分があればストックへ退避
+python3 automation/news_job.py approve     # 既存の当日分（承認済みの予定リール）があれば保留（date:"hold"）へ
 git add -A && git commit -m "approve news $(date +%F)" && git push
 ```
+**押し出された予定リールは保留（`date: "hold"`）に入り、自動では出ない。次の空き日へ移さない（2026-11-09 依頼者決定：OK がない日は必ず豆知識＝ストックを出すため）。保留のリールを出すのは、依頼者が日付を指定したときだけ（そのレコードの `date` を指定日に書き換える。承認済みの指紋はそのまま有効）。**
 修正指示があれば candidate.json を直して `draft` からやり直す。「今日はなし」なら `discard`。
 
 ## 6. 報告

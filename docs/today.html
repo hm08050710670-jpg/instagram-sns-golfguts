@@ -70,7 +70,9 @@
       h += `<div class="sec"><h2>12:00 に出る予定の投稿</h2><p>${r ? '当日分はありますが未承認です。' : '当日分の予定はありません。'}ストックの先頭が自動で出ます。</p>${stock[0] ? media(stock[0]) + '<div class="label">' + esc(stock[0].label) + '</div>' : '<p><b>ストックがありません。</b></p>'}</div>`;
     }
     h += `<div class="sec"><details><summary>ストック（${stock.length}本）</summary><ul>${stock.map(x => '<li>' + esc(x.label) + '</li>').join('')}</ul></details></div>`;
-    const next = S.filter(r => r.date > today && r.date !== 'stock').sort((a,b) => a.date.localeCompare(b.date)).slice(0,7);
+    const held = S.filter(r => r.date === 'hold' && r.status !== 'posted');
+    if (held.length) h += `<div class="sec"><details><summary>保留（${held.length}本・自動では出ません）</summary><ul>${held.map(x => '<li>' + esc(x.label) + '</li>').join('')}</ul></details></div>`;
+    const next = S.filter(r => r.date > today && r.date !== 'stock' && r.date !== 'hold').sort((a,b) => a.date.localeCompare(b.date)).slice(0,7);
     h += `<div class="sec"><details><summary>今後の予定（7日分）</summary><ul>${next.map(x => '<li>' + x.date + '　' + (x.approved?'✓':'未承認') + '　' + esc(x.label) + '</li>').join('')}</ul></details></div>`;
     app.innerHTML = h;
   }catch(e){ app.innerHTML = '<p>読み込みに失敗しました：' + esc(e.message) + '</p>'; }
