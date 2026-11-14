@@ -1060,19 +1060,42 @@
  },
  {
   "date": "2026-11-14",
-  "kind": "image",
-  "label": "【旧計画】W2 金（リールD代替）",
+  "kind": "reel",
+  "label": "ニュース｜平塚新夢が7バーディー・ノーボギーの65で単独首位発進、年間女王を争う桑木志帆と佐久間朱莉は3打差7位（伊藤園レディス初日・国内女子）（リール）",
   "images": [
-   "w2_carousel_07.jpg"
+   "news_1114_reel.mp4",
+   "news_1114_01.jpg"
   ],
-  "caption": "スライスの方が弾道測定で見るのは、この2つ。\n①打ち出し方向 ②曲がり幅\n\n「真っすぐ打ったつもり」でも、数値を見ると違うことがよくあります。\n初回スイングdockでは、この画面をコーチと一緒に見ながら、取り組むことを整理します。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #弾道測定 #スライス",
-  "needs_hori": true,
-  "approved": false,
-  "approved_by": "",
+  "caption": "国内女子ツアーの「伊藤園レディス」が11月13日、千葉県のグレートアイランド倶楽部（6769ヤード・パー72）で開幕しました（15日まで、賞金総額1億円、今季最後の3日間大会）。\n\n初日に単独首位に立ったのは、プロ2年目でツアー初優勝を狙う26歳の平塚新夢選手。7バーディー・ノーボギーの65（7アンダー）でした。1打差の2位に沖せいら選手と笠りつ子選手（66）。木戸愛選手らが5アンダーの4位で続きます。年間女王を争う桑木志帆選手（ランキング1位）と佐久間朱莉選手（同2位）は、同じ組でともに68（4アンダー）をマークし、首位と3打差の7位タイでスタートしました（GDO・ALBA）。\n\n7バーディー・ノーボギーというスコアは、伸ばすホールと守るホールの使い分けができていた、ということでもあります。コースでこの判断をするには、自分の番手ごとの飛距離と、どちらにどれくらい曲がりやすいかを知っておく必要があります。「なんとなく7番で届くはず」より、数字で分かっている方が、狙いどころを決めやすくなります。GOLF GUTSの初回スイングdockでは、弾道測定器で今の飛距離とばらつきを数字で確認し、スイング映像とあわせて次の練習で取り組むことを整理します。\n\n出典：\nGDO「平塚新夢が単独首位発進 3打差7位に桑木志帆と佐久間朱莉」（2026年11月13日）https://news.golfdigest.co.jp/news/results/jlpga/article/197094/1/\nALBA Net「平塚新夢が単独首位発進 木戸愛4位、女王争いの佐久間と桑木は7位」（2026年11月13日）https://www.alba.co.jp/articles/category/tour/jlpga/post/b-_yl1xh8t7o/\nGDO「2026年 伊藤園レディスゴルフトーナメント」大会ページ https://news.golfdigest.co.jp/jlpga/8960/\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフニュース #女子ゴルフ #JLPGA #伊藤園レディス",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者（2026-11-14 00:06 OK）",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "sources": [
+   "https://news.golfdigest.co.jp/news/results/jlpga/article/197094/1/",
+   "https://www.alba.co.jp/articles/category/tour/jlpga/post/b-_yl1xh8t7o/",
+   "https://news.golfdigest.co.jp/jlpga/8960/"
+  ],
+  "approved_hashes": {
+   "news_1114_reel.mp4": "9c2050f9960d684ce3068d780eb3496810c8d67447c95d006583d1898e9c22ef",
+   "news_1114_01.jpg": "c8caaaf610d1ce6f29d2902654c98aa830ff5c3d3490a9874eee4f8800278b34"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-11-14T09:06:30+09:00",
+    "approver": "依頼者",
+    "method": "Claude定期タスクのチャットで「OK」",
+    "hashes": {
+     "news_1114_reel.mp4": "9c2050f9960d684ce3068d780eb3496810c8d67447c95d006583d1898e9c22ef",
+     "news_1114_01.jpg": "c8caaaf610d1ce6f29d2902654c98aa830ff5c3d3490a9874eee4f8800278b34"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-11-15",
@@ -1341,6 +1364,22 @@
   "caption": "何が悪いか、分からなくて大丈夫。\nそれを一緒に確認する60分です。\n\n初回スイングdock｜目安60分｜8,800円（税込）\n予約画面で「会員登録せずに予約」。お電話でも 03-6452-2349。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
   "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS",
   "needs_hori": false,
+  "approved": false,
+  "approved_by": "",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": ""
+ },
+ {
+  "date": "stock",
+  "kind": "image",
+  "label": "【ストック】【旧計画】W2 金（リールD代替）",
+  "images": [
+   "w2_carousel_07.jpg"
+  ],
+  "caption": "スライスの方が弾道測定で見るのは、この2つ。\n①打ち出し方向 ②曲がり幅\n\n「真っすぐ打ったつもり」でも、数値を見ると違うことがよくあります。\n初回スイングdockでは、この画面をコーチと一緒に見ながら、取り組むことを整理します。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #弾道測定 #スライス",
+  "needs_hori": true,
   "approved": false,
   "approved_by": "",
   "status": "pending",
