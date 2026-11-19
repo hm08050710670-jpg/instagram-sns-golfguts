@@ -1231,26 +1231,42 @@
  },
  {
   "date": "2026-11-19",
-  "kind": "carousel",
-  "label": "【旧計画】W3 水 カルーセル",
+  "kind": "reel",
+  "label": "ニュース｜タイガー・ウッズが12月3日開幕の自身主催大会で2024年以来の競技復帰へ。50歳。前年優勝の松山英樹・世界1位シェフラーら20人が出場（ヒーローワールドチャレンジ・バハマ）（リール）",
   "images": [
-   "w3_carousel_01.jpg",
-   "w3_carousel_02.jpg",
-   "w3_carousel_03.jpg",
-   "w3_carousel_04.jpg",
-   "w3_carousel_05.jpg",
-   "w3_carousel_06.jpg",
-   "w3_carousel_07.jpg",
-   "w3_carousel_08.jpg"
+   "news_1119_reel.mp4",
+   "news_1119_01.jpg"
   ],
-  "caption": "コースで崩れる人が、練習場で試す3つの確認\n\n1. 同じクラブを続けて打たない（1球ごとに替える）\n2. 1球ごとに目標を変える\n3. ミスした次の1球を、いつも通り打てるか見る\n\n3つとも崩れるならスイングの再現性から、3つとも平気なら状況側から。\n「練習場ではできる」の中身を、映像とデータで見てみませんか。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
-  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #100切り #コースマネジメント",
-  "needs_hori": true,
-  "approved": false,
-  "approved_by": "",
+  "caption": "タイガー・ウッズ選手（50歳）が、12月3日〜6日にバハマで開かれる自身主催の「ヒーローワールドチャレンジ」（出場20人・ツアー外競技）に選手として出場し、競技に復帰する見通しです。大会出場は2024年の全英オープン以来。今年3月の自動車事故のあとは活動を休止しリハビリに取り組んでいたとされ、先週のラジオ出演では体調が良くなりトレーニングを積んでいることを明かしていました。同大会には前年優勝の松山英樹選手、世界ランキング1位のスコッティ・シェフラー選手らも出場予定です（GDO・ALBA、11月18日）。\n\n長くクラブを握れない期間があると、以前の感覚のまま振っても体の動きは変わっていて、思っていたボールが出ないことがよくあります。久しぶりにゴルフを再開する方や、仕事が忙しくて練習の間が空いた方も同じです。感覚と実際の動きのズレは、映像とデータで見ると整理しやすくなります。GOLF GUTSの初回スイングdockでは、スイング映像と弾道データをコーチと一緒に確認し、今の状態と次の練習で取り組むことを決めていきます。\n\n出典：\nGDO「タイガー・ウッズが12月に2024年以来の競技復帰へ 自動車事故から50歳“初戦”」（2026年11月18日）https://news.golfdigest.co.jp/news/pga/article/197294/1/\nALBA Net「タイガー・ウッズが2年4カ月ぶりツアー復帰へ 12月の主催大会に出場」（2026年11月18日）https://www.alba.co.jp/articles/category/tour/pga/post/vds0lohppr/\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #ゴルフニュース #タイガーウッズ #PGAツアー #ヒーローワールドチャレンジ",
+  "needs_hori": false,
+  "approved": true,
+  "approved_by": "依頼者（2026-11-19 01:20 OK）",
   "status": "pending",
   "ig_media_id": "",
-  "posted_at": ""
+  "posted_at": "",
+  "sources": [
+   "https://news.golfdigest.co.jp/news/pga/article/197294/1/",
+   "https://www.alba.co.jp/articles/category/tour/pga/post/vds0lohppr/",
+   "https://www.pgatour.com/article/news/inside-the-field/2026/10/19/how-the-field-qualified-for-2026-hero-world-challenge-bahamas-tiger-woods-scottie-scheffler"
+  ],
+  "approved_hashes": {
+   "news_1119_reel.mp4": "0f76e9568a47991febc48130ba5d42a0ba7572ed0754fe868ef68f160e8c662b",
+   "news_1119_01.jpg": "fde4b8bb4278e79227d4473e1a282053941ab25a631bd767ab365a595eb24c00"
+  },
+  "approval_history": [
+   {
+    "version": 1,
+    "approved_at": "2026-11-19T10:20:39+09:00",
+    "approver": "依頼者",
+    "method": "Claude定期タスクのチャットで「OK」",
+    "hashes": {
+     "news_1119_reel.mp4": "0f76e9568a47991febc48130ba5d42a0ba7572ed0754fe868ef68f160e8c662b",
+     "news_1119_01.jpg": "fde4b8bb4278e79227d4473e1a282053941ab25a631bd767ab365a595eb24c00"
+    }
+   }
+  ],
+  "approval_version": 1
  },
  {
   "date": "2026-11-20",
@@ -1432,6 +1448,29 @@
   "caption": "何が悪いか、分からなくて大丈夫。\nそれを一緒に確認する60分です。\n\n初回スイングdock｜目安60分｜8,800円（税込）\n予約画面で「会員登録せずに予約」。お電話でも 03-6452-2349。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
   "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS",
   "needs_hori": false,
+  "approved": false,
+  "approved_by": "",
+  "status": "pending",
+  "ig_media_id": "",
+  "posted_at": ""
+ },
+ {
+  "date": "stock",
+  "kind": "carousel",
+  "label": "【ストック】【旧計画】W3 水 カルーセル",
+  "images": [
+   "w3_carousel_01.jpg",
+   "w3_carousel_02.jpg",
+   "w3_carousel_03.jpg",
+   "w3_carousel_04.jpg",
+   "w3_carousel_05.jpg",
+   "w3_carousel_06.jpg",
+   "w3_carousel_07.jpg",
+   "w3_carousel_08.jpg"
+  ],
+  "caption": "コースで崩れる人が、練習場で試す3つの確認\n\n1. 同じクラブを続けて打たない（1球ごとに替える）\n2. 1球ごとに目標を変える\n3. ミスした次の1球を、いつも通り打てるか見る\n\n3つとも崩れるならスイングの再現性から、3つとも平気なら状況側から。\n「練習場ではできる」の中身を、映像とデータで見てみませんか。\n\n初回スイングdockの詳細・ご予約はプロフィールのリンクから。予約画面で「会員登録せずに予約」をお選びください。",
+  "hashtags": "#ゴルフ #ゴルフレッスン #恵比寿 #インドアゴルフ #ゴルフスクール #GOLFGUTS #100切り #コースマネジメント",
+  "needs_hori": true,
   "approved": false,
   "approved_by": "",
   "status": "pending",
