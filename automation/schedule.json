@@ -1660,9 +1660,9 @@
   "needs_hori": false,
   "approved": true,
   "approved_by": "依頼者決定（2026-10-21：いつでも使えるストック投稿）",
-  "status": "pending",
-  "ig_media_id": "",
-  "posted_at": "",
+  "status": "posted",
+  "ig_media_id": "17913445539594594",
+  "posted_at": "2026-11-20T11:48:22+09:00",
   "approved_hashes": {
    "stock_03.mp4": "153fefbef273c3271f5f4ce6ea7dabf844f942155b77e70558dc31f529d0735c",
    "stock_03_cover.jpg": "12dc2334602cb08651cbf11ea5f8471b6522fc341eee339910d017205f9b77e4"
@@ -1679,7 +1679,8 @@
     }
    }
   ],
-  "approval_version": 1
+  "approval_version": 1,
+  "posted_for": "2026-11-20"
  },
  {
   "date": "stock",
