@@ -3,10 +3,10 @@
 毎朝のニュース投稿ジョブの補助スクリプト。
 
   python3 news_job.py draft candidate.json   # 候補（下書き）を登録：画像生成＋ docs/posts へ書き出し＋ news_candidate.json 保存
-  python3 news_job.py approve                # 候補を当日の投稿として承認（既存の当日分：承認済みは保留 date:"hold" へ、未承認はストックへ退避）
+  python3 news_job.py approve                # 候補を当日の投稿として承認（既存の当日分：承認済みは同日 18:00 枠 slot:"evening" へ、未承認はストックへ退避）
   python3 news_job.py approve auto           # 同上（依頼者の OK なしの自動承認。2026-11-26 依頼者決定。approved_by に「自動承認」と記録）
   python3 news_job.py discard                # 候補（未承認）を破棄
-  python3 news_job.py cancel                 # 承認済みの当日ニュースを取り消す（レコード削除。保留に入れた当日分があれば当日に戻す）
+  python3 news_job.py cancel                 # 承認済みの当日ニュースを取り消す（レコード削除。18:00 枠／保留に動かした当日分があれば 12:00 枠に戻す）
 
 candidate.json の形式:
 {
@@ -77,10 +77,15 @@ def approve(auto=False):
         # 除外すると下の絞り込みで承認済みの当日分が消えてしまう）
         if r["date"] == d and r["status"] != "posted" and r.get("slot", "noon") == "noon":
             if r.get("approved"):
-                # 承認済みの予定リールは保留（date:"hold"）へ。自動では出ない。出すのは依頼者が日付を指定したときだけ
-                # （2026-11-09 依頼者決定。次の空き日へ移すと、ニュースの OK がない日に豆知識ではなくそのリールが出てしまうため）
-                r["held_from"] = d; r["date"] = "hold"
-                print("既存の当日分（承認済み）を保留へ:", r["label"])
+                # 承認済みの予定リール（依頼者が日付を指定したもの）は同じ日の 18:00 枠（slot:"evening"）へ。
+                # ニュースは 12:00、指定リールは 18:00 で、その日は2本出す（2026-11-26 依頼者決定「その日は2こ出す設定で大丈夫」）。
+                # 18:00 枠が既に埋まっている場合だけ保留（date:"hold"）へ（2026-11-09 の扱い。自動では出ない）
+                if not any(x["date"] == d and x.get("slot") == "evening" and x["status"] != "posted" for x in S):
+                    r["slot"] = "evening"; r["evening_from_news"] = d
+                    print("既存の当日分（承認済み）を 18:00 枠へ:", r["label"])
+                else:
+                    r["held_from"] = d; r["date"] = "hold"
+                    print("既存の当日分（承認済み）を保留へ（18:00 枠も埋まっているため）:", r["label"])
                 continue
             r["date"] = "stock"; r["label"] = "【ストック】" + r["label"].replace("【ストック】", "")
             print("既存の当日分をストックへ退避:", r["label"])
@@ -91,7 +96,8 @@ def approve(auto=False):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import integrity
     for r in recs: integrity.stamp_approval(r, "定期タスク" if auto else "依頼者", "毎朝の定期タスクが自動承認（2026-11-26 依頼者決定）" if auto else "Claude定期タスクのチャットで「OK」")
-    S = [r for r in S if not (r["date"] == d and r["status"] != "posted")] + recs
+    # 当日 12:00 枠の残り（未承認→上でストックへ移動済みのはず）を外してニュースを入れる。18:00 枠へ移した指定リールは残す
+    S = [r for r in S if not (r["date"] == d and r["status"] != "posted" and r.get("slot", "noon") == "noon")] + recs
     S.sort(key=lambda r: (r["date"] == "stock", r["date"], r.get("slot", "noon")))
     save(S); os.remove(CAND); print("承認:", d, [r["label"] for r in recs])
 
@@ -109,6 +115,8 @@ def cancel(d=None):
     for r in S:
         if r["date"] == "hold" and r.get("held_from") == d:
             r["date"] = d; r.pop("held_from", None); print("保留から当日に戻す:", r["label"])
+        if r["date"] == d and r.get("evening_from_news") == d and r["status"] != "posted":
+            r.pop("slot", None); r.pop("evening_from_news", None); print("18:00 枠から 12:00 枠に戻す:", r["label"])
     save(S); print("取り消し:", d, [r["label"] for r in gone])
 
 if __name__ == "__main__":

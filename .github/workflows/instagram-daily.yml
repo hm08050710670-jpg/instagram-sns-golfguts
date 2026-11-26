@@ -12,8 +12,11 @@ on:
     - cron: "41 2 * * *"   # 11:41 JST（予備1）
     - cron: "23 3 * * *"   # 12:23 JST（予備2）
     - cron: "13 4 * * *"   # 13:13 JST（予備3。13:30 を過ぎていれば見送り）
-    # 18:00 JST 枠（当面未使用。slot: evening の投稿がある日だけ動く）
-    - cron: "11 9 * * *"
+    # 18:00 JST 枠（slot: evening の投稿がある日だけ動く。2026-11-26 依頼者決定：日付指定の承認済みリールがある日は
+    # ニュース 12:00＋指定リール 18:00 の2本。cron 遅延に備えて3回起動。投稿済みなら残りは空振り、19:30 を過ぎていれば見送り）
+    - cron: "11 9 * * *"   # 18:11 JST（夕方1）
+    - cron: "43 9 * * *"   # 18:43 JST（夕方2）
+    - cron: "17 10 * * *"  # 19:17 JST（夕方3）
   workflow_dispatch:
     inputs:
       date:
@@ -76,7 +79,7 @@ jobs:
           CRON="${{ github.event.schedule }}"
           # 枠は起動元の cron で決める（実行時刻で決めると、起動が遅れた日に枠を取り違えて空振りする）
           if [ -z "$SLOT" ]; then
-            if [ "$CRON" = "11 9 * * *" ]; then SLOT=evening; else SLOT=noon; fi
+            case "$CRON" in "11 9 * * *"|"43 9 * * *"|"17 10 * * *") SLOT=evening;; *) SLOT=noon;; esac
           fi
           ARGS="$ARGS --slot $SLOT"
           case "$MODE" in

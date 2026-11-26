@@ -39,9 +39,7 @@ git add -A && git commit -m "news candidate $(date +%F)" && git push
 **画像内の日付が今日の日付と一致しているか必ず確認する**（candidate.json の `date` は今日の日付にする。日付は `news_job.py` が投稿日から自動で入れる。2026-10-20 のテストで、別日の原稿をそのまま使い日付がずれた事故あり）。
 
 ## 4. 自動承認（2026-11-26〜）と依頼者への通知
-承認の前に `schedule.json` を確認する。
-- **今日の日付で approved=true・status≠posted の予定（依頼者が日付を指定して入れた承認済みリール）が既にある日は自動承認しない**。従来どおり候補を draft のまま提示し、「OK と返信いただければ今日 12:00 にこのニュースを投稿します（既存の予定リールは保留に入ります）。11:45 までに返信がなければ既存の予定リールが出ます」と添えて待つ（依頼者の日付指定を上書きしないため）
-- それ以外の日は：
+- 依頼者が日付を指定して入れた承認済みリールがある日も自動承認する。`approve` がその指定リールを同じ日の **18:00 枠（slot:"evening"）** に移し、ニュース 12:00＋指定リール 18:00 の **1日2本** になる（2026-11-26 依頼者決定「その日は2こ出す設定で大丈夫」）。18:00 枠は GitHub cron（18:11／18:43／19:17 JST、投稿ウィンドウ 17:45〜19:30）が起動する。通知にはその旨（「18:00 に <指定リール> も出ます」）を書く
 ```
 python3 automation/news_job.py approve auto      # approved_by に「自動承認」と記録
 python3 automation/publish.py --date $(TZ=Asia/Tokyo date +%F) --dry-run   # 今日の予定がこのリールになり、検証 OK を確認
@@ -51,13 +49,8 @@ git add -A && git commit -m "news candidate $(date +%F): <見出し> reel draft 
 - 投稿の起動は別の定期タスク（11:45 JST、workflow_dispatch）が行う。このジョブは起動しない。**予定時刻に投稿が出ていなくても、勝手に手動起動せず依頼者に報告して指示を待つ**（2026-10-22）
 
 ## 5. 依頼者から返信があったら
-- 「今日はなし」：`python3 automation/news_job.py cancel` → commit → push（当日のニュースレコードを削除し、保留に入れた当日分があれば当日に戻す。残りはストック＝豆知識が出る）
+- 「今日はなし」：`python3 automation/news_job.py cancel` → commit → push（当日のニュースレコードを削除し、18:00 枠に移した指定リールがあれば 12:00 枠に戻す。何もなければストック＝豆知識が出る）
 - 修正指示：candidate.json を直して `draft` → `approve auto` からやり直す（指紋が更新される）
-- §4 で自動承認しなかった日に「OK」：
-```
-python3 automation/news_job.py approve     # 既存の当日分（承認済みの予定リール）があれば保留（date:"hold"）へ
-git add -A && git commit -m "approve news $(date +%F)" && git push
-```
 **押し出された予定リールは保留（`date: "hold"`）に入り、自動では出ない。次の空き日へ移さない（2026-11-09 依頼者決定：OK がない日は必ず豆知識＝ストックを出すため）。保留のリールを出すのは、依頼者が日付を指定したときだけ（そのレコードの `date` を指定日に書き換える。承認済みの指紋はそのまま有効）。**
 未承認の候補を捨てるだけなら `discard`。
 
