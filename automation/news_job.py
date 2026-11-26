@@ -4,7 +4,9 @@
 
   python3 news_job.py draft candidate.json   # 候補（下書き）を登録：画像生成＋ docs/posts へ書き出し＋ news_candidate.json 保存
   python3 news_job.py approve                # 候補を当日の投稿として承認（既存の当日分：承認済みは保留 date:"hold" へ、未承認はストックへ退避）
-  python3 news_job.py discard                # 候補を破棄
+  python3 news_job.py approve auto           # 同上（依頼者の OK なしの自動承認。2026-11-26 依頼者決定。approved_by に「自動承認」と記録）
+  python3 news_job.py discard                # 候補（未承認）を破棄
+  python3 news_job.py cancel                 # 承認済みの当日ニュースを取り消す（レコード削除。保留に入れた当日分があれば当日に戻す）
 
 candidate.json の形式:
 {
@@ -66,7 +68,7 @@ def draft(path):
     json.dump(reel, open(CAND, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("候補を保存:", CAND); print("リール:", reel["images"], "（カバー画像 =", reel["images"][1], "）")
 
-def approve():
+def approve(auto=False):
     c = json.load(open(CAND, encoding="utf-8")); S = load()
     recs = [c["carousel"], c["reel"]] if "carousel" in c else [c]
     d = recs[0]["date"]
@@ -82,12 +84,13 @@ def approve():
                 continue
             r["date"] = "stock"; r["label"] = "【ストック】" + r["label"].replace("【ストック】", "")
             print("既存の当日分をストックへ退避:", r["label"])
-    stamp = f"依頼者（{dt.datetime.now().strftime('%Y-%m-%d %H:%M')} OK）"
+    now = dt.datetime.now().strftime('%Y-%m-%d %H:%M')
+    stamp = f"自動承認（定期タスク {now}。2026-11-26 依頼者決定）" if auto else f"依頼者（{now} OK）"
     for r in recs: r["approved"] = True; r["approved_by"] = stamp
     # Instagram 2.0 段階1：承認したファイルの指紋を記録（投稿直前に照合される）
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import integrity
-    for r in recs: integrity.stamp_approval(r, "依頼者", "Claude定期タスクのチャットで「OK」")
+    for r in recs: integrity.stamp_approval(r, "定期タスク" if auto else "依頼者", "毎朝の定期タスクが自動承認（2026-11-26 依頼者決定）" if auto else "Claude定期タスクのチャットで「OK」")
     S = [r for r in S if not (r["date"] == d and r["status"] != "posted")] + recs
     S.sort(key=lambda r: (r["date"] == "stock", r["date"], r.get("slot", "noon")))
     save(S); os.remove(CAND); print("承認:", d, [r["label"] for r in recs])
@@ -96,5 +99,22 @@ def discard():
     if os.path.exists(CAND): os.remove(CAND)
     print("候補を破棄")
 
+def cancel(d=None):
+    """承認済みの当日ニュースを取り消す（依頼者が 11:45 までに「今日はなし」と返した場合）。
+    当日のニュースレコードを削除し、approve で保留（hold）に入れた当日分があれば当日に戻す。残りは publish.py のフォールバック（ストック）が出る"""
+    d = d or dt.datetime.now(dt.timezone(dt.timedelta(hours=9))).strftime("%Y-%m-%d")  # JST
+    S = load(); gone = [r for r in S if r["date"] == d and r["status"] != "posted" and r["label"].startswith("ニュース｜")]
+    if not gone: print("取り消す当日ニュースなし:", d); return
+    S = [r for r in S if r not in gone]
+    for r in S:
+        if r["date"] == "hold" and r.get("held_from") == d:
+            r["date"] = d; r.pop("held_from", None); print("保留から当日に戻す:", r["label"])
+    save(S); print("取り消し:", d, [r["label"] for r in gone])
+
 if __name__ == "__main__":
-    {"draft": lambda: draft(sys.argv[2]), "approve": approve, "discard": discard}[sys.argv[1]]()
+    cmd = sys.argv[1]
+    if cmd == "draft": draft(sys.argv[2])
+    elif cmd == "approve": approve(auto=(len(sys.argv) > 2 and sys.argv[2] == "auto"))
+    elif cmd == "discard": discard()
+    elif cmd == "cancel": cancel(sys.argv[2] if len(sys.argv) > 2 else None)
+    else: raise SystemExit("usage: draft <json> | approve [auto] | discard | cancel [date]")
