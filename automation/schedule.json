@@ -1453,9 +1453,9 @@
   "needs_hori": false,
   "approved": true,
   "approved_by": "依頼者（2026-11-26 09:08 OK）",
-  "status": "pending",
-  "ig_media_id": "",
-  "posted_at": "",
+  "status": "posted",
+  "ig_media_id": "18420444970083916",
+  "posted_at": "2026-11-26T11:47:26+09:00",
   "sources": [
    "https://news.golfdigest.co.jp/news/results/jlpga/article/197511/1/",
    "https://egolf.jp/tournews/262750/"
